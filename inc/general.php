@@ -36,7 +36,7 @@ add_filter( 'http_request_args', 'uj_dont_update_core_func_plugin', 5, 2 );
 function uj_author_links_on_cf_plugin( $links, $file ) {
 
 	if ( strpos( $file, 'core-functionality.php' ) !== false ) {
-		$links[1] = 'By <a href="http://www.uwejacobs.com">Uwe Jacobs</a>';
+		$links[1] = 'By <a href="http://www.ujsoftware.com">Uwe Jacobs</a>';
     }
 
     return $links;

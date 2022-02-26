@@ -1,9 +1,12 @@
 <?php
 /**
- * Plugin Name: Core Functionality
- * Description: This contains all your site's core functionality so that it is theme independent. <strong>It should always be activated</strong>.
- * Version:     1.0.1
- * Author:      Uwe Jacobs
+ * Plugin Name:       Core Functionality
+ * Description:       This contains all your site's core functionality so that it is theme independent. <strong>It should always be activated</strong>.
+ * Version:           1.0.2
+ * Author:            Uwe Jacobs
+ * Requires at least: 5.6
+ * Tested up to:       5.9.1
+ * Requires PHP:       7.0
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2, as published by the

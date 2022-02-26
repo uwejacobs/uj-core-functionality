@@ -214,7 +214,7 @@ function uj_dps_option_output_testimonials($output, $atts, $size = "large") {
 		<img src="<?php echo $img ?>" alt="Avatar" class="rounded-circle" style="width: 90px;">
 	</div>
     <div class="col-12 <?php echo ($size == "large" ? "col-md-9" : "") ?>">
-		<p><span class="lead font-weight-normal mr-3"><?php echo ($title[0] ? trim($title[0]) : '') ?></span> <?php echo ($title[1] ? trim($title[1]) : '') ?></p>
+		<p><span class="lead font-weight-normal mr-3"><?php echo (!empty($title[0]) ? trim($title[0]) : '') ?></span> <?php echo (!empty($title[1]) ? do_shortcode(trim($title[1])) : '') ?></p>
 		<p><?php echo $stars ?></p>
 		<p><i class="fas fa-quote-left pr-3"></i><?php echo apply_filters('the_content', get_post_field('post_content', $post->ID)) ?><i class="fas fa-quote-right pl-3"></i></p>
 	</div>
