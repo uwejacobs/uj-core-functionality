@@ -8,6 +8,8 @@
  * @license      GPL-2.0+
 **/
 
+if (!defined('ABSPATH')) exit; // Exit if accessed directly
+
 /*
 Plugin Name: Kill Trackbacks
 Plugin URI: http://pmg.co/category/wordpress
@@ -17,39 +19,48 @@ Author: Christopher Davis
 Author URI: http://pmg.co/people/chris
 */
 
-add_filter( 'wp_headers', 'pmg_kt_filter_headers', 10, 1 );
-function pmg_kt_filter_headers( $headers )
-{
-	if( isset( $headers['X-Pingback'] ) )
+if (!function_exists('ujcf_kt_filter_headers')) {
+	function ujcf_kt_filter_headers( $headers )
 	{
-		unset( $headers['X-Pingback'] );
+		if( isset( $headers['X-Pingback'] ) )
+		{
+			unset( $headers['X-Pingback'] );
+		}
+		return $headers;
 	}
-	return $headers;
+
+	add_filter( 'wp_headers', 'ujcf_kt_filter_headers', 10, 1 );
 }
 
 // Kill the rewrite rule
-add_filter( 'rewrite_rules_array', 'pmg_kt_filter_rewrites' );
-function pmg_kt_filter_rewrites( $rules )
-{
-	foreach( $rules as $rule => $rewrite )
+if (!function_exists('ujcf_kt_filter_rewrites')) {
+	function ujcf_kt_filter_rewrites( $rules )
 	{
-		if( preg_match( '/trackback\/\?\$$/i', $rule ) )
+		foreach( $rules as $rule => $rewrite )
 		{
-			unset( $rules[$rule] );
+			if( preg_match( '/trackback\/\?\$$/i', $rule ) )
+			{
+				unset( $rules[$rule] );
+			}
 		}
+		return $rules;
 	}
-	return $rules;
+
+	add_filter( 'rewrite_rules_array', 'ujcf_kt_filter_rewrites' );
 }
 
 // Kill bloginfo( 'pingback_url' )
-add_filter( 'bloginfo_url', 'pmg_kt_kill_pingback_url', 10, 2 );
-function pmg_kt_kill_pingback_url( $output, $show )
-{
-	if( $show == 'pingback_url' )
+if (!function_exists('ujcf_kt_kill_pingback_url')) {
+	function ujcf_kt_kill_pingback_url( $output, $show )
 	{
-		$output = '';
+		if( $show == 'pingback_url' )
+		{
+			$output = '';
+		}
+		return $output;
 	}
-	return $output;
+
+	add_filter( 'bloginfo_url', 'ujcf_kt_kill_pingback_url', 10, 2 );
 }
 
 // remove RSD link
@@ -60,15 +71,18 @@ add_filter( 'pre_update_option_enable_xmlrpc', '__return_false' );
 add_filter( 'pre_option_enable_xmlrpc', '__return_zero' );
 
 // Disable XMLRPC call
-add_action( 'xmlrpc_call', 'pmg_kt_kill_xmlrpc' );
-function pmg_kt_kill_xmlrpc( $action )
-{
-	if( 'pingback.ping' === $action )
+if (!function_exists('ujcf_kt_kill_xmlrpc')) {
+	function ujcf_kt_kill_xmlrpc( $action )
 	{
-		wp_die(
-			'Pingbacks are not supported',
-			'Not Allowed!',
-			array( 'response' => 403 )
-		);
+		if( 'pingback.ping' === $action )
+		{
+			wp_die(
+				'Pingbacks are not supported',
+				'Not Allowed!',
+				array( 'response' => 403 )
+			);
+		}
 	}
+
+	add_action( 'xmlrpc_call', 'ujcf_kt_kill_xmlrpc' );
 }

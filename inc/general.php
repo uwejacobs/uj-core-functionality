@@ -8,6 +8,8 @@
  * @license      GPL-2.0+
 **/
 
+if (!defined('ABSPATH')) exit; // Exit if accessed directly
+
 /**
  * Dont Update the Plugin
  * If there is a plugin in the repo with the same name, this prevents WP from prompting an update.
@@ -19,29 +21,35 @@
  * @param  string $url Request URL
  * @return array Amended request arguments
  */
-function uj_dont_update_core_func_plugin( $r, $url ) {
-  if ( 0 !== strpos( $url, 'https://api.wordpress.org/plugins/update-check/1.1/' ) )
-    return $r; // Not a plugin update request. Bail immediately.
-    $plugins = json_decode( $r['body']['plugins'], true );
-    unset( $plugins['plugins'][plugin_basename( UJ_DIR . '/core-functionality.php' )] );
-    $r['body']['plugins'] = json_encode( $plugins );
-    return $r;
- }
-add_filter( 'http_request_args', 'uj_dont_update_core_func_plugin', 5, 2 );
+if (!function_exists('ujcf_dont_update_core_func_plugin')) {
+	function ujcf_dont_update_core_func_plugin( $r, $url ) {
+	  if ( 0 !== strpos( $url, 'https://api.wordpress.org/plugins/update-check/1.1/' ) )
+		return $r; // Not a plugin update request. Bail immediately.
+		$plugins = json_decode( $r['body']['plugins'], true );
+		unset( $plugins['plugins'][plugin_basename( UJ_DIR . '/core-functionality.php' )] );
+		$r['body']['plugins'] = json_encode( $plugins );
+		return $r;
+	 }
+	
+	add_filter( 'http_request_args', 'ujcf_dont_update_core_func_plugin', 5, 2 );
+}
 
 /**
  * Author Links on CF Plugin
  *
  */
-function uj_author_links_on_cf_plugin( $links, $file ) {
+if (!function_exists('ujcf_author_links_on_cf_plugin')) {
+	function ujcf_author_links_on_cf_plugin( $links, $file ) {
 
-	if ( strpos( $file, 'core-functionality.php' ) !== false ) {
-		$links[1] = 'By <a href="http://www.ujsoftware.com">Uwe Jacobs</a>';
-    }
+		if ( strpos( $file, 'core-functionality.php' ) !== false ) {
+			$links[1] = 'By <a href="http://www.ujsoftware.com">Uwe Jacobs</a>';
+		}
 
-    return $links;
+		return $links;
+	}
+
+	add_filter( 'plugin_row_meta', 'ujcf_author_links_on_cf_plugin', 10, 2 );
 }
-add_filter( 'plugin_row_meta', 'uj_author_links_on_cf_plugin', 10, 2 );
 
 // Don't let WPSEO metabox be high priority
 add_filter( 'wpseo_metabox_prio', function(){ return 'low'; } );
@@ -50,34 +58,40 @@ add_filter( 'wpseo_metabox_prio', function(){ return 'low'; } );
  * Remove WPSEO Notifications
  *
  */
-function uj_remove_wpseo_notifications() {
+if (!function_exists('ujcf_remove_wpseo_notifications')) {
+	function ujcf_remove_wpseo_notifications() {
 
-	if( ! class_exists( 'Yoast_Notification_Center' ) )
-		return;
+		if( ! class_exists( 'Yoast_Notification_Center' ) )
+			return;
 
-	remove_action( 'admin_notices', array( Yoast_Notification_Center::get(), 'display_notifications' ) );
-	remove_action( 'all_admin_notices', array( Yoast_Notification_Center::get(), 'display_notifications' ) );
+		remove_action( 'admin_notices', array( Yoast_Notification_Center::get(), 'display_notifications' ) );
+		remove_action( 'all_admin_notices', array( Yoast_Notification_Center::get(), 'display_notifications' ) );
+	}
+
+	add_action( 'init', 'ujcf_remove_wpseo_notifications' );
 }
-add_action( 'init', 'uj_remove_wpseo_notifications' );
 
 /**
   * Exclude No-index content from search
   *
   */
-function uj_exclude_noindex_from_search( $query ) {
+if (!function_exists('ujcf_exclude_noindex_from_search')) {
+	function ujcf_exclude_noindex_from_search( $query ) {
 
-	if( $query->is_main_query() && $query->is_search() && ! is_admin() ) {
+		if( $query->is_main_query() && $query->is_search() && ! is_admin() ) {
 
-		$meta_query = empty( $query->query_vars['meta_query'] ) ? array() : $query->query_vars['meta_query'];
-		$meta_query[] = array(
-			'key' => '_yoast_wpseo_meta-robots-noindex',
-			'compare' => 'NOT EXISTS',
-		);
+			$meta_query = empty( $query->query_vars['meta_query'] ) ? array() : $query->query_vars['meta_query'];
+			$meta_query[] = array(
+				'key' => '_yoast_wpseo_meta-robots-noindex',
+				'compare' => 'NOT EXISTS',
+			);
 
-		$query->set( 'meta_query', $meta_query );
+			$query->set( 'meta_query', $meta_query );
+		}
 	}
+
+	add_action( 'pre_get_posts', 'ujcf_exclude_noindex_from_search' );
 }
-add_action( 'pre_get_posts', 'uj_exclude_noindex_from_search' );
 
 /**
  * Pretty Printing
@@ -88,45 +102,47 @@ add_action( 'pre_get_posts', 'uj_exclude_noindex_from_search' );
  * @param string $label
  * @return null
  */
-function uj_pp( $obj, $label = '' ) {
-	$data = json_encode( print_r( $obj,true ) );
-	?>
-	<style type="text/css">
-		#bsdLogger {
-		position: absolute;
-		top: 30px;
-		right: 0px;
-		border-left: 4px solid #bbb;
-		padding: 6px;
-		background: white;
-		color: #444;
-		z-index: 999;
-		font-size: 1.25em;
-		width: 400px;
-		height: 800px;
-		overflow: scroll;
-		}
-	</style>
-	<script type="text/javascript">
-		var doStuff = function(){
-			var obj = <?php echo $data; ?>;
-			var logger = document.getElementById('bsdLogger');
-			if (!logger) {
-				logger = document.createElement('div');
-				logger.id = 'bsdLogger';
-				document.body.appendChild(logger);
+if (!function_exists('ujcf_pp')) {
+	function ujcf_pp( $obj, $label = '' ) {
+		$data = json_encode( print_r( $obj,true ) );
+		?>
+		<style type="text/css">
+			#ujcfLogger {
+			position: absolute;
+			top: 30px;
+			right: 0px;
+			border-left: 4px solid #bbb;
+			padding: 6px;
+			background: white;
+			color: #444;
+			z-index: 999;
+			font-size: 1.25em;
+			width: 400px;
+			height: 800px;
+			overflow: scroll;
 			}
-			////console.log(obj);
-			var pre = document.createElement('pre');
-			var h2 = document.createElement('h2');
-			pre.innerHTML = obj;
-			h2.innerHTML = '<?php echo addslashes($label); ?>';
-			logger.appendChild(h2);
-			logger.appendChild(pre);
-		};
-		window.addEventListener ("DOMContentLoaded", doStuff, false);
-	</script>
-	<?php
+		</style>
+		<script type="text/javascript">
+			var doStuff = function(){
+				var obj = <?php echo $data; ?>;
+				var logger = document.getElementById('ujcfLogger');
+				if (!logger) {
+					logger = document.createElement('div');
+					logger.id = 'ujcfLogger';
+					document.body.appendChild(logger);
+				}
+				console.log(obj);
+				var pre = document.createElement('pre');
+				var h2 = document.createElement('h2');
+				pre.innerHTML = obj;
+				h2.innerHTML = '<?php echo addslashes($label); ?>';
+				logger.appendChild(h2);
+				logger.appendChild(pre);
+			};
+			window.addEventListener ("DOMContentLoaded", doStuff, false);
+		</script>
+		<?php
+	}
 }
 
 /**
@@ -134,22 +150,24 @@ function uj_pp( $obj, $label = '' ) {
  * Not needed with Classic Editor Plugin
  */
 /*
-add_action('admin_head', 'uj_editor_full_width_gutenberg');
+if (!function_exists('ujcf_editor_full_width_gutenberg')) {
+	function ujcf_editor_full_width_gutenberg() {
+	  echo '<style>
+		body.gutenberg-editor-page .editor-post-title__block, body.gutenberg-editor-page .editor-default-block-appender, body.gutenberg-editor-page .editor-block-list__block {
+					max-width: none !important;
+			}
+		.block-editor__container .wp-block {
+			max-width: none !important;
+		}
+		.edit-post-text-editor__body {
+			max-width: none !important;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	  </style>';
+	}
 
-function uj_editor_full_width_gutenberg() {
-  echo '<style>
-    body.gutenberg-editor-page .editor-post-title__block, body.gutenberg-editor-page .editor-default-block-appender, body.gutenberg-editor-page .editor-block-list__block {
-                max-width: none !important;
-        }
-    .block-editor__container .wp-block {
-        max-width: none !important;
-    }
-    .edit-post-text-editor__body {
-        max-width: none !important;
-        margin-left: auto;
-        margin-right: auto;
-    }
-  </style>';
+	add_action('admin_head', 'ujcf_editor_full_width_gutenberg');
 }
 */
 
@@ -158,11 +176,22 @@ function uj_editor_full_width_gutenberg() {
  */
 add_filter('widget_text', 'do_shortcode');
 
-/*
- * Get post content by slug
- */
-function get_post_content_by_title($slug) {
-	$page = get_page_by_title($slug); 
-	$content = apply_filters('the_content', $page->post_content);
-	return $content;
+//  Functions to display a list of all the shortcodes
+if (!function_exists('ujcf_get_list_of_shortcodes')) {
+	function ujcf_get_list_of_shortcodes(){
+		global $shortcode_tags;
+		
+		$shortcodes = $shortcode_tags;
+		ksort($shortcodes);
+		
+		$shortcode_output = "<ul>";
+		foreach ($shortcodes as $shortcode => $value) {
+			$shortcode_output .= '<li>['.$shortcode.']</li>';
+		}
+		$shortcode_output .= "</ul>";
+		
+		return $shortcode_output;
+	}
+
+	add_shortcode('get-shortcode-list', 'ujcf_get_list_of_shortcodes');
 }
