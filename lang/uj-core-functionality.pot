@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-09T08:31:04-05:00\n"
+"POT-Creation-Date: 2022-03-10T09:53:06-05:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: uj-core-functionality\n"
@@ -26,35 +26,35 @@ msgstr ""
 msgid "Uwe Jacobs"
 msgstr ""
 
-#: inc/display-posts.php:415
+#: inc/display-posts.php:496
 msgid "Sun"
 msgstr ""
 
-#: inc/display-posts.php:415
+#: inc/display-posts.php:496
 msgid "Mon"
 msgstr ""
 
-#: inc/display-posts.php:415
+#: inc/display-posts.php:496
 msgid "Tue"
 msgstr ""
 
-#: inc/display-posts.php:415
+#: inc/display-posts.php:496
 msgid "Wed"
 msgstr ""
 
-#: inc/display-posts.php:415
+#: inc/display-posts.php:496
 msgid "Thu"
 msgstr ""
 
-#: inc/display-posts.php:415
+#: inc/display-posts.php:496
 msgid "Fri"
 msgstr ""
 
-#: inc/display-posts.php:415
+#: inc/display-posts.php:496
 msgid "Sat"
 msgstr ""
 
-#: inc/display-posts.php:438
+#: inc/display-posts.php:519
 msgid "Special Rates"
 msgstr ""
 
@@ -775,87 +775,140 @@ msgstr ""
 msgid "Post Types"
 msgstr ""
 
-#: inc/display-posts/init.php:176
-msgid "Default Testimonials Female Avatar Image"
+#: inc/display-posts/init.php:177
+msgid "Alert Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:183
-#: inc/display-posts/init.php:196
-#: inc/display-posts/init.php:212
-#: inc/display-posts/init.php:228
-#: inc/display-posts/init.php:244
-msgid "Select image"
+#: inc/display-posts/init.php:180
+msgid "Background Color"
+msgstr ""
+
+#: inc/display-posts/init.php:186
+msgid "Primary"
+msgstr ""
+
+#: inc/display-posts/init.php:187
+msgid "Secondary"
+msgstr ""
+
+#: inc/display-posts/init.php:188
+msgid "Info"
 msgstr ""
 
 #: inc/display-posts/init.php:189
-msgid "Default Testimonials Male Avatar Image"
+msgid "Success"
 msgstr ""
 
-#: inc/display-posts/init.php:205
-msgid "Default News Image"
+#: inc/display-posts/init.php:190
+msgid "Warning"
 msgstr ""
 
-#: inc/display-posts/init.php:221
-msgid "Default Fundraiser Image"
+#: inc/display-posts/init.php:191
+msgid "Danger"
 msgstr ""
 
-#: inc/display-posts/init.php:237
-msgid "Default FAQ Image"
+#: inc/display-posts/init.php:206
+msgid "Booking Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:391
+#: inc/display-posts/init.php:213
+msgid "FAQ Settings:"
+msgstr ""
+
+#: inc/display-posts/init.php:216
+#: inc/display-posts/init.php:236
+#: inc/display-posts/init.php:256
+msgid "Default Image"
+msgstr ""
+
+#: inc/display-posts/init.php:223
+#: inc/display-posts/init.php:243
+#: inc/display-posts/init.php:263
+#: inc/display-posts/init.php:283
+#: inc/display-posts/init.php:296
+msgid "Select image"
+msgstr ""
+
+#: inc/display-posts/init.php:233
+msgid "Fundraiser Settings:"
+msgstr ""
+
+#: inc/display-posts/init.php:253
+msgid "News Settings:"
+msgstr ""
+
+#: inc/display-posts/init.php:273
+msgid "Testimonials Settings:"
+msgstr ""
+
+#: inc/display-posts/init.php:276
+msgid "Default Female Avatar Image"
+msgstr ""
+
+#: inc/display-posts/init.php:289
+msgid "Default Male Avatar Image"
+msgstr ""
+
+#: inc/display-posts/init.php:442
 msgid "Start Date"
 msgstr ""
 
-#: inc/display-posts/init.php:392
+#: inc/display-posts/init.php:443
 msgid "End Date"
 msgstr ""
 
-#: inc/display-posts/init.php:393
+#: inc/display-posts/init.php:444
 #: inc/display-posts/quick_edit_box.php:32
 msgid "Status"
 msgstr ""
 
-#: inc/display-posts/init.php:394
+#: inc/display-posts/init.php:445
 msgid "Comment"
 msgstr ""
 
-#: inc/display-posts/init.php:453
+#: inc/display-posts/init.php:504
 msgid "Name"
 msgstr ""
 
-#: inc/display-posts/init.php:454
+#: inc/display-posts/init.php:505
 msgid "Title"
 msgstr ""
 
-#: inc/display-posts/init.php:455
+#: inc/display-posts/init.php:506
 msgid "Picture"
 msgstr ""
 
-#: inc/display-posts/init.php:456
+#: inc/display-posts/init.php:507
 msgid "Stars"
 msgstr ""
 
-#: inc/display-posts/init.php:457
-#: inc/display-posts/init.php:539
-#: inc/display-posts/init.php:565
+#: inc/display-posts/init.php:508
+#: inc/display-posts/init.php:598
+#: inc/display-posts/init.php:628
 msgid "Text"
 msgstr ""
 
-#: inc/display-posts/init.php:493
+#: inc/display-posts/init.php:544
 msgid "Question"
 msgstr ""
 
-#: inc/display-posts/init.php:494
+#: inc/display-posts/init.php:545
 msgid "Answer"
 msgstr ""
 
-#: inc/display-posts/init.php:495
-#: inc/display-posts/init.php:540
-#: inc/display-posts/init.php:566
+#: inc/display-posts/init.php:546
+#: inc/display-posts/init.php:599
+#: inc/display-posts/init.php:629
 msgid "Image"
 msgstr ""
 
-#: inc/display-posts/init.php:520
+#: inc/display-posts/init.php:547
+#: inc/display-posts/init.php:576
+#: inc/display-posts/init.php:600
+#: inc/display-posts/init.php:630
+msgid "Order"
+msgstr ""
+
+#: inc/display-posts/init.php:575
 msgid "Alert Text"
 msgstr ""
