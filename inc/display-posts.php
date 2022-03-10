@@ -151,7 +151,7 @@ if (!function_exists('ujcf_dps_posts_close')) {
 if (!function_exists('ujcf_dps_option_output')) {
 	function ujcf_dps_option_output($output, $atts) {
 		global $post;
-		
+
 		if (!empty($atts['layout'])) {
 			ob_start();
 			get_template_part('template-parts/dps', $atts['layout']);
@@ -159,16 +159,13 @@ if (!function_exists('ujcf_dps_option_output')) {
 			if (!empty($new_output)) {
 				$output = $new_output;
 			}
+		} else if (!empty($atts['wrapper_id']) && $atts['wrapper_id'] == 'frontpage-updates') {
+			$new_output = ujcf_dps_option_output_frontpage_updates($output, $atts);
+			if (!empty($new_output)) {
+				$output = $new_output;
+			}
 		} else if (!empty($atts['post_type'])) {
 			switch($atts['post_type']) {
-				case 'post':
-				    if (!empty($atts['wrapper_id']) && $atts['wrapper_id'] == 'frontpage_updates') {
-						$new_output = ujcf_dps_option_output_frontpage_updates($output, $atts);
-						if (!empty($new_output)) {
-							$output = $new_output;
-						}
-					}
-					break;
 				case 'testimonial':
 					$new_output = ujcf_dps_option_output_testimonials($output, $atts);
 					if (!empty($new_output)) {
