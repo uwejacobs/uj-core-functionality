@@ -176,22 +176,6 @@ if (!function_exists('ujcf_editor_full_width_gutenberg')) {
  */
 add_filter('widget_text', 'do_shortcode');
 
-//  Functions to display a list of all the shortcodes
-if (!function_exists('ujcf_get_list_of_shortcodes')) {
-	function ujcf_get_list_of_shortcodes(){
-		global $shortcode_tags;
-		
-		$shortcodes = $shortcode_tags;
-		ksort($shortcodes);
-		
-		$shortcode_output = "<ul>";
-		foreach ($shortcodes as $shortcode => $value) {
-			$shortcode_output .= '<li>['.$shortcode.']</li>';
-		}
-		$shortcode_output .= "</ul>";
-		
-		return $shortcode_output;
-	}
-
-	add_shortcode('get-shortcode-list', 'ujcf_get_list_of_shortcodes');
-}
+// disable wpautop for posts and pages
+remove_filter( 'the_content', 'wpautop' );
+remove_filter( 'the_excerpt', 'wpautop' );

@@ -542,7 +542,7 @@ if (ujcf_get_theme_option('faq_checkbox')) {
 	if (!function_exists('ujcf_set_custom_edit_faq_columns')) {
 		function ujcf_set_custom_edit_faq_columns($columns) {
 			$columns['title'] = esc_html__('Question', 'uj-core-functionality');
-			$columns['answer'] = esc_html__('Answer', 'uj-core-functionality');
+			$columns['text'] = esc_html__('Answer', 'uj-core-functionality');
 			$columns['image'] = esc_html__('Image', 'uj-core-functionality');
 			$columns['order'] = esc_html__('Order', 'uj-core-functionality');
 			return $columns;
@@ -552,8 +552,8 @@ if (ujcf_get_theme_option('faq_checkbox')) {
 	if (!function_exists('ujcf_custom_faq_column')) {
 		function ujcf_custom_faq_column($column, $post_id) {
 			$meta = get_post_meta($post_id);
-			if ($column == 'answer' && !empty($meta["answer"][0])) {
-				echo esc_attr($meta["answer"][0]);
+			if ($column == 'text' && !empty($meta["text"][0])) {
+				echo esc_attr($meta["text"][0]);
 			}
 			if ($column == 'image') {
 				$img = wp_get_attachment_url($meta["image"][0], 'thumbnail');
@@ -565,6 +565,16 @@ if (ujcf_get_theme_option('faq_checkbox')) {
 				echo esc_attr($meta["order"][0]);
 			}
 		}
+	}
+
+	if (!function_exists('ujcf_sortable_faq_column')) {
+		function ujcf_sortable_faq_column( $columns ) {
+			$columns['order'] = 'order';
+
+			return $columns;
+		}
+		
+		add_filter( 'manage_edit-faq_sortable_columns', 'ujcf_sortable_faq_column' );
 	}
 }
 
@@ -588,6 +598,16 @@ if (ujcf_get_theme_option('alert_checkbox')) {
 				echo esc_attr($meta["order"][0]);
 			}
 		}
+	}
+
+	if (!function_exists('ujcf_sortable_alert_column')) {
+		function ujcf_sortable_alert_column( $columns ) {
+			$columns['order'] = 'order';
+
+			return $columns;
+		}
+		
+		add_filter( 'manage_edit-alert_sortable_columns', 'ujcf_sortable_alert_column' );
 	}
 }
 
@@ -619,6 +639,16 @@ if (ujcf_get_theme_option('news_checkbox')) {
 			}
 		}
 	}
+
+	if (!function_exists('ujcf_sortable_news_column')) {
+		function ujcf_sortable_news_column( $columns ) {
+			$columns['order'] = 'order';
+
+			return $columns;
+		}
+		
+		add_filter( 'manage_edit-news_sortable_columns', 'ujcf_sortable_news_column' );
+	}
 }
 
 // Fundraiser
@@ -648,5 +678,15 @@ if (ujcf_get_theme_option('fundraiser_checkbox')) {
 				echo esc_attr($meta["order"][0]);
 			}
 		}
+	}
+
+	if (!function_exists('ujcf_sortable_fundraiser_column')) {
+		function ujcf_sortable_fundraiser_column( $columns ) {
+			$columns['order'] = 'order';
+
+			return $columns;
+		}
+		
+		add_filter( 'manage_edit-fundraiser_sortable_columns', 'ujcf_sortable_fundraiser_column' );
 	}
 }

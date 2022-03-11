@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Core Functionality plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Core Functionality 1.0.3\n"
+"Project-Id-Version: Core Functionality 1.0.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/UJ-Core-Functionality\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-10T09:53:06-05:00\n"
+"POT-Creation-Date: 2022-03-10T19:03:48-05:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: uj-core-functionality\n"
@@ -26,35 +26,35 @@ msgstr ""
 msgid "Uwe Jacobs"
 msgstr ""
 
-#: inc/display-posts.php:496
+#: inc/display-posts.php:493
 msgid "Sun"
 msgstr ""
 
-#: inc/display-posts.php:496
+#: inc/display-posts.php:493
 msgid "Mon"
 msgstr ""
 
-#: inc/display-posts.php:496
+#: inc/display-posts.php:493
 msgid "Tue"
 msgstr ""
 
-#: inc/display-posts.php:496
+#: inc/display-posts.php:493
 msgid "Wed"
 msgstr ""
 
-#: inc/display-posts.php:496
+#: inc/display-posts.php:493
 msgid "Thu"
 msgstr ""
 
-#: inc/display-posts.php:496
+#: inc/display-posts.php:493
 msgid "Fri"
 msgstr ""
 
-#: inc/display-posts.php:496
+#: inc/display-posts.php:493
 msgid "Sat"
 msgstr ""
 
-#: inc/display-posts.php:519
+#: inc/display-posts.php:516
 msgid "Special Rates"
 msgstr ""
 
@@ -883,8 +883,8 @@ msgid "Stars"
 msgstr ""
 
 #: inc/display-posts/init.php:508
-#: inc/display-posts/init.php:598
-#: inc/display-posts/init.php:628
+#: inc/display-posts/init.php:618
+#: inc/display-posts/init.php:658
 msgid "Text"
 msgstr ""
 
@@ -897,18 +897,18 @@ msgid "Answer"
 msgstr ""
 
 #: inc/display-posts/init.php:546
-#: inc/display-posts/init.php:599
-#: inc/display-posts/init.php:629
+#: inc/display-posts/init.php:619
+#: inc/display-posts/init.php:659
 msgid "Image"
 msgstr ""
 
 #: inc/display-posts/init.php:547
-#: inc/display-posts/init.php:576
-#: inc/display-posts/init.php:600
-#: inc/display-posts/init.php:630
+#: inc/display-posts/init.php:586
+#: inc/display-posts/init.php:620
+#: inc/display-posts/init.php:660
 msgid "Order"
 msgstr ""
 
-#: inc/display-posts/init.php:575
+#: inc/display-posts/init.php:585
 msgid "Alert Text"
 msgstr ""

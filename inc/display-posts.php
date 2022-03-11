@@ -282,7 +282,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 		} else {
 			$img = null;
 		}
-		$text = $meta["text"][0] ?? '';
+		$text = do_shortcode($meta["text"][0] ?? '');
 
 		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
 			$output = ' <div class="carousel-item' . ($cnt == 1 ? ' active' : '') . '">';
@@ -292,7 +292,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			}
 			$output .= '  <div class="media-body">';
 			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . $atts['title-class'] : "") . '">' . esc_html( get_the_title() ) . '</h3>';
-			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . $atts['text-class'] : "") . '">' . apply_filters('the_content', $text) .  '</p>';
+			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . $atts['text-class'] : "") . '">' . wp_kses_post(nl2br($text)) .  '</p>';
 			$output .= '  </div>';
 			$output .= '</div>';	
 			$output .= '</div>';	
@@ -311,7 +311,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output .= '  </div>';
 			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
 			$output .= '    <div class="card-body">';
-			$output .= apply_filters('the_content', $text);
+			$output .= wp_kses_post(nl2br($text));
 			$output .= '    </div>';
 			$output .= '  </div>';
 			$output .= '</div>';
@@ -323,7 +323,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			}
 			$output .= '  <div class="media-body">';
 			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . $atts['title-class'] : "") . '">' . esc_html( get_the_title() ) . '</h3>';
-			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . $atts['text-class'] : "") . '">' . apply_filters('the_content', $text) .  '</p>';
+			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . $atts['text-class'] : "") . '">' . wp_kses_post(nl2br($text)) .  '</p>';
 			$output .= '  </div>';
 			$output .= '</' . $tag . '>';	
 		}
