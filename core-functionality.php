@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Core Functionality
  * Description:       This contains all your site's core functionality so that it is theme independent. <strong>It should always be activated</strong>.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            Uwe Jacobs
  * Requires at least: 5.6
  * Tested up to:      5.9.1
@@ -35,3 +35,8 @@ require_once( UJ_DIR . 'inc/kill-trackbacks.php' );
 require_once( UJ_DIR . 'inc/template.php' );
 require_once( UJ_DIR . 'inc/display-posts.php' );
 require_once( UJ_DIR . 'inc/shortcodes.php' );
+
+add_action( 'after_setup_theme', 'ujcf_theme_setup' );
+function ujcf_theme_setup() {
+    add_image_size( 'slider', 0, 600, false ); // 600 pixels high (and unlimited height)
+}

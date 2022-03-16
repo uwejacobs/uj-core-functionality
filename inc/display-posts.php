@@ -35,7 +35,7 @@ if (!function_exists('ujcf_dps_posts_open')) {
 		}
 
 		if ( ! empty( $atts['post_type'] ) && 'alert' === $atts['post_type'] ) {
-			return '<div class="alert alert-danger">';
+			return $output;
 		}
 
 		$interval = intval($atts["interval"] ?? 5000);
@@ -52,7 +52,7 @@ if (!function_exists('ujcf_dps_posts_open')) {
 			$output .= '  width: 70%;';
 			$output .= '}';
 			$output .= '</style>';
-			$output .= '<div id="dps-carousel-' . esc_attr($dpsCnt) . '" class="carousel slide display-posts-listing mb-5" data-ride="carousel" data-interval="'.$interval.'">';
+			$output .= '<div id="dps-carousel-' . esc_attr($dpsCnt) . '" class="dps-carousel carousel slide display-posts-listing mb-5" data-ride="carousel" data-interval="'.$interval.'">';
 			$output .= '    <ol class="carousel-indicators">';
 
 			for ($i = 0; $i < $indicator_cnt; $i++) {
@@ -62,7 +62,7 @@ if (!function_exists('ujcf_dps_posts_open')) {
 			$output .= '    </ol>';
 			$output .= '    <div class="carousel-inner m-auto">';
 		} else if ( ! empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper'] ) {
-			$output = '<div id="dps-accordion-' . esc_attr($dpsCnt) . '">';
+			$output = '<div id="dps-accordion-' . esc_attr($dpsCnt) . '" class="dps-accordion">';
 		}
 
 		return $output;
@@ -95,7 +95,7 @@ if (!function_exists('ujcf_dps_posts_close')) {
 		}
 
 		if ( ! empty( $atts['post_type'] ) && 'alert' === $atts['post_type'] ) {
-			return '</div>';
+			return $output;
 		}
 
 		if ( ! empty( $atts['wrapper'] ) && 'carousel' === $atts['wrapper'] ) {
@@ -230,12 +230,12 @@ if (!function_exists('ujcf_dps_option_output_frontpage_updates')) {
 
 		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
 			$output = ' <div class="carousel-item' . ($cnt == 1 ? ' active' : '') . '">';
-			$output .= '   <h3 class="dps-title' . (!empty($atts['title-class']) ? " " . $atts['title-class'] : "") . '">' . $icon .  esc_html( get_the_title() ) . '</h3>';
-			$output .= '   <p class="dps-text' . (!empty($atts['text-class']) ? " " . $atts['text-class'] : "") . '">' . apply_filters('the_content', get_post_field('post_content', $post->ID)) .  '</p></div>';
+			$output .= '   <h3 class="dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . wp_kses($icon, $icon_kses) .  esc_html(get_the_title()) . '</h3>';
+			$output .= '   <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . apply_filters('the_content', get_post_field('post_content', $post->ID)) .  '</p></div>';
 		} else 	if (!empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper']) {
 			$output  = '<div class="card">';
 			$output .= '  <div class="card-header" id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . $atts['title-class'] : "") . '">';
+			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
 			$output .= '      <button class="btn btn-block text-left" data-toggle="collapse" data-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="true" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
 			$output .= '        <i class="fas fa-plus float-right"></i>' . wp_kses($icon, $icon_kses) .  esc_html(get_the_title());
 			$output .= '      </button>';
@@ -264,13 +264,13 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			return ($output);
 		}
 		
-		$defaultImage = wp_get_attachment_url(ujcf_get_theme_option($type . '_image'));
+		$defaultImage = wp_get_attachment_image_url(ujcf_get_theme_option($type . '_image'));
 		$defaultAlt = "Generic " . $type . " image";
 
 		$meta = get_post_meta($post->ID);
 		
 		if (!empty($defaultImage)) {
-			$img = wp_get_attachment_url($meta["image"][0], 'thumbnail');
+			$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 			if (!$img) {
 				$img = $defaultImage;
 			}
@@ -278,7 +278,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			if (!$alt) {
 				$alt = $defaultAlt;
 			}
-			$max_height = $atts["max_height"] ?? 50;
+			$max_height = intval($atts["max_height"] ?? 50);
 		} else {
 			$img = null;
 		}
@@ -288,22 +288,22 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output = ' <div class="carousel-item' . ($cnt == 1 ? ' active' : '') . '">';
 			$output .= '<div class="media">';
 			if ($img) {
-				$output .= '  <img style="max-height:' . $max_height . 'px" class="mr-3" src="' . $img . '" alt="' . $alt . '">';
+				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="mr-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
 			}
 			$output .= '  <div class="media-body">';
-			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . $atts['title-class'] : "") . '">' . esc_html( get_the_title() ) . '</h3>';
-			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . $atts['text-class'] : "") . '">' . wp_kses_post(nl2br($text)) .  '</p>';
+			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . '</h3>';
+			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . wp_kses_post(nl2br($text)) .  '</p>';
 			$output .= '  </div>';
 			$output .= '</div>';	
 			$output .= '</div>';	
 		} else 	if (!empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper']) {
 			$output  = '<div class="card">';
 			$output .= '  <div class="card-header" id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . $atts['title-class'] : "") . '">';
+			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
 			$output .= '      <button class="btn btn-block text-left" data-toggle="collapse" data-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="true" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
 			$output .= '        <i class="fas fa-plus float-right"></i>';
 			if ($img) {
-				$output .= '  <img style="max-height:' . $max_height . 'px" class="mr-3 accordion-image" src="' . $img . '" alt="' . $alt . '">';
+				$output .= '  <img style="max-height:' . $max_height . 'px" class="mr-3 accordion-image" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
 			}
 			$output .= esc_html(get_the_title());
 			$output .= '      </button>';
@@ -317,15 +317,15 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output .= '</div>';
 		} else {
 			$tag = empty($atts["wrapper"]) ? 'li' : 'div';
-			$output = '<' . $tag . ' class="media">';
+			$output = '<' . esc_attr($tag) . ' class="media">';
 			if ($img) {
-				$output .= '  <img style="max-height:' . $max_height . 'px" class="mr-3" src="' . $img . '" alt="' . $alt . '">';
+				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="mr-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
 			}
 			$output .= '  <div class="media-body">';
-			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . $atts['title-class'] : "") . '">' . esc_html( get_the_title() ) . '</h3>';
-			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . $atts['text-class'] : "") . '">' . wp_kses_post(nl2br($text)) .  '</p>';
+			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . '</h3>';
+			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . wp_kses_post(nl2br($text)) .  '</p>';
 			$output .= '  </div>';
-			$output .= '</' . $tag . '>';	
+			$output .= '</' . esc_attr($tag) . '>';	
 		}
 		
 		return $output;
@@ -341,12 +341,12 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 		$dpsCnt = ujcf_static_dps_counter();
 
 		$meta = get_post_meta($post->ID);
-		$img = wp_get_attachment_url($meta["picture"][0], 'thumbnail');
+		$img = wp_get_attachment_image_url($meta["picture"][0], 'thumbnail');
 		if (!$img) {
-			if ($meta["gender"][0] === 'female') {
-				$img = wp_get_attachment_url(ujcf_get_theme_option('female_avatar_image'), 'thumbnail');
+			if (!empty($meta["gender"][0]) && $meta["gender"][0] === 'female') {
+				$img = wp_get_attachment_image_url(ujcf_get_theme_option('female_avatar_image'), 'thumbnail');
 			} else {
-				$img = wp_get_attachment_url(ujcf_get_theme_option('male_avatar_image'), 'thumbnail');
+				$img = wp_get_attachment_image_url(ujcf_get_theme_option('male_avatar_image'), 'thumbnail');
 			}
 		}
 		$stars = ujcf_getStars($meta["stars"][0]);
@@ -357,7 +357,7 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 		} else if (!empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper']) {
 			$output .= '<div class="card">';
 			$output .= '  <div class="card-header" id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . $atts['title-class'] : "") . '">';
+			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
 			$output .= '      <button class="btn btn-block text-left" data-toggle="collapse" data-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="true" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
 			$output .= '        <i class="fas fa-plus float-right"></i><span class="mr-3">' .  esc_html(get_the_title()) . '</span>' . wp_kses_post($stars);
 			$output .= '      </button>';
@@ -373,7 +373,7 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 	<div class="container testimonial p-4 mt-4 rounded-lg border border-dark bg-light">
 	  <div class="row text-center <?php echo ($size == "large" ? "text-md-left" : "") ?>">
 		<div class="col-12 <?php echo ($size == "large" ? "col-md-3" : "") ?>">
-			<img src="<?php echo esc_url($img) ?>" alt="Avatar" class="rounded-circle" style="width: 90px;">
+			<img style="max-height:150px" src="<?php echo esc_url($img) ?>" alt="Avatar" class="rounded-circle">
 		</div>
 		<div class="col-12 <?php echo ($size == "large" ? "col-md-9" : "") ?>">
 			<p><span class="lead font-weight-normal mr-3"><?php echo esc_html(get_the_title()) ?></span><?php echo "<br>" . wp_kses_post(nl2br($meta["title"][0])) ?></p>
@@ -474,7 +474,7 @@ if (!function_exists('ujcf_showCalendarMonth')) {
 		} else 	if (!empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper']) {
 			$output .= '<div class="card">';
 			$output .= '  <div class="card-header" id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . $atts['title-class'] : "") . '">';
+			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
 			$output .= '      <button class="btn btn-block text-left" data-toggle="collapse" data-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="true" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
 			$output .= '        <i class="fas fa-plus float-right"></i>';
 			$output .= '<i class="far fa-calendar-alt fa-2x mr-3"></i>';
@@ -499,17 +499,23 @@ if (!function_exists('ujcf_showCalendarMonth')) {
 			$output .= '<td></td>';
 		}
 
-		$start = date('Y-m-d');
-		$end = date('Y-m-d', strtotime($start . "+21 days"));
+		$special_rate_period = intval(ujcf_get_theme_option('special_rate_period'));
+		if ($special_rate_period > 0) {
+			$start = date('Y-m-d');
+			$end = date('Y-m-d', strtotime($start . "+" . $special_rate_period . " days"));
+		} else {
+			$start = 0;
+			$end = 0;
+		}
 
-		for($day = 1; $day <= $numberOfDays; $day++) {
+		for ($day = 1; $day <= $numberOfDays; $day++) {
 			if( ($day + $offset - 1) % 7 == 0 && $day != 1) {
 				$output .= '</tr><tr>';
 				$row_number++;
 			}
 			$index = $year . '-' . str_pad($month, 2, 0, STR_PAD_LEFT) . '-' . str_pad($day, 2, 0, STR_PAD_LEFT);
-			$class = !empty($ujcf_booking_dates[$index]) ? ' class="calendar-' . $ujcf_booking_dates[$index] . '"' : '';
-			$title = !empty($ujcf_booking_dates[$index]) ? ' title="' . ucwords($ujcf_booking_dates[$index]) . '"' : '';
+			$class = !empty($ujcf_booking_dates[$index]) ? ' class="calendar-' . esc_attr($ujcf_booking_dates[$index]) . '"' : '';
+			$title = !empty($ujcf_booking_dates[$index]) ? ' title="' . esc_attr(ucwords($ujcf_booking_dates[$index])) . '"' : '';
 			if (empty($class)) {
 				if ($index >= $start && $index <= $end) {
 					$class = ' class="calendar-special"';
@@ -517,7 +523,7 @@ if (!function_exists('ujcf_showCalendarMonth')) {
 				}
 			}
 
-			$output .= '<td' . $class . $title . '>' . $day . '</td>';
+			$output .= '<td' . $class . $title . '>' . esc_html($day) . '</td>';
 		}
 		while( ($day + $offset) <= $row_number * 7) {
 			$output .= '<td></td>';
@@ -530,7 +536,9 @@ if (!function_exists('ujcf_showCalendarMonth')) {
   		$output .= '<span class="calendar-legend calendar-booked">Booked</span>';
   		$output .= '<span class="calendar-legend calendar-event">Event</span>';
   		$output .= '<span class="calendar-legend calendar-holiday">Holiday</span>';
-  		$output .= '<span class="calendar-legend calendar-special">Special Rate</span>';
+		if ($special_rate_period > 0) {
+			$output .= '<span class="calendar-legend calendar-special">Special Rate</span>';
+		}
 		$output .= '</div>';
 
 		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
@@ -551,9 +559,17 @@ if (!function_exists('ujcf_dps_option_output_alerts')) {
 		$output = '';
 		
 		$meta = get_post_meta($post->ID);
+		$theme_alert_bg_color = ujcf_get_theme_option('alert_bg_color');
+		if (empty($theme_alert_bg_color)) {
+			$theme_alert_bg_color = 'danger';
+		}
+		
+		if (!empty($meta["color"][0]) && $meta["color"][0] != 'default') {
+			$theme_alert_bg_color = $meta["color"][0];
+		}
 
 		if (!empty($meta["text"][0])) {
-			$output = '<i class="fas fa-exclamation-triangle mr-2"></i>' . $meta["text"][0];
+			$output = '<div class="alert alert-' . esc_attr($theme_alert_bg_color) . '">' . esc_html($meta["text"][0]) . '</div>';
 		}
 
 		return $output;

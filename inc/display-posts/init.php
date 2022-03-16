@@ -162,7 +162,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 
 						<?php // Custom posts ?>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e('Post Types', 'uj-core-functionality') ?></th>
+							<th scope="row" style="font-size:125%"><?php esc_html_e('Post Types', 'uj-core-functionality') ?></th>
 							<td>
 								<?php foreach(self::$checkBoxes as $checkBox) {
 								$value = self::get_theme_option( $checkBox.'_checkbox' ); ?>
@@ -174,7 +174,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 						<?php // Alert ?>
 						<?php if (self::get_theme_option('alert_checkbox')) { ?>
 						<tr>
-							<th colspan="2"><?php esc_html_e( 'Alert Settings:', 'uj-core-functionality' ) ?></th>
+							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Alert Settings:', 'uj-core-functionality' ) ?></th>
 						</tr>
 						<tr valign="top" class="uj-custom-admin-screen-background-section">
 							<th scope="row"><?php esc_html_e( 'Background Color', 'uj-core-functionality' ); ?></th>
@@ -196,6 +196,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 										</option>
 									<?php } ?>
 								</select>
+								<p>You can see the actual colors for your theme here: <a href="<?php echo site_url('theme-demo') . '#buttons' ?>" target="_blank" rel="noreferrer noopener">Theme Demo</a></p>
 							</td>
 						</tr>
 						<?php } ?>
@@ -203,14 +204,21 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 						<?php // Booking ?>
 						<?php if (self::get_theme_option('booking_checkbox')) { ?>
 						<tr>
-							<th colspan="2"><?php esc_html_e( 'Booking Settings:', 'uj-core-functionality' ) ?></th>
+							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Booking Settings:', 'uj-core-functionality' ) ?></th>
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php esc_html_e( 'Special Rate Period', 'uj-core-functionality' ); ?></th>
+							<td>
+								<?php $value = intval(self::get_theme_option( 'special_rate_period' )); ?>
+								<input type="text" name="theme_options[special_rate_period]" value="<?php echo esc_attr( $value ); ?>">
+							</td>
 						</tr>
 						<?php } ?>
 
 						<?php // FAQ ?>
 						<?php if (self::get_theme_option('faq_checkbox')) { ?>
 						<tr>
-							<th colspan="2"><?php esc_html_e( 'FAQ Settings:', 'uj-core-functionality' ) ?></th>
+							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'FAQ Settings:', 'uj-core-functionality' ) ?></th>
 						</tr>
 						<tr>
 							<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
@@ -218,7 +226,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 							<?php $value = self::get_theme_option( 'faq_image' );
 								  self::media_script('faq', $value); ?>
 							<div class="faq_image_preview_wrapper">
-								<img id="faq_image_preview" src="<?php echo wp_get_attachment_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								<img id="faq_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
 							</div>
 							<input id="select_faq_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
 							<input type="hidden" name="theme_options[faq_image]" id="faq_image_attachment_id" value="<?php echo esc_attr($value) ?>">
@@ -230,7 +238,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 						<?php // Fundraiser ?>
 						<?php if (self::get_theme_option('fundraiser_checkbox')) { ?>
 						<tr>
-							<th colspan="2"><?php esc_html_e( 'Fundraiser Settings:', 'uj-core-functionality' ) ?></th>
+							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Fundraiser Settings:', 'uj-core-functionality' ) ?></th>
 						</tr>
 						<tr>
 							<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
@@ -238,7 +246,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 							<?php $value = self::get_theme_option( 'fundraiser_image' );
 								  self::media_script('fundraiser', $value); ?>
 							<div class="fundraiser_image_preview_wrapper">
-								<img id="fundraiser_image_preview" src="<?php echo wp_get_attachment_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								<img id="fundraiser_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
 							</div>
 							<input id="select_fundraiser_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
 							<input type="hidden" name="theme_options[fundraiser_image]" id="fundraiser_image_attachment_id" value="<?php echo esc_attr($value) ?>">
@@ -250,7 +258,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 						<?php // News ?>
 						<?php if (self::get_theme_option('news_checkbox')) { ?>
 						<tr>
-							<th colspan="2"><?php esc_html_e( 'News Settings:', 'uj-core-functionality' ) ?></th>
+							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'News Settings:', 'uj-core-functionality' ) ?></th>
 						</tr>
 						<tr>
 							<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
@@ -258,7 +266,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 							<?php $value = self::get_theme_option( 'news_image' );
 								  self::media_script('news', $value); ?>
 							<div class="news_image_preview_wrapper">
-								<img id="news_image_preview" src="<?php echo wp_get_attachment_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								<img id="news_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
 							</div>
 							<input id="select_news_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
 							<input type="hidden" name="theme_options[news_image]" id="news_image_attachment_id" value="<?php echo esc_attr($value) ?>">
@@ -270,7 +278,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 						<?php // Testimonials ?>
 						<?php if (self::get_theme_option('testimonial_checkbox')) { ?>
 						<tr>
-							<th colspan="2"><?php esc_html_e( 'Testimonials Settings:', 'uj-core-functionality' ) ?></th>
+							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Testimonials Settings:', 'uj-core-functionality' ) ?></th>
 						</tr>
 						<tr>
 							<th><?php esc_html_e( 'Default Female Avatar Image', 'uj-core-functionality' ) ?></th>
@@ -278,7 +286,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 							<?php $value = self::get_theme_option( 'female_avatar_image' );
 								  self::media_script('female_avatar', $value); ?>
 							<div class="female_avatar_image_preview_wrapper">
-								<img id="female_avatar_image_preview" src="<?php echo wp_get_attachment_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								<img id="female_avatar_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
 							</div>
 							<input id="select_female_avatar_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
 							<input type="hidden" name="theme_options[female_avatar_image]" id="female_avatar_image_attachment_id" value="<?php echo esc_attr($value) ?>">
@@ -291,7 +299,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 							<?php $value = self::get_theme_option( 'male_avatar_image' );
 								  self::media_script('male_avatar', $value); ?>
 							<div class="male_avatar_image_preview_wrapper">
-								<img id="male_avatar_image_preview" src="<?php echo wp_get_attachment_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								<img id="male_avatar_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
 							</div>
 							<input id="select_male_avatar_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
 							<input type="hidden" name="theme_options[male_avatar_image]" id="male_avatar_image_attachment_id" value="<?php echo esc_attr($value) ?>">
@@ -517,15 +525,15 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 				echo wp_kses_post(nl2br($meta["title"][0]));
 			}
 			if ($column == 'picture') {
-				$img = wp_get_attachment_url($meta["picture"][0], 'thumbnail');
+				$img = wp_get_attachment_image_url($meta["picture"][0], 'thumbnail');
 				if (!$img) {
-					if ($meta["gender"][0] === 'female') {
-						$img = wp_get_attachment_url(ujcf_get_theme_option('female_avatar_image'), 'thumbnail');
+					if (!empty($meta["gender"][0]) && $meta["gender"][0] === 'female') {
+						$img = wp_get_attachment_image_url(ujcf_get_theme_option('female_avatar_image'), 'thumbnail');
 					} else {
-						$img = wp_get_attachment_url(ujcf_get_theme_option('male_avatar_image'), 'thumbnail');
+						$img = wp_get_attachment_image_url(ujcf_get_theme_option('male_avatar_image'), 'thumbnail');
 					}
 				}
-				echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle" style="width: 90px;">';
+				echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle">';
 			}
 			if ($column == 'stars') {
 				echo wp_kses_post(ujcf_getStars($meta["stars"][0]));
@@ -556,9 +564,9 @@ if (ujcf_get_theme_option('faq_checkbox')) {
 				echo esc_attr($meta["text"][0]);
 			}
 			if ($column == 'image') {
-				$img = wp_get_attachment_url($meta["image"][0], 'thumbnail');
+				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle" style="width: 90px;">';
+					echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle">';
 				}
 			}
 			if ($column == 'order' && !empty($meta["order"][0])) {
@@ -583,6 +591,7 @@ if (ujcf_get_theme_option('alert_checkbox')) {
 	if (!function_exists('ujcf_set_custom_edit_alert_columns')) {
 		function ujcf_set_custom_edit_alert_columns($columns) {
 			$columns['text'] = esc_html__('Alert Text', 'uj-core-functionality');
+			$columns['color'] = esc_html__('Background Color', 'uj-core-functionality');
 			$columns['order'] = esc_html__('Order', 'uj-core-functionality');
 			return $columns;
 		}
@@ -593,6 +602,9 @@ if (ujcf_get_theme_option('alert_checkbox')) {
 			$meta = get_post_meta($post_id);
 			if ($column == 'text' && !empty($meta["text"][0])) {
 				echo esc_attr($meta["text"][0]);
+			}
+			if ($column == 'color' && !empty($meta["color"][0])) {
+				echo esc_attr(ucwords($meta["color"][0]));
 			}
 			if ($column == 'order' && !empty($meta["order"][0])) {
 				echo esc_attr($meta["order"][0]);
@@ -629,9 +641,9 @@ if (ujcf_get_theme_option('news_checkbox')) {
 				echo esc_attr($meta["text"][0]);
 			}
 			if ($column == 'image') {
-				$img = wp_get_attachment_url($meta["image"][0], 'thumbnail');
+				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle" style="width: 90px;">';
+					echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle"';
 				}
 			}
 			if ($column == 'order' && !empty($meta["order"][0])) {
@@ -669,9 +681,9 @@ if (ujcf_get_theme_option('fundraiser_checkbox')) {
 				echo esc_attr($meta["text"][0]);
 			}
 			if ($column == 'image') {
-				$img = wp_get_attachment_url($meta["image"][0], 'thumbnail');
+				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle" style="width: 90px;">';
+					echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle">';
 				}
 			}
 			if ($column == 'order' && !empty($meta["order"][0])) {

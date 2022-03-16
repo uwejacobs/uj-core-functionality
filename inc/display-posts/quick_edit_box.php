@@ -22,8 +22,10 @@ if (!function_exists('ujcf_add_quick_edit')) {
         if (!($post_type === 'booking' && $column_name === 'status')) return;
 
         switch ($column_name) {
-            case 'status':
-
+	case 'status':
+		global $post;
+		$status = get_post_meta($post->ID, "status");
+		$status = $status[0] ?? "";
                 echo '<fieldset class="inline-edit-col-right" style="border: 1px solid #dddddd;">
                         <legend style="font-weight: bold; margin-left: 10px;">'.esc_html('Booking Fields', 'uj-core-functionality').':</legend>
                         <div class="inline-edit-col">';
@@ -31,11 +33,11 @@ if (!function_exists('ujcf_add_quick_edit')) {
                 echo '<label class="alignleft" style="width: 100%;">
                         <span class="title">' . esc_html__('Status', 'uj-core-functionality') . '</span>';
 				echo '<ul class="acf-radio-list acf-hl">';
-				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="inquiry">Inquiry</label></li>';
-				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="tentative">Tentative</label></li>';
-				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="booked">Booked</label></li>';
-				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="event">Event</label></li>';
-				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="holiday">Holiday</label></li>';
+				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="inquiry"'.checked($status, "inquiry", false).'>Inquiry</label></li>';
+				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="tentative"'.checked($status, "tentative", false).'>Tentative</label></li>';
+				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="booked"'.checked($status, "booked", false).'>Booked</label></li>';
+				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="event"'.checked($status, "event", false).'>Event</label></li>';
+				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="holiday"'.checked($status, "holiday", false).'>Holiday</label></li>';
 				echo '</ul>';		
                 //        <span class="input-text-wrap"><input type="url" name="' . $column_name . '" value="" style="width: 100%;"></span>
                 echo '</label>';
@@ -64,7 +66,7 @@ if (!function_exists(('ujcf_quick_edit_save'))) {
             return;
         }
 
-        if (!wp_verify_nonce($_POST['ujcf_nonce'], 'ujcf_q_edit_nonce')) {
+        if (!empty($_POST['ujcf_nonce']) && !wp_verify_nonce($_POST['ujcf_nonce'], 'ujcf_q_edit_nonce')) {
             return;
         }
 

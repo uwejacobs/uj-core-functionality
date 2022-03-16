@@ -12,11 +12,13 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 if (!function_exists('ujcf_includePageShortcode')) {
 	function ujcf_includePageShortcode($atts) {
-		global $post;
 		if (is_numeric($atts['id'])) {
 			$_page = get_page($atts['id']);
-		} elseif( is_string($atts['id']) && function_exists('get_page_by_path')) {
+		} else if(is_string($atts['id']) && function_exists('get_page_by_path')) {
 			$_page = get_page_by_path($atts['id']);
+			if (!$_page) {
+				$_page = get_page_by_path($atts['id'], OBJECT, 'post');
+			}
 		} else {
 			$page = false;
 		}
@@ -30,7 +32,8 @@ if (!function_exists('ujcf_includePageShortcode')) {
 
 	// USAGE:
 	// In the post content, you can use [include_page id="1235"] where
-	// "1234" would be the WordPress ID of the Page you are trying to include
+	// "1234" would be the WordPress ID of the Page/Post you are trying to include;
+	// or use the slugname
 	add_shortcode("include_page", "ujcf_includePageShortcode");
 }
 

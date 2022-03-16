@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Core Functionality plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Core Functionality 1.0.4\n"
+"Project-Id-Version: Core Functionality 1.0.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/UJ-Core-Functionality\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-10T19:03:48-05:00\n"
+"POT-Creation-Date: 2022-03-16T13:07:19-04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: uj-core-functionality\n"
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Sat"
 msgstr ""
 
-#: inc/display-posts.php:516
+#: inc/display-posts.php:522
 msgid "Special Rates"
 msgstr ""
 
@@ -780,6 +780,7 @@ msgid "Alert Settings:"
 msgstr ""
 
 #: inc/display-posts/init.php:180
+#: inc/display-posts/init.php:594
 msgid "Background Color"
 msgstr ""
 
@@ -807,108 +808,112 @@ msgstr ""
 msgid "Danger"
 msgstr ""
 
-#: inc/display-posts/init.php:206
+#: inc/display-posts/init.php:207
 msgid "Booking Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:213
+#: inc/display-posts/init.php:210
+msgid "Special Rate Period"
+msgstr ""
+
+#: inc/display-posts/init.php:221
 msgid "FAQ Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:216
-#: inc/display-posts/init.php:236
-#: inc/display-posts/init.php:256
+#: inc/display-posts/init.php:224
+#: inc/display-posts/init.php:244
+#: inc/display-posts/init.php:264
 msgid "Default Image"
 msgstr ""
 
-#: inc/display-posts/init.php:223
-#: inc/display-posts/init.php:243
-#: inc/display-posts/init.php:263
-#: inc/display-posts/init.php:283
-#: inc/display-posts/init.php:296
+#: inc/display-posts/init.php:231
+#: inc/display-posts/init.php:251
+#: inc/display-posts/init.php:271
+#: inc/display-posts/init.php:291
+#: inc/display-posts/init.php:304
 msgid "Select image"
 msgstr ""
 
-#: inc/display-posts/init.php:233
+#: inc/display-posts/init.php:241
 msgid "Fundraiser Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:253
+#: inc/display-posts/init.php:261
 msgid "News Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:273
+#: inc/display-posts/init.php:281
 msgid "Testimonials Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:276
+#: inc/display-posts/init.php:284
 msgid "Default Female Avatar Image"
 msgstr ""
 
-#: inc/display-posts/init.php:289
+#: inc/display-posts/init.php:297
 msgid "Default Male Avatar Image"
 msgstr ""
 
-#: inc/display-posts/init.php:442
+#: inc/display-posts/init.php:450
 msgid "Start Date"
 msgstr ""
 
-#: inc/display-posts/init.php:443
+#: inc/display-posts/init.php:451
 msgid "End Date"
 msgstr ""
 
-#: inc/display-posts/init.php:444
-#: inc/display-posts/quick_edit_box.php:32
+#: inc/display-posts/init.php:452
+#: inc/display-posts/quick_edit_box.php:34
 msgid "Status"
 msgstr ""
 
-#: inc/display-posts/init.php:445
+#: inc/display-posts/init.php:453
 msgid "Comment"
 msgstr ""
 
-#: inc/display-posts/init.php:504
+#: inc/display-posts/init.php:512
 msgid "Name"
 msgstr ""
 
-#: inc/display-posts/init.php:505
+#: inc/display-posts/init.php:513
 msgid "Title"
 msgstr ""
 
-#: inc/display-posts/init.php:506
+#: inc/display-posts/init.php:514
 msgid "Picture"
 msgstr ""
 
-#: inc/display-posts/init.php:507
+#: inc/display-posts/init.php:515
 msgid "Stars"
 msgstr ""
 
-#: inc/display-posts/init.php:508
-#: inc/display-posts/init.php:618
-#: inc/display-posts/init.php:658
+#: inc/display-posts/init.php:516
+#: inc/display-posts/init.php:630
+#: inc/display-posts/init.php:670
 msgid "Text"
 msgstr ""
 
-#: inc/display-posts/init.php:544
+#: inc/display-posts/init.php:552
 msgid "Question"
 msgstr ""
 
-#: inc/display-posts/init.php:545
+#: inc/display-posts/init.php:553
 msgid "Answer"
 msgstr ""
 
-#: inc/display-posts/init.php:546
-#: inc/display-posts/init.php:619
-#: inc/display-posts/init.php:659
+#: inc/display-posts/init.php:554
+#: inc/display-posts/init.php:631
+#: inc/display-posts/init.php:671
 msgid "Image"
 msgstr ""
 
-#: inc/display-posts/init.php:547
-#: inc/display-posts/init.php:586
-#: inc/display-posts/init.php:620
-#: inc/display-posts/init.php:660
+#: inc/display-posts/init.php:555
+#: inc/display-posts/init.php:595
+#: inc/display-posts/init.php:632
+#: inc/display-posts/init.php:672
 msgid "Order"
 msgstr ""
 
-#: inc/display-posts/init.php:585
+#: inc/display-posts/init.php:593
 msgid "Alert Text"
 msgstr ""
