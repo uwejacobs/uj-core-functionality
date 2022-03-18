@@ -292,7 +292,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			}
 			$output .= '  <div class="media-body">';
 			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . '</h3>';
-			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . wp_kses_post(nl2br($text)) .  '</p>';
+			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . wp_kses_post(str_replace("\n", '<br>', $text)) .  '</p>';
 			$output .= '  </div>';
 			$output .= '</div>';	
 			$output .= '</div>';	
@@ -311,7 +311,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output .= '  </div>';
 			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
 			$output .= '    <div class="card-body">';
-			$output .= wp_kses_post(nl2br($text));
+			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
 			$output .= '    </div>';
 			$output .= '  </div>';
 			$output .= '</div>';
@@ -323,7 +323,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			}
 			$output .= '  <div class="media-body">';
 			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . '</h3>';
-			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . wp_kses_post(nl2br($text)) .  '</p>';
+			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . wp_kses_post(str_replace("\n", '<br>', $text)) .  '</p>';
 			$output .= '  </div>';
 			$output .= '</' . esc_attr($tag) . '>';	
 		}
@@ -376,9 +376,9 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 			<img style="max-height:150px" src="<?php echo esc_url($img) ?>" alt="Avatar" class="rounded-circle">
 		</div>
 		<div class="col-12 <?php echo ($size == "large" ? "col-md-9" : "") ?>">
-			<p><span class="lead font-weight-normal mr-3"><?php echo esc_html(get_the_title()) ?></span><?php echo "<br>" . wp_kses_post(nl2br($meta["title"][0])) ?></p>
+			<p><span class="lead font-weight-normal mr-3"><?php echo esc_html(get_the_title()) ?></span><?php echo "<br>" . wp_kses_post(str_replace("\n", '<br>', $meta["title"][0])) ?></p>
 			<p><?php echo wp_kses_post($stars) ?></p>
-			<p><i class="fas fa-quote-left pr-3"></i><?php echo wp_kses_post(nl2br($meta["text"][0])) ?><i class="fas fa-quote-right pl-3"></i></p>
+			<p><i class="fas fa-quote-left pr-3"></i><?php echo wp_kses_post(str_replace("\n", '<br>', $meta["text"][0])) ?><i class="fas fa-quote-right pl-3"></i></p>
 		</div>
 	  </div>
 	</div>

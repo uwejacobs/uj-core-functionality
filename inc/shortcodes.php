@@ -106,7 +106,7 @@ add_shortcode( 'link', function($atts, $content){
 	);
 	
 	$url = ( !empty( $url ) ? $url : '#' );
-	$newwindow = ( $newwindow == 1 ? ' target="_blank"' : '' );
+	$newwindow = ( intval($newwindow) == 1 ? ' target="_blank"' : '' );
 	$class = ( !empty( $class ) ? ' class="' . $class . '"' : '' );
 	$rel = ( !empty( $rel ) ? ' rel="' . $rel . '"' : '' );
 

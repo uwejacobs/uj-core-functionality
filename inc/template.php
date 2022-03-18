@@ -37,7 +37,7 @@ if (!function_exists('ujcfe_getSiteOwnerPhone')) {
 
 if (!function_exists('ujcfe_getSiteOwnerLocationAddress')) {
 	function ujcfe_getSiteOwnerLocationAddress($atts) {
-		return nl2br(get_theme_mod("site_owner_location_address_setting"));
+		return str_replace("\n", '<br>', get_theme_mod("site_owner_location_address_setting"));
 	}
 	add_shortcode("cts_site_owner_location_address", "ujcfe_getSiteOwnerLocationAddress");
 }
@@ -46,7 +46,7 @@ if (!function_exists('ujcfe_getSiteOwnerMailingAddress')) {
 	function ujcfe_getSiteOwnerMailingAddress($atts) {
 		$address = get_theme_mod("site_owner_mailing_address_setting");
 		if (!empty($address)) {
-			return nl2br($address);
+			return str_replace("\n", '<br>', $address);
 		}
 		
 		return ujcfe_getSiteOwnerLocationAddress($atts);
@@ -158,11 +158,17 @@ if (!function_exists('ujcfe_getFullContacts')) {
 		foreach($contacts as $contact) {
 			if (!empty($contact['name'])) {
 				$s .= '<div class="contact">';
-				$s .= '<span class="mr-2">' . $contact['name'] . '</span>';
-				$s .= '<br class="d-md-block d-lg-none d-none" />';			
-				$s .= '<span class="mr-2">' . $contact['email'] . '</span>';
-				$s .= '<br class="d-md-block d-lg-none d-none" />';			
-				$s .= '<span>' . $contact['phone'] . '</span>';
+				if (!empty($contact['name'])) {
+					$s .= '<span class="mr-2">' . $contact['name'] . '</span>';
+					$s .= '<br class="d-md-block d-lg-none d-none" />';			
+				}
+				if (!empty($contact['email'])) {
+					$s .= '<span class="mr-2">' . $contact['email'] . '</span>';
+					$s .= '<br class="d-md-block d-lg-none d-none" />';			
+				}
+				if (!empty($contact['phone'])) {
+					$s .= '<span>' . $contact['phone'] . '</span>';
+				}
 				$s .= '</div>';
 			}
 		}

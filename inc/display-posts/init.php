@@ -522,7 +522,7 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 		function ujcf_custom_testimonial_column($column, $post_id) {
 			$meta = get_post_meta($post_id);
 			if ($column == 'credentials' && !empty($meta["title"][0])) {
-				echo wp_kses_post(nl2br($meta["title"][0]));
+				echo wp_kses_post(str_replace("\n", '<br>', $meta["title"][0]));
 			}
 			if ($column == 'picture') {
 				$img = wp_get_attachment_image_url($meta["picture"][0], 'thumbnail');
