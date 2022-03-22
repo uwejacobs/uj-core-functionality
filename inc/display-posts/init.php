@@ -19,6 +19,8 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 			self::$checkBoxLabels['alert'] = __('Alerts', 'uj-core-functionality');
 			self::$checkBoxes[] = 'booking';
 			self::$checkBoxLabels['booking'] = __('Bookings', 'uj-core-functionality');
+			self::$checkBoxes[] = 'event';
+			self::$checkBoxLabels['event'] = __('Events', 'uj-core-functionality');
 			self::$checkBoxes[] = 'faq';
 			self::$checkBoxLabels['faq'] = __('FAQs', 'uj-core-functionality');
 			self::$checkBoxes[] = 'fundraiser';
@@ -211,6 +213,26 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 							<td>
 								<?php $value = intval(self::get_theme_option( 'special_rate_period' )); ?>
 								<input type="text" name="theme_options[special_rate_period]" value="<?php echo esc_attr( $value ); ?>">
+							</td>
+						</tr>
+						<?php } ?>
+
+						<?php // Event ?>
+						<?php if (self::get_theme_option('event_checkbox')) { ?>
+						<tr>
+							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Event Settings:', 'uj-core-functionality' ) ?></th>
+						</tr>
+						<tr>
+							<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
+							<td>
+							<?php $value = self::get_theme_option( 'event_image' );
+								  self::media_script('event', $value); ?>
+							<div class="event_image_preview_wrapper">
+								<img id="event_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+							</div>
+							<input id="select_event_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
+							<input type="hidden" name="theme_options[event_image]" id="event_image_attachment_id" value="<?php echo esc_attr($value) ?>">
+							<input id="clear_event_image_button" type="button" class="button" value="Clear" />
 							</td>
 						</tr>
 						<?php } ?>
@@ -700,5 +722,78 @@ if (ujcf_get_theme_option('fundraiser_checkbox')) {
 		}
 		
 		add_filter( 'manage_edit-fundraiser_sortable_columns', 'ujcf_sortable_fundraiser_column' );
+	}
+}
+
+
+// Events
+if (ujcf_get_theme_option('event_checkbox')) {
+	if (!function_exists('ujcf_set_custom_edit_event_columns')) {
+		function ujcf_set_custom_edit_event_columns($columns) {
+			$columns['image'] = esc_html__('Image', 'uj-core-functionality');
+			$columns['start_date'] = esc_html__('Start Date', 'uj-core-functionality');
+			$columns['end_date'] = esc_html__('End Date', 'uj-core-functionality');
+			$columns['text'] = esc_html__('Text', 'uj-core-functionality');
+			$columns['text_image'] = esc_html__('Text Image', 'uj-core-functionality');
+			if (!in_array('administrator',  wp_get_current_user()->roles)) {
+				unset($columns['expirationdate']);
+			}
+			return $columns;
+		}
+	}
+
+	if (!function_exists('ujcf_custom_event_column')) {
+		function ujcf_custom_event_column($column, $post_id) {
+			$meta = get_post_meta($post_id);
+			if ($column == 'image') {
+				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
+				if ($img) {
+					echo '<img src="' . esc_url($img) . '" alt="Image" class="rounded-circle">';
+				}
+			}
+			if ($column == 'start_date' && !empty($meta["start_date"][0])) {
+				$date = new DateTime($meta["start_date"][0]);
+				echo esc_attr($date->format(get_option('date_format')));
+			}
+			if ($column == 'end_date' && !empty($meta["end_date"][0])) {
+				$date = new DateTime($meta["end_date"][0]);
+				echo esc_attr($date->format(get_option('date_format')));
+			}
+			if ($column == 'text' && !empty($meta["text"][0])) {
+				echo esc_attr($meta["text"][0]);
+			}
+			if ($column == 'text_image') {
+				$img = wp_get_attachment_image_url($meta["text_image"][0], 'medium');
+				if ($img) {
+					echo '<img src="' . esc_url($img) . '" alt="Text Image" class="rounded-circle">';
+				}
+			}
+		}
+	}
+
+	if (!function_exists('ujcf_sortable_event_column')) {
+		function ujcf_sortable_event_column( $columns ) {
+			$columns['start_date'] = 'start_date';
+
+			return $columns;
+		}
+		
+		add_filter( 'manage_edit-event_sortable_columns', 'ujcf_sortable_event_column' );
+	}
+
+	if (!function_exists('ujcf_event_start_date_orderby')) {
+		function ujcf_event_start_date_orderby( $query ) {
+			if( ! is_admin() )
+				return;
+
+			$orderby = $query->get( 'orderby');
+
+			if( 'start_date' == $orderby ) {
+				$query->set('meta_key','start_date');
+				$query->set('orderby','meta_value');
+			}
+		}
+
+		add_action( 'pre_get_posts', 'ujcf_event_start_date_orderby' );
 	}
 }

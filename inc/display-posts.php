@@ -210,6 +210,12 @@ if (!function_exists('ujcf_dps_option_output')) {
 						$output = $new_output;
 					}
 					break;
+				case 'event':
+					$new_output = ujcf_dps_option_output_events($output, $atts);
+					if (!empty($new_output)) {
+						$output = $new_output;
+					}
+					break;
 			}
 		}
 
@@ -324,6 +330,134 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output .= '  <div class="media-body">';
 			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . '</h3>';
 			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . wp_kses_post(str_replace("\n", '<br>', $text)) .  '</p>';
+			$output .= '  </div>';
+			$output .= '</' . esc_attr($tag) . '>';	
+		}
+		
+		return $output;
+	}
+}
+
+if (!function_exists('ujcf_dps_option_output_events')) {
+	function ujcf_dps_option_output_events($output, $atts) {
+		global $post;
+
+		$cnt = ujcf_static_dps_item_counter();
+		$dpsCnt = ujcf_static_dps_counter();
+		$type = $atts['post_type'];
+		if (empty($type)) {
+			return ($output);
+		}
+		
+		$defaultImage = wp_get_attachment_image_url(ujcf_get_theme_option($type . '_image'));
+		$defaultAlt = "Generic " . $type . " image";
+
+		$meta = get_post_meta($post->ID);
+
+		if (!empty($defaultImage)) {
+			$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
+			if (!$img) {
+				$img = $defaultImage;
+			}
+			$alt = get_post_meta($meta["image"][0], '_wp_attachment_image_alt', true);
+			if (!$alt) {
+				$alt = $defaultAlt;
+			}
+			$max_height = intval($atts["max_height"] ?? 50);
+		} else {
+			$img = null;
+		}
+		$text = do_shortcode($meta["text"][0] ?? '');
+
+		$start = date('m/d/Y', strtotime($meta["start_date"][0]));
+		if (!empty($meta["end_date"][0])) {
+			$end = date('m/d/Y', strtotime($meta["end_date"][0]));
+		} else {
+			$end = null;
+		}
+
+		$txt_img = wp_get_attachment_image_url($meta["text_image"][0], 'medium');
+		$txt_alt = "";
+		if ($img) {
+			$txt_alt = get_post_meta($meta["text_image"][0], '_wp_attachment_image_alt', true);
+		}
+
+		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
+			$output = ' <div class="carousel-item' . ($cnt == 1 ? ' active' : '') . '">';
+			$output .= '<div class="media">';
+			if ($img) {
+				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="mr-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+			}
+			$output .= '  <div class="media-body">';
+			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . ' (' . $start . ($end ? " - " . $end : "") . ')</h3>';
+
+			if ($txt_img) {
+				$output .= '<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile">';
+				$output .= '	<figure class="wp-block-media-text__media">';
+				$output .= '		<img class="size-medium" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
+				$output .= '	</figure>';
+				$output .= '	<div class="wp-block-media-text__content align-self-start pl-0">';
+			}
+			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
+			$output .= '	</div>';
+			if ($txt_img) {
+				$output .= '</div>';
+			}
+
+			$output .= '  </div>';
+			$output .= '</div>';	
+			$output .= '</div>';	
+		} else 	if (!empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper']) {
+			$output  = '<div class="card">';
+			$output .= '  <div class="card-header" id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
+			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
+			$output .= '      <button class="btn btn-block text-left" data-toggle="collapse" data-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="true" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
+			$output .= '        <i class="fas fa-plus float-right"></i>';
+			if ($img) {
+				$output .= '  <img style="max-height:' . $max_height . 'px" class="mr-3 accordion-image" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+			}
+			$output .= esc_html(get_the_title()) . ' (' . $start . ($end ? " - " . $end : "") . ')';
+			$output .= '      </button>';
+			$output .= '    </h3>';
+			$output .= '  </div>';
+			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
+			$output .= '    <div class="card-body">';
+			if ($txt_img) {
+				$output .= '<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile">';
+				$output .= '	<figure class="wp-block-media-text__media">';
+				$output .= '		<img class="size-medium" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
+				$output .= '	</figure>';
+				$output .= '	<div class="wp-block-media-text__content align-self-start pl-0">';
+			}
+			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
+			if ($txt_img) {
+				$output .= '	</div>';
+				$output .= '</div>';
+			}
+			$output .= '    </div>';
+			$output .= '  </div>';
+			$output .= '</div>';
+		} else {
+			$tag = empty($atts["wrapper"]) ? 'li' : 'div';
+			$output = '<' . esc_attr($tag) . ' class="media">';
+			if ($img) {
+				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="mr-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+			}
+			$output .= '  <div class="media-body">';
+			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . ' (' . $start . ($end ? " - " . $end : "") . ')</h3>';
+
+			if ($txt_img) {
+				$output .= '<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile">';
+				$output .= '	<figure class="wp-block-media-text__media">';
+				$output .= '		<img class="size-medium" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
+				$output .= '	</figure>';
+				$output .= '	<div class="wp-block-media-text__content align-self-start pl-0">';
+			}
+			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
+			if ($txt_img) {
+				$output .= '	</div>';
+				$output .= '</div>';
+			}
 			$output .= '  </div>';
 			$output .= '</' . esc_attr($tag) . '>';	
 		}

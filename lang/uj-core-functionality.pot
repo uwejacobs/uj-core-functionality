@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Core Functionality plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Core Functionality 1.0.6\n"
+"Project-Id-Version: Core Functionality 1.0.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/UJ-Core-Functionality\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-18T11:40:19-04:00\n"
+"POT-Creation-Date: 2022-03-22T17:29:31-04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: uj-core-functionality\n"
@@ -26,35 +26,35 @@ msgstr ""
 msgid "Uwe Jacobs"
 msgstr ""
 
-#: inc/display-posts.php:493
+#: inc/display-posts.php:627
 msgid "Sun"
 msgstr ""
 
-#: inc/display-posts.php:493
+#: inc/display-posts.php:627
 msgid "Mon"
 msgstr ""
 
-#: inc/display-posts.php:493
+#: inc/display-posts.php:627
 msgid "Tue"
 msgstr ""
 
-#: inc/display-posts.php:493
+#: inc/display-posts.php:627
 msgid "Wed"
 msgstr ""
 
-#: inc/display-posts.php:493
+#: inc/display-posts.php:627
 msgid "Thu"
 msgstr ""
 
-#: inc/display-posts.php:493
+#: inc/display-posts.php:627
 msgid "Fri"
 msgstr ""
 
-#: inc/display-posts.php:493
+#: inc/display-posts.php:627
 msgid "Sat"
 msgstr ""
 
-#: inc/display-posts.php:522
+#: inc/display-posts.php:656
 msgid "Special Rates"
 msgstr ""
 
@@ -77,9 +77,10 @@ msgstr ""
 #: inc/display-posts/custom_post_types.php:17
 #: inc/display-posts/custom_post_types.php:85
 #: inc/display-posts/custom_post_types.php:153
-#: inc/display-posts/custom_post_types.php:220
-#: inc/display-posts/custom_post_types.php:288
-#: inc/display-posts/custom_post_types.php:356
+#: inc/display-posts/custom_post_types.php:222
+#: inc/display-posts/custom_post_types.php:289
+#: inc/display-posts/custom_post_types.php:357
+#: inc/display-posts/custom_post_types.php:425
 msgid "Add new"
 msgstr ""
 
@@ -305,615 +306,746 @@ msgstr ""
 #: inc/display-posts/custom_post_types.php:152
 #: inc/display-posts/custom_post_types.php:184
 #: inc/display-posts/init.php:23
-msgid "FAQs"
+msgid "Events"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:150
 #: inc/display-posts/custom_post_types.php:174
-msgid "FAQ"
+msgid "Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:151
-msgid "My FAQs"
+msgid "My Events"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:154
-msgid "Add new FAQ"
+msgid "Add new Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:155
-msgid "Edit FAQ"
+msgid "Edit Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:156
-msgid "New FAQ"
+msgid "New Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:157
-msgid "View FAQ"
+msgid "View Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:158
-msgid "View FAQs"
+msgid "View Events"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:159
-msgid "Search FAQs"
+msgid "Search Events"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:160
-msgid "No FAQs found"
+msgid "No Events found"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:161
-msgid "No FAQs found in trash"
+msgid "No Events found in trash"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:162
 #: inc/display-posts/custom_post_types.php:180
-msgid "Parent FAQ:"
+msgid "Parent Event:"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:163
-msgid "Featured image for this FAQ"
+msgid "Featured image for this Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:164
-msgid "Set featured image for this FAQ"
+msgid "Set featured image for this Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:165
-msgid "Remove featured image for this FAQ"
+msgid "Remove featured image for this Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:166
-msgid "Use as featured image for this FAQ"
+msgid "Use as featured image for this Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:167
-msgid "FAQ archives"
+msgid "Event archives"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:168
-msgid "Insert into FAQ"
+msgid "Insert into Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:169
-msgid "Upload to this FAQ"
+msgid "Upload to this Event"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:170
-msgid "Filter FAQs list"
+msgid "Filter Events list"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:171
-msgid "FAQs list navigation"
+msgid "Events list navigation"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:172
-msgid "FAQs list"
+msgid "Events list"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:173
-msgid "FAQs attributes"
+msgid "Events attributes"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:175
-msgid "FAQ published"
+msgid "Event published"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:176
-msgid "FAQ published privately."
+msgid "Event published privately."
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:177
-msgid "FAQ reverted to draft."
+msgid "Event reverted to draft."
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:178
-msgid "FAQ scheduled"
+msgid "Event scheduled"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:179
-msgid "FAQ updated."
-msgstr ""
-
-#: inc/display-posts/custom_post_types.php:216
-#: inc/display-posts/custom_post_types.php:217
-#: inc/display-posts/custom_post_types.php:219
-#: inc/display-posts/custom_post_types.php:241
-#: inc/display-posts/custom_post_types.php:251
-#: inc/display-posts/init.php:25
-msgid "Fundraiser"
+msgid "Event updated."
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:218
-msgid "My Fundraiser"
-msgstr ""
-
 #: inc/display-posts/custom_post_types.php:221
-msgid "Add new Fundraiser"
+#: inc/display-posts/custom_post_types.php:253
+#: inc/display-posts/init.php:25
+msgid "FAQs"
 msgstr ""
 
-#: inc/display-posts/custom_post_types.php:222
-msgid "Edit Fundraiser"
+#: inc/display-posts/custom_post_types.php:219
+#: inc/display-posts/custom_post_types.php:243
+msgid "FAQ"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:220
+msgid "My FAQs"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:223
-msgid "New Fundraiser"
+msgid "Add new FAQ"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:224
+msgid "Edit FAQ"
+msgstr ""
+
 #: inc/display-posts/custom_post_types.php:225
-msgid "View Fundraiser"
+msgid "New FAQ"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:226
-msgid "Search Fundraiser"
+msgid "View FAQ"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:227
-msgid "No Fundraiser found"
+msgid "View FAQs"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:228
-msgid "No Fundraiser found in trash"
+msgid "Search FAQs"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:229
-#: inc/display-posts/custom_post_types.php:247
-msgid "Parent Fundraiser:"
+msgid "No FAQs found"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:230
-msgid "Featured image for this Fundraiser"
+msgid "No FAQs found in trash"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:231
-msgid "Set featured image for this Fundraiser"
+#: inc/display-posts/custom_post_types.php:249
+msgid "Parent FAQ:"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:232
-msgid "Remove featured image for this Fundraiser"
+msgid "Featured image for this FAQ"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:233
-msgid "Use as featured image for this Fundraiser"
+msgid "Set featured image for this FAQ"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:234
-msgid "Fundraiser archives"
+msgid "Remove featured image for this FAQ"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:235
-msgid "Insert into Fundraiser"
+msgid "Use as featured image for this FAQ"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:236
-msgid "Upload to this Fundraiser"
+msgid "FAQ archives"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:237
-msgid "Filter Fundraiser list"
+msgid "Insert into FAQ"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:238
-msgid "Fundraiser list navigation"
+msgid "Upload to this FAQ"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:239
-msgid "Fundraiser list"
+msgid "Filter FAQs list"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:240
-msgid "Fundraiser attributes"
+msgid "FAQs list navigation"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:241
+msgid "FAQs list"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:242
-msgid "Fundraiser published"
-msgstr ""
-
-#: inc/display-posts/custom_post_types.php:243
-msgid "Fundraiser published privately."
+msgid "FAQs attributes"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:244
-msgid "Fundraiser reverted to draft."
+msgid "FAQ published"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:245
-msgid "Fundraiser scheduled"
+msgid "FAQ published privately."
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:246
-msgid "Fundraiser updated."
+msgid "FAQ reverted to draft."
 msgstr ""
 
-#: inc/display-posts/custom_post_types.php:284
+#: inc/display-posts/custom_post_types.php:247
+msgid "FAQ scheduled"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:248
+msgid "FAQ updated."
+msgstr ""
+
 #: inc/display-posts/custom_post_types.php:285
-#: inc/display-posts/custom_post_types.php:287
-#: inc/display-posts/custom_post_types.php:309
-#: inc/display-posts/custom_post_types.php:319
-#: inc/display-posts/init.php:27
-msgid "News"
-msgstr ""
-
 #: inc/display-posts/custom_post_types.php:286
-msgid "My News"
+#: inc/display-posts/custom_post_types.php:288
+#: inc/display-posts/custom_post_types.php:310
+#: inc/display-posts/custom_post_types.php:320
+#: inc/display-posts/init.php:27
+msgid "Fundraiser"
 msgstr ""
 
-#: inc/display-posts/custom_post_types.php:289
-msgid "Add new News"
+#: inc/display-posts/custom_post_types.php:287
+msgid "My Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:290
-msgid "Edit News"
+msgid "Add new Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:291
-msgid "New News"
+msgid "Edit Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:292
-#: inc/display-posts/custom_post_types.php:293
-msgid "View News"
+msgid "New Fundraiser"
 msgstr ""
 
+#: inc/display-posts/custom_post_types.php:293
 #: inc/display-posts/custom_post_types.php:294
-msgid "Search News"
+msgid "View Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:295
-msgid "No News found"
+msgid "Search Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:296
-msgid "No News found in trash"
+msgid "No Fundraiser found"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:297
-#: inc/display-posts/custom_post_types.php:315
-msgid "Parent News:"
+msgid "No Fundraiser found in trash"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:298
-msgid "Featured image for this News"
+#: inc/display-posts/custom_post_types.php:316
+msgid "Parent Fundraiser:"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:299
-msgid "Set featured image for this News"
+msgid "Featured image for this Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:300
-msgid "Remove featured image for this News"
+msgid "Set featured image for this Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:301
-msgid "Use as featured image for this News"
+msgid "Remove featured image for this Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:302
-msgid "News archives"
+msgid "Use as featured image for this Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:303
-msgid "Insert into News"
+msgid "Fundraiser archives"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:304
-msgid "Upload to this News"
+msgid "Insert into Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:305
-msgid "Filter News list"
+msgid "Upload to this Fundraiser"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:306
-msgid "News list navigation"
+msgid "Filter Fundraiser list"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:307
-msgid "News list"
+msgid "Fundraiser list navigation"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:308
-msgid "News attributes"
+msgid "Fundraiser list"
 msgstr ""
 
-#: inc/display-posts/custom_post_types.php:310
-msgid "News published"
+#: inc/display-posts/custom_post_types.php:309
+msgid "Fundraiser attributes"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:311
-msgid "News published privately."
+msgid "Fundraiser published"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:312
-msgid "News reverted to draft."
+msgid "Fundraiser published privately."
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:313
-msgid "News scheduled"
+msgid "Fundraiser reverted to draft."
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:314
-msgid "News updated."
+msgid "Fundraiser scheduled"
 msgstr ""
 
-#: inc/display-posts/custom_post_types.php:352
-#: inc/display-posts/custom_post_types.php:355
-#: inc/display-posts/custom_post_types.php:387
-#: inc/display-posts/init.php:29
-msgid "Testimonials"
+#: inc/display-posts/custom_post_types.php:315
+msgid "Fundraiser updated."
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:353
-#: inc/display-posts/custom_post_types.php:377
-msgid "Testimonial"
-msgstr ""
-
 #: inc/display-posts/custom_post_types.php:354
-msgid "My Testimonials"
+#: inc/display-posts/custom_post_types.php:356
+#: inc/display-posts/custom_post_types.php:378
+#: inc/display-posts/custom_post_types.php:388
+#: inc/display-posts/init.php:29
+msgid "News"
 msgstr ""
 
-#: inc/display-posts/custom_post_types.php:357
-msgid "Add new Testimonial"
+#: inc/display-posts/custom_post_types.php:355
+msgid "My News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:358
-msgid "Edit Testimonial"
+msgid "Add new News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:359
-msgid "New Testimonial"
+msgid "Edit News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:360
-msgid "View Testimonial"
+msgid "New News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:361
-msgid "View Testimonials"
-msgstr ""
-
 #: inc/display-posts/custom_post_types.php:362
-msgid "Search Testimonials"
+msgid "View News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:363
-msgid "No Testimonials found"
+msgid "Search News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:364
-msgid "No Testimonials found in trash"
+msgid "No News found"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:365
-#: inc/display-posts/custom_post_types.php:383
-msgid "Parent Testimonial:"
+msgid "No News found in trash"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:366
-msgid "Featured image for this Testimonial"
+#: inc/display-posts/custom_post_types.php:384
+msgid "Parent News:"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:367
-msgid "Set featured image for this Testimonial"
+msgid "Featured image for this News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:368
-msgid "Remove featured image for this Testimonial"
+msgid "Set featured image for this News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:369
-msgid "Use as featured image for this Testimonial"
+msgid "Remove featured image for this News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:370
-msgid "Testimonial archives"
+msgid "Use as featured image for this News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:371
-msgid "Insert into Testimonial"
+msgid "News archives"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:372
-msgid "Upload to this Testimonial"
+msgid "Insert into News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:373
-msgid "Filter Testimonials list"
+msgid "Upload to this News"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:374
-msgid "Testimonials list navigation"
+msgid "Filter News list"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:375
-msgid "Testimonials list"
+msgid "News list navigation"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:376
-msgid "Testimonials attributes"
+msgid "News list"
 msgstr ""
 
-#: inc/display-posts/custom_post_types.php:378
-msgid "Testimonial published"
+#: inc/display-posts/custom_post_types.php:377
+msgid "News attributes"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:379
-msgid "Testimonial published privately."
+msgid "News published"
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:380
-msgid "Testimonial reverted to draft."
+msgid "News published privately."
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:381
-msgid "Testimonial scheduled"
+msgid "News reverted to draft."
 msgstr ""
 
 #: inc/display-posts/custom_post_types.php:382
+msgid "News scheduled"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:383
+msgid "News updated."
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:421
+#: inc/display-posts/custom_post_types.php:424
+#: inc/display-posts/custom_post_types.php:456
+#: inc/display-posts/init.php:31
+msgid "Testimonials"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:422
+#: inc/display-posts/custom_post_types.php:446
+msgid "Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:423
+msgid "My Testimonials"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:426
+msgid "Add new Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:427
+msgid "Edit Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:428
+msgid "New Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:429
+msgid "View Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:430
+msgid "View Testimonials"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:431
+msgid "Search Testimonials"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:432
+msgid "No Testimonials found"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:433
+msgid "No Testimonials found in trash"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:434
+#: inc/display-posts/custom_post_types.php:452
+msgid "Parent Testimonial:"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:435
+msgid "Featured image for this Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:436
+msgid "Set featured image for this Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:437
+msgid "Remove featured image for this Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:438
+msgid "Use as featured image for this Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:439
+msgid "Testimonial archives"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:440
+msgid "Insert into Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:441
+msgid "Upload to this Testimonial"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:442
+msgid "Filter Testimonials list"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:443
+msgid "Testimonials list navigation"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:444
+msgid "Testimonials list"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:445
+msgid "Testimonials attributes"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:447
+msgid "Testimonial published"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:448
+msgid "Testimonial published privately."
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:449
+msgid "Testimonial reverted to draft."
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:450
+msgid "Testimonial scheduled"
+msgstr ""
+
+#: inc/display-posts/custom_post_types.php:451
 msgid "Testimonial updated."
 msgstr ""
 
-#: inc/display-posts/init.php:76
-#: inc/display-posts/init.php:77
+#: inc/display-posts/init.php:78
+#: inc/display-posts/init.php:79
 msgid "Theme Settings"
 msgstr ""
 
-#: inc/display-posts/init.php:87
-#: inc/display-posts/init.php:88
+#: inc/display-posts/init.php:89
+#: inc/display-posts/init.php:90
 msgid "General"
 msgstr ""
 
-#: inc/display-posts/init.php:155
+#: inc/display-posts/init.php:157
 msgid "Theme Options"
 msgstr ""
 
-#: inc/display-posts/init.php:165
+#: inc/display-posts/init.php:167
 msgid "Post Types"
 msgstr ""
 
-#: inc/display-posts/init.php:177
+#: inc/display-posts/init.php:179
 msgid "Alert Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:180
-#: inc/display-posts/init.php:594
+#: inc/display-posts/init.php:182
+#: inc/display-posts/init.php:616
 msgid "Background Color"
 msgstr ""
 
-#: inc/display-posts/init.php:186
+#: inc/display-posts/init.php:188
 msgid "Primary"
 msgstr ""
 
-#: inc/display-posts/init.php:187
+#: inc/display-posts/init.php:189
 msgid "Secondary"
 msgstr ""
 
-#: inc/display-posts/init.php:188
+#: inc/display-posts/init.php:190
 msgid "Info"
 msgstr ""
 
-#: inc/display-posts/init.php:189
+#: inc/display-posts/init.php:191
 msgid "Success"
 msgstr ""
 
-#: inc/display-posts/init.php:190
+#: inc/display-posts/init.php:192
 msgid "Warning"
 msgstr ""
 
-#: inc/display-posts/init.php:191
+#: inc/display-posts/init.php:193
 msgid "Danger"
 msgstr ""
 
-#: inc/display-posts/init.php:207
+#: inc/display-posts/init.php:209
 msgid "Booking Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:210
+#: inc/display-posts/init.php:212
 msgid "Special Rate Period"
 msgstr ""
 
-#: inc/display-posts/init.php:221
-msgid "FAQ Settings:"
+#: inc/display-posts/init.php:223
+msgid "Event Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:224
-#: inc/display-posts/init.php:244
-#: inc/display-posts/init.php:264
+#: inc/display-posts/init.php:226
+#: inc/display-posts/init.php:246
+#: inc/display-posts/init.php:266
+#: inc/display-posts/init.php:286
 msgid "Default Image"
 msgstr ""
 
-#: inc/display-posts/init.php:231
-#: inc/display-posts/init.php:251
-#: inc/display-posts/init.php:271
-#: inc/display-posts/init.php:291
-#: inc/display-posts/init.php:304
+#: inc/display-posts/init.php:233
+#: inc/display-posts/init.php:253
+#: inc/display-posts/init.php:273
+#: inc/display-posts/init.php:293
+#: inc/display-posts/init.php:313
+#: inc/display-posts/init.php:326
 msgid "Select image"
 msgstr ""
 
-#: inc/display-posts/init.php:241
+#: inc/display-posts/init.php:243
+msgid "FAQ Settings:"
+msgstr ""
+
+#: inc/display-posts/init.php:263
 msgid "Fundraiser Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:261
+#: inc/display-posts/init.php:283
 msgid "News Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:281
+#: inc/display-posts/init.php:303
 msgid "Testimonials Settings:"
 msgstr ""
 
-#: inc/display-posts/init.php:284
+#: inc/display-posts/init.php:306
 msgid "Default Female Avatar Image"
 msgstr ""
 
-#: inc/display-posts/init.php:297
+#: inc/display-posts/init.php:319
 msgid "Default Male Avatar Image"
 msgstr ""
 
-#: inc/display-posts/init.php:450
+#: inc/display-posts/init.php:472
+#: inc/display-posts/init.php:734
 msgid "Start Date"
 msgstr ""
 
-#: inc/display-posts/init.php:451
+#: inc/display-posts/init.php:473
+#: inc/display-posts/init.php:735
 msgid "End Date"
 msgstr ""
 
-#: inc/display-posts/init.php:452
+#: inc/display-posts/init.php:474
 #: inc/display-posts/quick_edit_box.php:34
 msgid "Status"
 msgstr ""
 
-#: inc/display-posts/init.php:453
+#: inc/display-posts/init.php:475
 msgid "Comment"
 msgstr ""
 
-#: inc/display-posts/init.php:512
+#: inc/display-posts/init.php:534
 msgid "Name"
 msgstr ""
 
-#: inc/display-posts/init.php:513
+#: inc/display-posts/init.php:535
 msgid "Title"
 msgstr ""
 
-#: inc/display-posts/init.php:514
+#: inc/display-posts/init.php:536
 msgid "Picture"
 msgstr ""
 
-#: inc/display-posts/init.php:515
+#: inc/display-posts/init.php:537
 msgid "Stars"
 msgstr ""
 
-#: inc/display-posts/init.php:516
-#: inc/display-posts/init.php:630
-#: inc/display-posts/init.php:670
+#: inc/display-posts/init.php:538
+#: inc/display-posts/init.php:652
+#: inc/display-posts/init.php:692
+#: inc/display-posts/init.php:736
 msgid "Text"
 msgstr ""
 
-#: inc/display-posts/init.php:552
+#: inc/display-posts/init.php:574
 msgid "Question"
 msgstr ""
 
-#: inc/display-posts/init.php:553
+#: inc/display-posts/init.php:575
 msgid "Answer"
 msgstr ""
 
-#: inc/display-posts/init.php:554
-#: inc/display-posts/init.php:631
-#: inc/display-posts/init.php:671
+#: inc/display-posts/init.php:576
+#: inc/display-posts/init.php:653
+#: inc/display-posts/init.php:693
+#: inc/display-posts/init.php:733
 msgid "Image"
 msgstr ""
 
-#: inc/display-posts/init.php:555
-#: inc/display-posts/init.php:595
-#: inc/display-posts/init.php:632
-#: inc/display-posts/init.php:672
+#: inc/display-posts/init.php:577
+#: inc/display-posts/init.php:617
+#: inc/display-posts/init.php:654
+#: inc/display-posts/init.php:694
 msgid "Order"
 msgstr ""
 
-#: inc/display-posts/init.php:593
+#: inc/display-posts/init.php:615
 msgid "Alert Text"
+msgstr ""
+
+#: inc/display-posts/init.php:737
+msgid "Text Image"
 msgstr ""
