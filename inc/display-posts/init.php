@@ -77,7 +77,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 			add_menu_page(
 				esc_html__( 'Theme Settings', 'uj-core-functionality' ),
 				esc_html__( 'Theme Settings', 'uj-core-functionality' ),
-				'manage_options',
+				'edit_theme_options',
 				'theme_options',
 				'',
 				$icon_url,
@@ -88,7 +88,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 				'theme_options',
 				esc_html__( 'General', 'uj-core-functionality' ),
 				esc_html__( 'General', 'uj-core-functionality' ),
-				'manage_options',
+				'edit_theme_options',
 				'theme_options',
 				array( 'UJ_Theme_Options', 'create_admin_page' ),
 				0
