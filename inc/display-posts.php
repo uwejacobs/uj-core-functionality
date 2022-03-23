@@ -399,8 +399,8 @@ if (!function_exists('ujcf_dps_option_output_events')) {
 				$output .= '	<div class="wp-block-media-text__content align-self-start pl-0">';
 			}
 			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
-			$output .= '	</div>';
 			if ($txt_img) {
+				$output .= '	</div>';
 				$output .= '</div>';
 			}
 

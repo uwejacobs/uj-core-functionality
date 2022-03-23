@@ -413,14 +413,14 @@ if (!function_exists('ujcfe_getSocialIcons')) {
 
 if (!function_exists('ujcfe_getRecaptchaV2')) {
 	function ujcfe_getRecaptchaV2($atts) {
-		return get_theme_mod("recaptcha_key_v2_setting");
+		return get_theme_mod("recaptcha_site_key_v2_setting");
 	}
 	add_shortcode("cts_recaptcha_key_v2", "ujcfe_getRecaptchaV2");
 }
 
 if (!function_exists('ujcfe_getRecaptchaV3')) {
 	function ujcfe_getRecaptchaV3($atts) {
-		return get_theme_mod("recaptcha_key_v3_setting");
+		return get_theme_mod("recaptcha_site_key_v3_setting");
 	}
 	add_shortcode("cts_recaptcha_key_v3", "ujcfe_getRecaptchaV3");
 }
