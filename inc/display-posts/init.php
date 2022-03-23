@@ -509,22 +509,6 @@ if (ujcf_get_theme_option('booking_checkbox')) {
 		
 		add_filter( 'manage_edit-booking_sortable_columns', 'ujcf_sortable_booking_column' );
 	}
-
-	if (!function_exists('ujcf_booking_start_date_orderby')) {
-		function ujcf_booking_start_date_orderby( $query ) {
-			if( ! is_admin() )
-				return;
-
-			$orderby = $query->get( 'orderby');
-
-			if( 'start_date' == $orderby ) {
-				$query->set('meta_key','start_date');
-				$query->set('orderby','meta_value');
-			}
-		}
-
-		add_action( 'pre_get_posts', 'ujcf_booking_start_date_orderby' );
-	}
 }
 
 // Testimonials
@@ -780,20 +764,23 @@ if (ujcf_get_theme_option('event_checkbox')) {
 		
 		add_filter( 'manage_edit-event_sortable_columns', 'ujcf_sortable_event_column' );
 	}
+}
 
-	if (!function_exists('ujcf_event_start_date_orderby')) {
-		function ujcf_event_start_date_orderby( $query ) {
-			if( ! is_admin() )
-				return;
-
-			$orderby = $query->get( 'orderby');
-
-			if( 'start_date' == $orderby ) {
-				$query->set('meta_key','start_date');
-				$query->set('orderby','meta_value');
-			}
+if (!function_exists('ujcf_pre_posts_orderby')) {
+	function ujcf_pre_posts_orderby($query) {
+		if (!is_admin())
+			return;
+		
+		$orderby = $query->get( 'orderby');
+	 
+		if ('order' == $orderby) {
+			$query->set('meta_key', 'order');
+			$query->set('orderby', 'meta_value_num');
+		} else if ('start_date' == $orderby) {
+			$query->set('meta_key', 'start_date');
+			$query->set('orderby', 'meta_value');
 		}
-
-		add_action( 'pre_get_posts', 'ujcf_event_start_date_orderby' );
 	}
+	
+	add_action('pre_get_posts', 'ujcf_pre_posts_orderby' );
 }
