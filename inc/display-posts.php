@@ -43,26 +43,25 @@ if (!function_exists('ujcf_dps_posts_open')) {
 		if ( ! empty( $atts['wrapper'] ) && 'carousel' === $atts['wrapper'] ) {
 			$arrow_class = (!empty($atts['arrow-color-class']) ? 'bg-' . $atts['arrow-color-class'] : "bg-dark");
 			
-			$output = '<style>';
+			$output = '<style type="text/css">';
 			$output .= '#dps-carousel-' . esc_attr($dpsCnt) . ' .carousel-indicators {';
 			$output .= '  position: absolute;';
-			$output .= '  bottom: -50px;';
 			$output .= '}';
 			$output .= '#dps-carousel-' . esc_attr($dpsCnt) . ' .carousel-inner {';
 			$output .= '  width: 70%;';
 			$output .= '}';
 			$output .= '</style>';
-			$output .= '<div id="dps-carousel-' . esc_attr($dpsCnt) . '" class="dps-carousel carousel slide display-posts-listing mb-5" data-ride="carousel" data-interval="'.$interval.'">';
+			$output .= '<div id="dps-carousel-' . esc_attr($dpsCnt) . '" class="dps-carousel carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="'.$interval.'">';
 			$output .= '    <ol class="carousel-indicators">';
 
 			for ($i = 0; $i < $indicator_cnt; $i++) {
-				$output .= '        <li data-target="#dps-carousel-' . esc_attr($dpsCnt) . '" data-slide-to="' . esc_attr($i) . '" class="' . esc_attr($arrow_class) . (!$i ? ' active' : '') . '"></li>';
+				$output .= '        <li data-bs-target="#dps-carousel-' . esc_attr($dpsCnt) . '" data-bs-slide-to="' . esc_attr($i) . '" class="' . esc_attr($arrow_class) . (!$i ? ' active' : '') . '"></li>';
 			}
 
 			$output .= '    </ol>';
 			$output .= '    <div class="carousel-inner m-auto">';
 		} else if ( ! empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper'] ) {
-			$output = '<div id="dps-accordion-' . esc_attr($dpsCnt) . '" class="dps-accordion">';
+			$output = '<div id="dps-accordion-' . esc_attr($dpsCnt) . '" class="accordion dps-accordion">';
 		}
 
 		return $output;
@@ -100,18 +99,17 @@ if (!function_exists('ujcf_dps_posts_close')) {
 
 		if ( ! empty( $atts['wrapper'] ) && 'carousel' === $atts['wrapper'] ) {
 			$output = '</div>';
+			$arrow_class = (!empty($atts['arrow-color-class']) ? 'text-' . $atts['arrow-color-class'] : "text-dark");
 			if (!isset($atts['left-arrow']) ||
 			   (isset($atts['left-arrow']) && $atts['left-arrow'] === 'true')) {
-				$arrow_class = (!empty($atts['arrow-color-class']) ? 'text-' . $atts['arrow-color-class'] : "text-dark");
-				
-				$output .= '    <a class="carousel-control-prev" href="#dps-carousel-' . esc_attr($dpsCnt) . '" role="button" data-slide="prev">';
+				$output .= '    <a class="carousel-control-prev" href="#dps-carousel-' . esc_attr($dpsCnt) . '" role="button" data-bs-slide="prev">';
 				$output .= '        <i class="fas fa-chevron-circle-left fa-3x ' . esc_attr($arrow_class) . '" aria-hidden="true"></i>';
 				$output .= '        <span class="sr-only">Previous</span>';
 				$output .= '    </a>';
 			}
 			if (!isset($atts['right-arrow']) ||
 			   (isset($atts['right-arrow']) && $atts['right-arrow'] === 'true')) {
-				$output .= '<a class="carousel-control-next" href="#dps-carousel-' . esc_attr($dpsCnt) . '" role="button" data-slide="next">';
+				$output .= '<a class="carousel-control-next" href="#dps-carousel-' . esc_attr($dpsCnt) . '" role="button" data-bs-slide="next">';
 				$output .= '        <i class="fas fa-chevron-circle-right fa-3x ' . esc_attr($arrow_class) . '" aria-hidden="true"></i>';
 				$output .= '    <span class="sr-only">Next</span>';
 				$output .= '</a>';
@@ -121,7 +119,12 @@ if (!function_exists('ujcf_dps_posts_close')) {
 			$output .= '    jQuery(window).resize(function () {';
 			$output .= '        setCarouselHeight' . esc_attr($dpsCnt) . '("#dps-carousel-' . esc_attr($dpsCnt) . '");';
 			$output .= '    });';
-			$output .= '    setCarouselHeight' . esc_attr($dpsCnt) . '("#dps-carousel-' . esc_attr($dpsCnt) . '");';
+			$output .= '    jQuery(document).ready(function () {';
+			$output .= '        jQuery(window).trigger("resize");';
+			$output .= '    });';
+			$output .= '    jQuery("#dps-carousel-' . esc_attr($dpsCnt) . '").bind("slide.bs.carousel", function () {';
+			$output .= '        jQuery(window).trigger("resize");';
+			$output .= '    });';
 			$output .= '    function setCarouselHeight' . esc_attr($dpsCnt) . '(id) {';
 			$output .= '        var slideHeight = [];';
 			$output .= '        jQuery(id + " .carousel-item").each(function() {';
@@ -129,7 +132,7 @@ if (!function_exists('ujcf_dps_posts_close')) {
 			$output .= '        });';
 			$output .= '        max = Math.max.apply(null, slideHeight);';
 			$output .= '        jQuery(id + " .carousel-inner").each(function() {';
-			$output .= '            jQuery(this).css("height", max + "px");';
+			$output .= '            jQuery(this).css("height", (max+50) + "px");';
 			$output .= '        });';
 			$output .= '    }';
 			$output .= '</script>';
@@ -239,16 +242,14 @@ if (!function_exists('ujcf_dps_option_output_frontpage_updates')) {
 			$output .= '   <h3 class="dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . wp_kses($icon, $icon_kses) .  esc_html(get_the_title()) . '</h3>';
 			$output .= '   <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . apply_filters('the_content', get_post_field('post_content', $post->ID)) .  '</p></div>';
 		} else 	if (!empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper']) {
-			$output  = '<div class="card">';
-			$output .= '  <div class="card-header" id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
-			$output .= '      <button class="btn btn-block text-left" data-toggle="collapse" data-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="true" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '        <i class="fas fa-plus float-right"></i>' . wp_kses($icon, $icon_kses) .  esc_html(get_the_title());
+			$output  = '<div class="accordion-item">';
+			$output .= '    <h3 id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-header' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
+			$output .= '      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="false" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
+			$output .= wp_kses($icon, $icon_kses) .  esc_html(get_the_title());
 			$output .= '      </button>';
 			$output .= '    </h3>';
-			$output .= '  </div>';
-			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
-			$output .= '    <div class="card-body">';
+			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-collapse collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-bs-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
+			$output .= '    <div class="accordion-body">';
 			$output .= apply_filters('the_content', get_post_field('post_content', $post->ID));
 			$output .= '    </div>';
 			$output .= '  </div>';
@@ -288,48 +289,54 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 		} else {
 			$img = null;
 		}
-		$text = do_shortcode($meta["text"][0] ?? '');
+		$rawText = do_shortcode($meta["text"][0] ?? '');
+		$rawText = str_replace("\n", '<br>', $rawText);
+		$text = ujcf_wp_split_words( $rawText );
 
 		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
 			$output = ' <div class="carousel-item' . ($cnt == 1 ? ' active' : '') . '">';
-			$output .= '<div class="media">';
+			$output .= '<div class="d-flex">';
 			if ($img) {
-				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="mr-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '<div class="flex-shrink-0 me-3">';
+				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="me-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '</div>';
 			}
-			$output .= '  <div class="media-body">';
+			$output .= '  <div class="flex-grow-1">';
 			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . '</h3>';
-			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . wp_kses_post(str_replace("\n", '<br>', $text)) .  '</p>';
+
+			$output .= ujcf_print_more_text($text, $dpsCnt, $cnt);
+
 			$output .= '  </div>';
 			$output .= '</div>';	
 			$output .= '</div>';	
+			$output .= ujcf_print_more_script($text, $dpsCnt, $cnt);
 		} else 	if (!empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper']) {
-			$output  = '<div class="card">';
-			$output .= '  <div class="card-header" id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
-			$output .= '      <button class="btn btn-block text-left" data-toggle="collapse" data-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="true" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '        <i class="fas fa-plus float-right"></i>';
+			$output  = '<div class="accordion-item">';
+			$output .= '    <h3 id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-header' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
+			$output .= '      <button class="accordion-button collapsed" type-"button" data-bs-toggle="collapse" data-bs-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="false" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
 			if ($img) {
-				$output .= '  <img style="max-height:' . $max_height . 'px" class="mr-3 accordion-image" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '  <img style="max-height:' . $max_height . 'px" class="me-3 dps-thumbnail" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
 			}
 			$output .= esc_html(get_the_title());
 			$output .= '      </button>';
 			$output .= '    </h3>';
-			$output .= '  </div>';
-			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
-			$output .= '    <div class="card-body">';
-			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
+			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-collapse collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-bs-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
+			$output .= '    <div class="accordion-body">';
+			$output .= wp_kses_post(str_replace("\n", '<br>', $rawText));
 			$output .= '    </div>';
 			$output .= '  </div>';
 			$output .= '</div>';
 		} else {
 			$tag = empty($atts["wrapper"]) ? 'li' : 'div';
-			$output = '<' . esc_attr($tag) . ' class="media">';
+			$output = '<' . esc_attr($tag) . ' class="d-flex">';
 			if ($img) {
-				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="mr-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '<div class="flex-shrink-0 me-3">';
+				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="me-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '</div>';
 			}
-			$output .= '  <div class="media-body">';
+			$output .= '  <div class="flex-grow-1">';
 			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . '</h3>';
-			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . wp_kses_post(str_replace("\n", '<br>', $text)) .  '</p>';
+			$output .= '    <p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">' . wp_kses_post(str_replace("\n", '<br>', $rawText)) .  '</p>';
 			$output .= '  </div>';
 			$output .= '</' . esc_attr($tag) . '>';	
 		}
@@ -384,11 +391,13 @@ if (!function_exists('ujcf_dps_option_output_events')) {
 
 		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
 			$output = ' <div class="carousel-item' . ($cnt == 1 ? ' active' : '') . '">';
-			$output .= '<div class="media">';
+			$output .= '<div class="d-flex">';
 			if ($img) {
-				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="mr-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '<div class="flex-shrink-0 me-3">';
+				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="me-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '</div>';
 			}
-			$output .= '  <div class="media-body">';
+			$output .= '  <div class="flex-grow-1">';
 			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . ' (' . $start . ($end ? " - " . $end : "") . ')</h3>';
 
 			if ($txt_img) {
@@ -396,7 +405,7 @@ if (!function_exists('ujcf_dps_option_output_events')) {
 				$output .= '	<figure class="wp-block-media-text__media">';
 				$output .= '		<img class="size-medium" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
 				$output .= '	</figure>';
-				$output .= '	<div class="wp-block-media-text__content align-self-start pl-0">';
+				$output .= '	<div class="wp-block-media-text__content align-self-start ps-0">';
 			}
 			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
 			if ($txt_img) {
@@ -408,26 +417,23 @@ if (!function_exists('ujcf_dps_option_output_events')) {
 			$output .= '</div>';	
 			$output .= '</div>';	
 		} else 	if (!empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper']) {
-			$output  = '<div class="card">';
-			$output .= '  <div class="card-header" id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
-			$output .= '      <button class="btn btn-block text-left" data-toggle="collapse" data-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="true" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '        <i class="fas fa-plus float-right"></i>';
+			$output  = '<div class="accordion-item">';
+			$output .= '    <h3 id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-header' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
+			$output .= '      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="false" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
 			if ($img) {
-				$output .= '  <img style="max-height:' . $max_height . 'px" class="mr-3 accordion-image" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '  <img style="max-height:' . $max_height . 'px" class="me-3 accordion-image" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
 			}
 			$output .= esc_html(get_the_title()) . ' (' . $start . ($end ? " - " . $end : "") . ')';
 			$output .= '      </button>';
 			$output .= '    </h3>';
-			$output .= '  </div>';
-			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
-			$output .= '    <div class="card-body">';
+			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-collapse collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-bs-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
+			$output .= '    <div class="accordion-body">';
 			if ($txt_img) {
 				$output .= '<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile">';
 				$output .= '	<figure class="wp-block-media-text__media">';
 				$output .= '		<img class="size-medium" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
 				$output .= '	</figure>';
-				$output .= '	<div class="wp-block-media-text__content align-self-start pl-0">';
+				$output .= '	<div class="wp-block-media-text__content align-self-start ps-0">';
 			}
 			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
 			if ($txt_img) {
@@ -439,11 +445,13 @@ if (!function_exists('ujcf_dps_option_output_events')) {
 			$output .= '</div>';
 		} else {
 			$tag = empty($atts["wrapper"]) ? 'li' : 'div';
-			$output = '<' . esc_attr($tag) . ' class="media">';
+			$output = '<' . esc_attr($tag) . ' class="d-flex">';
 			if ($img) {
-				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="mr-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '<div class="flex-shrink-0 me-3">';
+				$output .= '  <img style="max-height:' . esc_attr($max_height) . 'px" class="me-3" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '</div>';
 			}
-			$output .= '  <div class="media-body">';
+			$output .= '  <div class="flex-grow-1">';
 			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . ' (' . $start . ($end ? " - " . $end : "") . ')</h3>';
 
 			if ($txt_img) {
@@ -451,7 +459,7 @@ if (!function_exists('ujcf_dps_option_output_events')) {
 				$output .= '	<figure class="wp-block-media-text__media">';
 				$output .= '		<img class="size-medium" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
 				$output .= '	</figure>';
-				$output .= '	<div class="wp-block-media-text__content align-self-start pl-0">';
+				$output .= '	<div class="wp-block-media-text__content align-self-start ps-0">';
 			}
 			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
 			if ($txt_img) {
@@ -485,39 +493,45 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 		}
 		$stars = ujcf_getStars($meta["stars"][0]);
 		$size = !empty($atts["size"]) ? $atts["size"] : "large";
+		$rawText = do_shortcode($meta["text"][0] ?? '');
+		$rawText = str_replace("\n", '<br>', $rawText);
+		$text = ujcf_wp_split_words( $rawText );
+		$preText = '<i class="fas fa-quote-left pe-3"></i>';
+		$postText = '<i class="fas fa-quote-right ps-3"></i>';
 
 		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
 			$output .= ' <div class="carousel-item' . ($cnt == 1 ? ' active' : '') . '">';
 		} else if (!empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper']) {
-			$output .= '<div class="card">';
-			$output .= '  <div class="card-header" id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
-			$output .= '      <button class="btn btn-block text-left" data-toggle="collapse" data-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="true" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '        <i class="fas fa-plus float-right"></i><span class="mr-3">' .  esc_html(get_the_title()) . '</span>' . wp_kses_post($stars);
+			$output .= '<div class="accordion-item">';
+			$output .= '    <h3 id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-header' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
+			$output .= '      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="false" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
+			$output .= '        <span class="me-3">' .  esc_html(get_the_title()) . '</span>' . wp_kses_post($stars);
 			$output .= '      </button>';
 			$output .= '    </h3>';
-			$output .= '  </div>';
-			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
-			$output .= '    <div class="card-body">';
+			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-collapse collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-bs-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
+			$output .= '    <div class="accordion-body">';
 		}
 
+		$output .= '<div class="container testimonial p-4 mt-4 rounded-3 border border-dark bg-light">';
+		$output .= '  <div class="row text-center ' . ($size == "large" ? "text-md-start" : "") . '">';
+		$output .= '	<div class="col-12 ' . ($size == "large" ? "col-md-3" : "") . '">';
+		$output .= '		<img style="max-height:150px" src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle">';
+		$output .= '	</div>';
+		$output .= '	<div class="col-12 ' . ($size == "large" ? "col-md-9" : "") . '">';
+		$output .= '		<p><span class="lead fw-normal me-3">' . esc_html(get_the_title()) . '</span><br>' . wp_kses_post(str_replace("\n", '<br>', $meta["title"][0])) . '</p>';
+		$output .= '		<p>' . wp_kses_post($stars) . '</p>';
+		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
+			$output .= ujcf_print_more_text($text, $dpsCnt, $cnt, $preText, $postText);
+		} else {
+			$output .= $preText . wp_kses_post($rawText) . $postText;
+		}
+		$output .= '	</div>';
+		$output .= '  </div>';
+		$output .= '</div>';
 
-		ob_start();
-	?>
-	<div class="container testimonial p-4 mt-4 rounded-lg border border-dark bg-light">
-	  <div class="row text-center <?php echo ($size == "large" ? "text-md-left" : "") ?>">
-		<div class="col-12 <?php echo ($size == "large" ? "col-md-3" : "") ?>">
-			<img style="max-height:150px" src="<?php echo esc_url($img) ?>" alt="Avatar" class="rounded-circle">
-		</div>
-		<div class="col-12 <?php echo ($size == "large" ? "col-md-9" : "") ?>">
-			<p><span class="lead font-weight-normal mr-3"><?php echo esc_html(get_the_title()) ?></span><?php echo "<br>" . wp_kses_post(str_replace("\n", '<br>', $meta["title"][0])) ?></p>
-			<p><?php echo wp_kses_post($stars) ?></p>
-			<p><i class="fas fa-quote-left pr-3"></i><?php echo wp_kses_post(str_replace("\n", '<br>', $meta["text"][0])) ?><i class="fas fa-quote-right pl-3"></i></p>
-		</div>
-	  </div>
-	</div>
-	<?php
-		$output	.= ob_get_clean();
+		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
+			$output .= ujcf_print_more_script($text, $dpsCnt, $cnt);
+		}
 
 		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
 			$output .= '</div>';
@@ -538,27 +552,27 @@ if (!function_exists('ujcf_get_icon')) {
 		if ($tags) {
 			foreach($tags as $tag) {
 				if ($tag->name == "Download") {
-					$icons .= '<i class="fas fa-paperclip fa-2x mr-2" aria-hidden="true"></i>';
+					$icons .= '<i class="fas fa-paperclip fa-2x me-2" aria-hidden="true"></i>';
 				}
 
 				if ($tag->name == "Event") {
-					$icons .= '<i class="far fa-calendar-alt fa-2x mr-2" aria-hidden="true"></i>';
+					$icons .= '<i class="far fa-calendar-alt fa-2x me-2" aria-hidden="true"></i>';
 				}
 
 				if ($tag->name == "Info") {
-					$icons .= '<i class="fa fa-info fa-2x mr-2" aria-hidden="true"></i>';
+					$icons .= '<i class="fa fa-info fa-2x me-2" aria-hidden="true"></i>';
 				}
 
 				if ($tag->name == "Shoot") {
-					$icons .= '<i class="fas fa-bullseye fa-2x mr-2" aria-hidden="true"></i>';
+					$icons .= '<i class="fas fa-bullseye fa-2x me-2" aria-hidden="true"></i>';
 				}
 
 				if ($tag->name == "Meeting") {
-					$icons .= '<i class="fas fa-user-clock fa-2x mr-2" aria-hidden="true"></i>';
+					$icons .= '<i class="fas fa-user-clock fa-2x me-2" aria-hidden="true"></i>';
 				}
 
 				if ($tag->name == "Workparty") {
-					$icons .= '<i class="fas fa-tools fa-2x mr-2" aria-hidden="true"></i>';
+					$icons .= '<i class="fas fa-tools fa-2x me-2" aria-hidden="true"></i>';
 				}
 			}
 		}
@@ -579,11 +593,11 @@ if (!function_exists('ujcf_getStars')) {
 
 		for ($i = 1; $i <= 5; $i++) {
 			if ($i <= $num) {
-				$output .= '<span class="fa fa-star mr-0" style="color: gold!important;"></span>';
+				$output .= '<span class="fa fa-star me-0" style="color: gold!important;"></span>';
 			} else if ($i > $num && ($i -1) < $num) {
-				$output .= '<span class="fas fa-star-half-alt mr-0" style="color: gold!important;"></span>';
+				$output .= '<span class="fas fa-star-half-alt me-0" style="color: gold!important;"></span>';
 			} else {
-				$output .= '<span class="far fa-star mr-0"></span>';
+				$output .= '<span class="far fa-star me-0"></span>';
 			}
 		}
 
@@ -606,18 +620,15 @@ if (!function_exists('ujcf_showCalendarMonth')) {
 		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
 			$output .= '<div class="carousel-item' . ($cnt == 1 ? ' active' : '') . '">';
 		} else 	if (!empty( $atts['wrapper'] ) && 'accordion' === $atts['wrapper']) {
-			$output .= '<div class="card">';
-			$output .= '  <div class="card-header" id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '    <h3 class="mb-0 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
-			$output .= '      <button class="btn btn-block text-left" data-toggle="collapse" data-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="true" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
-			$output .= '        <i class="fas fa-plus float-right"></i>';
-			$output .= '<i class="far fa-calendar-alt fa-2x mr-3"></i>';
+			$output .= '<div class="accordion-item">';
+			$output .= '    <h3 id="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-header' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
+			$output .= '      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" aria-expanded="false" aria-controls="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">';
+			$output .= '<i class="far fa-calendar-alt fa-2x me-3"></i>';
 			$output .= esc_html(date_i18n("F", mktime(0, 0, 0, $month, 1))) . ' ' . esc_html($year);
 			$output .= '      </button>';
 			$output .= '    </h3>';
-			$output .= '  </div>';
-			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
-			$output .= '    <div class="card-body">';
+			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-collapse collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-bs-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
+			$output .= '    <div class="accordion-body">';
 		}
 
 		$output .= '<div class="calendar-table text-center">';
@@ -764,4 +775,101 @@ if (!function_exists('ujcf_reset_static_dps_item_counter')) {
 	}
 
 	add_filter( 'shortcode_atts_display-posts', 'ujcf_reset_static_dps_item_counter', 10, 3 );
+}
+
+if( ! function_exists( 'ujcf_wp_split_words' ) ){
+    /**
+     * Split a string based on word count
+     *
+     * This is similar to WordPress wp_trim_words function, but instead of just trimming after a certain amount of
+     * words, this function returns an array with 'before' and 'after' keys -- providing you the string of text up
+     * to the number of words (in before key), and the words after (in the after key).  After key will be empty string
+     * if there are less words in the passed string than number of words to split on.
+     *
+     *
+     * @param string    $text
+     * @param int       $num_words
+     *
+     * @return array    Array with `before` and `after` keys. The `before` key contains all words up to $num_words, the
+     *                  `after` key contains the words after $num_words (or empty string if passed string has less words
+     *                  than passed in $text)
+     *
+     */
+    function ujcf_wp_split_words( $text, $num_words = 55 ) {
+        $text = wp_strip_all_tags( $text );
+        /*
+         * translators: If your word count is based on single characters (e.g. East Asian characters),
+         * enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
+         * Do not translate into your own language.
+         */
+        if ( strpos( _x( 'words', 'Word count type. Do not translate!' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
+            $text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
+            preg_match_all( '/./u', $text, $words_array_matches );
+            $words_array = $words_array_matches[0];
+            $sep         = '';
+        } else {
+            $words_array = preg_split( "/[\n\r\t ]+/", $text, -1, PREG_SPLIT_NO_EMPTY );
+            $sep         = ' ';
+        }
+        if ( count( $words_array ) > $num_words ) {
+            $before = implode( $sep, array_slice( $words_array, 0, $num_words ) );
+            $after  = implode( $sep, array_slice( $words_array, $num_words, count( $words_array ) - 1 ) );
+        } else {
+            $before = implode( $sep, $words_array );
+        }
+        $results = array(
+            'before' => $before,
+            'after' => isset( $after ) ? $after : ''
+        );
+        return $results;
+    }
+}
+
+if( ! function_exists( 'ujcf_print_more_text' ) ){
+	function ujcf_print_more_text($text, $dpsCnt, $cnt, $preText = '', $postText = '') {
+		$output = '';
+		$output .= '<p class="dps-text' . (!empty($atts['text-class']) ? " " . esc_attr($atts['text-class']) : "") . '">';
+		$output .= $preText . wp_kses_post($text["before"]);
+		if (!empty($text["after"])) {
+			$output .= '<span id="dps-read-more-text-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" style="display:none;">';
+			$output .= wp_kses_post($text["after"]) . $postText;
+			$output	.= '</span><span id="dps-dots-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">...</span>';
+			$output .= ' <button class="button" onclick="dps_read_more_' . esc_attr($dpsCnt) . '_' . esc_attr($cnt) . '()">read ';
+			$output .= '<span id="dps-read-more-btn-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '">more</span>';
+			$output .= '</button>';
+		} else {
+			$output .= $postText;
+		}
+		$output .= '</p>';
+
+		return $output;
+	}
+}
+
+if( ! function_exists( 'ujcf_print_more_script' ) ){
+	function ujcf_print_more_script($text, $dpsCnt, $cnt) {
+		$output = '';
+
+		if (!empty($text["after"])) {
+			$output .= '<script>';
+			$output .= 'function dps_read_more_' . esc_attr($dpsCnt) . '_' . esc_attr($cnt) . '() {';
+			$output .= '  var dots = document.getElementById("dps-dots-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '");';
+			$output .= '  var moreText = document.getElementById("dps-read-more-text-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '");';
+			$output .= '  var btnText = document.getElementById("dps-read-more-btn-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '");';
+			$output .= '  if (moreText.style.display === "none") {';
+			$output .= '    dots.style.display = "none";';
+			$output .= '    btnText.innerHTML = "less";';
+			$output .= '    moreText.style.display = "inline";';
+			$output .= '  } else {';
+			$output .= '    dots.style.display = "inline";';
+			$output .= '    btnText.innerHTML = "more";';
+			$output .= '    moreText.style.display = "none";';
+			$output .= '  }';
+			$output .= '  setCarouselHeight' . esc_attr($dpsCnt) . '("#dps-carousel-' . esc_attr($dpsCnt) . '");';
+			$output .= '}';
+			$output .= '</script>';
+		}
+
+		return $output;
+	}
 }

@@ -39,7 +39,6 @@ if (!function_exists('ujcf_add_quick_edit')) {
 				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="event"'.checked($status, "event", false).'>Event</label></li>';
 				echo '<li><label><input type="radio" name="acf[field_621eb2b2b16e4]" value="holiday"'.checked($status, "holiday", false).'>Holiday</label></li>';
 				echo '</ul>';		
-                //        <span class="input-text-wrap"><input type="url" name="' . $column_name . '" value="" style="width: 100%;"></span>
                 echo '</label>';
                 echo '<br><br>';
                 echo '</div></fieldset>';

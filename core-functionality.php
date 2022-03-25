@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Core Functionality
  * Description:       This contains all your site's core functionality so that it is theme independent. <strong>It should always be activated</strong>.
- * Version:           1.0.7
+ * Version:           1.1.0
  * Author:            Uwe Jacobs
  * Requires at least: 5.6
  * Tested up to:      5.9.1
@@ -36,7 +36,19 @@ require_once( UJ_DIR . 'inc/template.php' );
 require_once( UJ_DIR . 'inc/display-posts.php' );
 require_once( UJ_DIR . 'inc/shortcodes.php' );
 
+// Image size for sliders
 add_action( 'after_setup_theme', 'ujcf_theme_setup' );
 function ujcf_theme_setup() {
     add_image_size( 'slider', 0, 600, false ); // 600 pixels high (and unlimited height)
+}
+
+// Flamingo for Manager role
+add_filter('flamingo_map_meta_cap', 'ujcf_flamingo_map_meta_cap');
+function ujcf_flamingo_map_meta_cap( $meta_caps ) {
+	$meta_caps = array_merge($meta_caps, array(
+		'flamingo_edit_contacts' => 'edit_pages',
+		'flamingo_edit_inbound_messages' => 'edit_pages',
+		'flamingo_edit_inbound_message' => 'edit_pages',
+	));
+	return $meta_caps;
 }

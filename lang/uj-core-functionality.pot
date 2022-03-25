@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Core Functionality plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Core Functionality 1.0.7\n"
+"Project-Id-Version: Core Functionality 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/UJ-Core-Functionality\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-23T16:42:28-04:00\n"
+"POT-Creation-Date: 2022-03-25T13:28:45-04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: uj-core-functionality\n"
@@ -26,35 +26,35 @@ msgstr ""
 msgid "Uwe Jacobs"
 msgstr ""
 
-#: inc/display-posts.php:627
+#: inc/display-posts.php:638
 msgid "Sun"
 msgstr ""
 
-#: inc/display-posts.php:627
+#: inc/display-posts.php:638
 msgid "Mon"
 msgstr ""
 
-#: inc/display-posts.php:627
+#: inc/display-posts.php:638
 msgid "Tue"
 msgstr ""
 
-#: inc/display-posts.php:627
+#: inc/display-posts.php:638
 msgid "Wed"
 msgstr ""
 
-#: inc/display-posts.php:627
+#: inc/display-posts.php:638
 msgid "Thu"
 msgstr ""
 
-#: inc/display-posts.php:627
+#: inc/display-posts.php:638
 msgid "Fri"
 msgstr ""
 
-#: inc/display-posts.php:627
+#: inc/display-posts.php:638
 msgid "Sat"
 msgstr ""
 
-#: inc/display-posts.php:656
+#: inc/display-posts.php:667
 msgid "Special Rates"
 msgstr ""
 
