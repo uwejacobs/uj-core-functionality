@@ -572,7 +572,7 @@ if (ujcf_get_theme_option('faq_checkbox')) {
 			if ($column == 'image') {
 				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle">';
+					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="FAQ" class="rounded-circle" aria-hidden="true">';
 				}
 			}
 			if ($column == 'order' && !empty($meta["order"][0])) {
@@ -649,7 +649,7 @@ if (ujcf_get_theme_option('news_checkbox')) {
 			if ($column == 'image') {
 				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle"';
+					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="News" class="rounded-circle" aria-hidden="true">';
 				}
 			}
 			if ($column == 'order' && !empty($meta["order"][0])) {
@@ -689,7 +689,7 @@ if (ujcf_get_theme_option('fundraiser_checkbox')) {
 			if ($column == 'image') {
 				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle">';
+					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="Fundraiser" class="rounded-circle" aria-hidden="true">';
 				}
 			}
 			if ($column == 'order' && !empty($meta["order"][0])) {
@@ -732,7 +732,7 @@ if (ujcf_get_theme_option('event_checkbox')) {
 			if ($column == 'image') {
 				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img src="' . esc_url($img) . '" alt="Image" class="rounded-circle">';
+					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="Event" class="rounded-circle" aria-hidden="true">';
 				}
 			}
 			if ($column == 'start_date' && !empty($meta["start_date"][0])) {

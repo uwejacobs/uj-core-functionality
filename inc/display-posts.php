@@ -398,18 +398,14 @@ if (!function_exists('ujcf_dps_option_output_events')) {
 				$output .= '</div>';
 			}
 			$output .= '  <div class="flex-grow-1">';
-			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . ' (' . $start . ($end ? " - " . $end : "") . ')</h3>';
-
+			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . '</h3>';
+			$output .= '<p style="opacity:0.8">' . $start . ($end ? " - " . $end : "") . '</p>';
 			if ($txt_img) {
-				$output .= '<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile">';
-				$output .= '	<figure class="wp-block-media-text__media">';
-				$output .= '		<img class="size-medium" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
-				$output .= '	</figure>';
-				$output .= '	<div class="wp-block-media-text__content align-self-start ps-0">';
+				$output .= '<div class="">';
+				$output .= '		<img class="size-medium float-end ps-2" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
 			}
-			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
+			$output .= '<p>' . wp_kses_post(str_replace("\n", '<br>', $text)) . '</p>';
 			if ($txt_img) {
-				$output .= '	</div>';
 				$output .= '</div>';
 			}
 
@@ -423,25 +419,23 @@ if (!function_exists('ujcf_dps_option_output_events')) {
 			if ($img) {
 				$output .= '  <img style="max-height:' . $max_height . 'px" class="me-3 accordion-image" src="' . esc_url($img) . '" alt="' . esc_attr($alt) . '">';
 			}
-			$output .= esc_html(get_the_title()) . ' (' . $start . ($end ? " - " . $end : "") . ')';
+			$output .= '<div style="white-space: normal">';
+			$output .= esc_html(get_the_title());
+			$output .= '<br><span class="small" style="opacity:0.8">';
+			$output .= $start . ($end ? " - " . $end : "");
+			$output .= '</span></div>';
 			$output .= '      </button>';
 			$output .= '    </h3>';
 			$output .= '  <div id="dps-accordion-collapse-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" class="accordion-collapse collapse" aria-labelledby="dps-accordion-head-' . esc_attr($dpsCnt) . '-' . esc_attr($cnt) . '" data-bs-parent="#dps-accordion-' . esc_attr($dpsCnt) . '">';
 			$output .= '    <div class="accordion-body">';
+
 			if ($txt_img) {
-				$output .= '<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile">';
-				$output .= '	<figure class="wp-block-media-text__media">';
-				$output .= '		<img class="size-medium" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
-				$output .= '	</figure>';
-				$output .= '	<div class="wp-block-media-text__content align-self-start ps-0">';
+				$output .= '<img class="size-medium float-end ps-2" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
 			}
-			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
-			if ($txt_img) {
-				$output .= '	</div>';
-				$output .= '</div>';
-			}
-			$output .= '    </div>';
+			$output .= '<p>' . wp_kses_post(str_replace("\n", '<br>', $text)) . '</p>';
+
 			$output .= '  </div>';
+			$output .= '</div>';
 			$output .= '</div>';
 		} else {
 			$tag = empty($atts["wrapper"]) ? 'li' : 'div';
@@ -452,18 +446,20 @@ if (!function_exists('ujcf_dps_option_output_events')) {
 				$output .= '</div>';
 			}
 			$output .= '  <div class="flex-grow-1">';
-			$output .= '    <h3 class="mt-0 mb-1 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">' . esc_html( get_the_title() ) . ' (' . $start . ($end ? " - " . $end : "") . ')</h3>';
+			$output .= '    <h3 class="mt-0 mb-2 dps-title' . (!empty($atts['title-class']) ? " " . esc_attr($atts['title-class']) : "") . '">';
+
+			$output .= esc_html(get_the_title());
+			$output .= '<br><span class="small" style="opacity:0.8">';
+			$output .= $start . ($end ? " - " . $end : "");
+			$output .= '</span>';
+			$output .= '</h3>';
 
 			if ($txt_img) {
-				$output .= '<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile">';
-				$output .= '	<figure class="wp-block-media-text__media">';
-				$output .= '		<img class="size-medium" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
-				$output .= '	</figure>';
-				$output .= '	<div class="wp-block-media-text__content align-self-start ps-0">';
+				$output .= '<div class="">';
+				$output .= '		<img class="size-medium float-end ps-2" src="' . esc_url($txt_img) . '" alt="' . esc_attr($txt_alt) . '">';
 			}
 			$output .= wp_kses_post(str_replace("\n", '<br>', $text));
 			if ($txt_img) {
-				$output .= '	</div>';
 				$output .= '</div>';
 			}
 			$output .= '  </div>';
