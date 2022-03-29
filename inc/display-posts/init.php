@@ -473,9 +473,6 @@ if (ujcf_get_theme_option('booking_checkbox')) {
 			$columns['end_date'] = esc_html__('End Date', 'uj-core-functionality');
 			$columns['status'] = esc_html__('Status', 'uj-core-functionality');
 			$columns['comment'] = esc_html__('Comment', 'uj-core-functionality');
-			if (!in_array('administrator',  wp_get_current_user()->roles)) {
-				unset($columns['expirationdate']);
-			}
 			return $columns;
 		}
 	}
@@ -520,6 +517,7 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 			$columns['picture'] = esc_html__('Picture', 'uj-core-functionality');
 			$columns['stars'] = esc_html__('Stars', 'uj-core-functionality');
 			$columns['text'] = esc_html__('Text', 'uj-core-functionality');
+			$columns['order'] = esc_html__('Order', 'uj-core-functionality');
 			return $columns;
 		}
 	}
@@ -547,7 +545,20 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 			if ($column == 'text' && !empty($meta["text"][0])) {
 				echo esc_attr($meta["text"][0]);
 			}
+			if ($column == 'order' && !empty($meta["order"][0])) {
+				echo esc_attr($meta["order"][0]);
+			}
 		}
+	}
+
+	if (!function_exists('ujcf_sortable_testimonial_column')) {
+		function ujcf_sortable_testimonial_column( $columns ) {
+			$columns['order'] = 'order';
+
+			return $columns;
+		}
+		
+		add_filter( 'manage_edit-testimonial_sortable_columns', 'ujcf_sortable_testimonial_column' );
 	}
 }
 
@@ -719,9 +730,6 @@ if (ujcf_get_theme_option('event_checkbox')) {
 			$columns['end_date'] = esc_html__('End Date', 'uj-core-functionality');
 			$columns['text'] = esc_html__('Text', 'uj-core-functionality');
 			$columns['text_image'] = esc_html__('Text Image', 'uj-core-functionality');
-			if (!in_array('administrator',  wp_get_current_user()->roles)) {
-				unset($columns['expirationdate']);
-			}
 			return $columns;
 		}
 	}

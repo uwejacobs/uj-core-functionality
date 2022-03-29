@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Core Functionality plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Core Functionality 1.1.0\n"
+"Project-Id-Version: Core Functionality 1.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/UJ-Core-Functionality\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-25T13:28:45-04:00\n"
+"POT-Creation-Date: 2022-03-28T16:23:21-04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: uj-core-functionality\n"
@@ -26,35 +26,35 @@ msgstr ""
 msgid "Uwe Jacobs"
 msgstr ""
 
-#: inc/display-posts.php:638
+#: inc/display-posts.php:634
 msgid "Sun"
 msgstr ""
 
-#: inc/display-posts.php:638
+#: inc/display-posts.php:634
 msgid "Mon"
 msgstr ""
 
-#: inc/display-posts.php:638
+#: inc/display-posts.php:634
 msgid "Tue"
 msgstr ""
 
-#: inc/display-posts.php:638
+#: inc/display-posts.php:634
 msgid "Wed"
 msgstr ""
 
-#: inc/display-posts.php:638
+#: inc/display-posts.php:634
 msgid "Thu"
 msgstr ""
 
-#: inc/display-posts.php:638
+#: inc/display-posts.php:634
 msgid "Fri"
 msgstr ""
 
-#: inc/display-posts.php:638
+#: inc/display-posts.php:634
 msgid "Sat"
 msgstr ""
 
-#: inc/display-posts.php:667
+#: inc/display-posts.php:663
 msgid "Special Rates"
 msgstr ""
 
@@ -898,7 +898,7 @@ msgid "Alert Settings:"
 msgstr ""
 
 #: inc/display-posts/init.php:182
-#: inc/display-posts/init.php:600
+#: inc/display-posts/init.php:611
 msgid "Background Color"
 msgstr ""
 
@@ -979,12 +979,12 @@ msgid "Default Male Avatar Image"
 msgstr ""
 
 #: inc/display-posts/init.php:472
-#: inc/display-posts/init.php:718
+#: inc/display-posts/init.php:729
 msgid "Start Date"
 msgstr ""
 
 #: inc/display-posts/init.php:473
-#: inc/display-posts/init.php:719
+#: inc/display-posts/init.php:730
 msgid "End Date"
 msgstr ""
 
@@ -997,55 +997,56 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: inc/display-posts/init.php:518
+#: inc/display-posts/init.php:515
 msgid "Name"
 msgstr ""
 
-#: inc/display-posts/init.php:519
+#: inc/display-posts/init.php:516
 msgid "Title"
 msgstr ""
 
-#: inc/display-posts/init.php:520
+#: inc/display-posts/init.php:517
 msgid "Picture"
 msgstr ""
 
-#: inc/display-posts/init.php:521
+#: inc/display-posts/init.php:518
 msgid "Stars"
 msgstr ""
 
-#: inc/display-posts/init.php:522
-#: inc/display-posts/init.php:636
-#: inc/display-posts/init.php:676
-#: inc/display-posts/init.php:720
+#: inc/display-posts/init.php:519
+#: inc/display-posts/init.php:647
+#: inc/display-posts/init.php:687
+#: inc/display-posts/init.php:731
 msgid "Text"
 msgstr ""
 
-#: inc/display-posts/init.php:558
-msgid "Question"
-msgstr ""
-
-#: inc/display-posts/init.php:559
-msgid "Answer"
-msgstr ""
-
-#: inc/display-posts/init.php:560
-#: inc/display-posts/init.php:637
-#: inc/display-posts/init.php:677
-#: inc/display-posts/init.php:717
-msgid "Image"
-msgstr ""
-
-#: inc/display-posts/init.php:561
-#: inc/display-posts/init.php:601
-#: inc/display-posts/init.php:638
-#: inc/display-posts/init.php:678
+#: inc/display-posts/init.php:520
+#: inc/display-posts/init.php:572
+#: inc/display-posts/init.php:612
+#: inc/display-posts/init.php:649
+#: inc/display-posts/init.php:689
 msgid "Order"
 msgstr ""
 
-#: inc/display-posts/init.php:599
+#: inc/display-posts/init.php:569
+msgid "Question"
+msgstr ""
+
+#: inc/display-posts/init.php:570
+msgid "Answer"
+msgstr ""
+
+#: inc/display-posts/init.php:571
+#: inc/display-posts/init.php:648
+#: inc/display-posts/init.php:688
+#: inc/display-posts/init.php:728
+msgid "Image"
+msgstr ""
+
+#: inc/display-posts/init.php:610
 msgid "Alert Text"
 msgstr ""
 
-#: inc/display-posts/init.php:721
+#: inc/display-posts/init.php:732
 msgid "Text Image"
 msgstr ""
