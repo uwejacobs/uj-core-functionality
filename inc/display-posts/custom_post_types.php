@@ -203,6 +203,7 @@ if (!function_exists('cptui_register_my_cpts')) {
 				"query_var" => true,
 				"menu_icon" => "dashicons-calendar-alt",
 				"supports" => [ "title", "custom-fields" ],
+				"taxonomies" => [ "category" ],
 				"show_in_graphql" => false,
 			];
 
@@ -271,7 +272,9 @@ if (!function_exists('cptui_register_my_cpts')) {
 				"query_var" => true,
 				"menu_icon" => "dashicons-info",
 				"supports" => [ "title", "custom-fields" ],
+				"taxonomies" => [ "category" ],
 				"show_in_graphql" => false,
+				"taxonomies" => [ "category" ],
 			];
 
 			register_post_type( "faq", $args );
@@ -338,6 +341,7 @@ if (!function_exists('cptui_register_my_cpts')) {
 				"query_var" => true,
 				"menu_icon" => "dashicons-info",
 				"supports" => [ "title", "custom-fields" ],
+				"taxonomies" => [ "category" ],
 				"show_in_graphql" => false,
 			];
 
@@ -406,6 +410,7 @@ if (!function_exists('cptui_register_my_cpts')) {
 				"query_var" => true,
 				"menu_icon" => "dashicons-info",
 				"supports" => [ "title", "custom-fields" ],
+				"taxonomies" => [ "category" ],
 				"show_in_graphql" => false,
 			];
 

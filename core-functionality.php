@@ -2,10 +2,10 @@
 /**
  * Plugin Name:       Core Functionality
  * Description:       This contains all your site's core functionality so that it is theme independent. <strong>It should always be activated</strong>.
- * Version:           1.1.1
+ * Version:           1.1.2
  * Author:            Uwe Jacobs
  * Requires at least: 5.6
- * Tested up to:      5.9.1
+ * Tested up to:      5.9.2
  * Requires PHP:      7.0
  * Text Domain:       uj-core-functionality
  *
@@ -36,6 +36,18 @@ require_once( UJ_DIR . 'inc/template.php' );
 require_once( UJ_DIR . 'inc/display-posts.php' );
 require_once( UJ_DIR . 'inc/shortcodes.php' );
 
+// enqueue css and js
+add_action( 'admin_enqueue_scripts', 'ujcf_add_admin_option_scripts', 10, 1 );
+function ujcf_add_admin_option_scripts() {
+	wp_enqueue_style( 'wp-color-picker' );
+	wp_enqueue_script( 'uj-core-functionality-tabs-js', plugins_url( 'js/tabs.js', __FILE__ ) );
+}
+add_action( 'admin_enqueue_scripts', 'ujcf_add_option_styles' );
+function ujcf_add_option_styles() {
+	wp_register_style( 'uj-core-functionality-style-css', plugins_url('css/style.css', __FILE__));
+	wp_enqueue_style( 'uj-core-functionality-style-css' );
+}
+
 // Image size for sliders
 add_action( 'after_setup_theme', 'ujcf_theme_setup' );
 function ujcf_theme_setup() {
@@ -51,4 +63,16 @@ function ujcf_flamingo_map_meta_cap( $meta_caps ) {
 		'flamingo_edit_inbound_message' => 'edit_pages',
 	));
 	return $meta_caps;
+}
+
+if (!function_exists('ujcf_customizer_css')) {
+    function ujcf_customizer_css()
+    {
+		echo '<style id="ujcf_customizer_css" type="text/css">';
+		echo ujcf_printBoookingBackgroundColors();
+		echo '.calendar-legend { font-size: 12px; padding:5px; margin-right:20px; }';
+		echo '</style>';
+	}
+	
+	add_action( 'wp_head', 'ujcf_customizer_css');
 }

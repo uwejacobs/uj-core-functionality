@@ -8,6 +8,8 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 	class UJ_Theme_Options {
 		private static $checkBoxes = [];
 		private static $checkBoxLabels = [];
+		private static $bookingColors = [];
+		private static $bookingColorLabels = [];
 
 		/**
 		 * Start things up
@@ -29,6 +31,19 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 			self::$checkBoxLabels['news'] = __('News', 'uj-core-functionality');
 			self::$checkBoxes[] = 'testimonial';
 			self::$checkBoxLabels['testimonial'] = __('Testimonials', 'uj-core-functionality');
+
+			self::$bookingColorLabels['inquiry'] = __('Inquiry', 'uj-core-functionality');
+			self::$bookingColorLabels['tentative'] = __('Tentative', 'uj-core-functionality');
+			self::$bookingColorLabels['booked'] = __('Booked', 'uj-core-functionality');
+			self::$bookingColorLabels['event'] = __('Event', 'uj-core-functionality');
+			self::$bookingColorLabels['holiday'] = __('Holiday', 'uj-core-functionality');
+			self::$bookingColorLabels['special'] = __('Special Rate', 'uj-core-functionality');
+			self::$bookingColors['inquiry'] = '#808080';
+			self::$bookingColors['tentative'] = '#FFA07A';
+			self::$bookingColors['booked'] = '#FF6347';
+			self::$bookingColors['event'] = '#7e72cc';
+			self::$bookingColors['holiday'] = '#47a3ff';
+			self::$bookingColors['special'] = '#FFFF00';
 
 			// We only need to register the admin panel on the back-end
 			if ( is_admin() ) {
@@ -158,210 +173,227 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 
 				<form method="post" action="options.php">
 
+					<ul id="ujcf-tabs">
+					<li><a href="#general"><?php esc_html_e('General', 'uj-core-functionality') ?></a></li>
+					<?php foreach(self::$checkBoxes as $checkBox) {
+						      if (self::get_theme_option( $checkBox.'_checkbox' )) { ?>
+						<li><a href="#<?php echo $checkBox ?>"><?php echo esc_html(self::$checkBoxLabels[$checkBox]) ?></a></li>
+					<?php }
+					} ?>
+					</ul>
+
+
 					<?php settings_fields( 'theme_options' ); ?>
 
-					<table class="form-table uj-custom-admin-login-table">
-
+					<div class="tabContent" id="general">
 						<?php // Custom posts ?>
-						<tr valign="top">
-							<th scope="row" style="font-size:125%"><?php esc_html_e('Post Types', 'uj-core-functionality') ?></th>
-							<td>
-								<?php foreach(self::$checkBoxes as $checkBox) {
-								$value = self::get_theme_option( $checkBox.'_checkbox' ); ?>
-								<p><input type="checkbox" name="theme_options[<?php echo esc_attr($checkBox) ?>_checkbox]" <?php checked( $value, 'on' ); ?>> <?php echo esc_html(self::$checkBoxLabels[$checkBox]);
-								} ?></p>
-							</td>
-						</tr>
+						<table class="form-table ujcf-custom-admin-table">
+							<tr valign="top">
+								<th scope="row" style="font-size:125%"><?php esc_html_e('Post Types', 'uj-core-functionality') ?></th>
+								<td>
+									<?php foreach(self::$checkBoxes as $checkBox) {
+									$value = self::get_theme_option( $checkBox.'_checkbox' ); ?>
+									<p><input type="checkbox" name="theme_options[<?php echo esc_attr($checkBox) ?>_checkbox]" <?php checked( $value, 'on' ); ?>> <?php echo esc_html(self::$checkBoxLabels[$checkBox]);
+									} ?></p>
+								</td>
+							</tr>
+						</table>
+					</div>
 
 						<?php // Alert ?>
 						<?php if (self::get_theme_option('alert_checkbox')) { ?>
-						<tr>
-							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Alert Settings:', 'uj-core-functionality' ) ?></th>
-						</tr>
-						<tr valign="top" class="uj-custom-admin-screen-background-section">
-							<th scope="row"><?php esc_html_e( 'Background Color', 'uj-core-functionality' ); ?></th>
-							<td>
-								<?php $value = self::get_theme_option( 'alert_bg_color' ); ?>
-								<select name="theme_options[alert_bg_color]">
-									<?php
-									$options = array(
-										'primary' => esc_html__( 'Primary', 'uj-core-functionality' ),
-										'secondary' => esc_html__( 'Secondary', 'uj-core-functionality' ),
-										'info' => esc_html__( 'Info', 'uj-core-functionality' ),
-										'success' => esc_html__( 'Success', 'uj-core-functionality' ),
-										'warning' => esc_html__( 'Warning', 'uj-core-functionality' ),
-										'danger' => esc_html__( 'Danger', 'uj-core-functionality' ),
-									);
-									foreach ( $options as $id => $label ) { ?>
-										<option value="<?php echo esc_attr( $id ); ?>" <?php selected( $value, $id, true ); ?>>
-											<?php echo strip_tags( $label ); ?>
-										</option>
-									<?php } ?>
-								</select>
-								<p>You can see the actual colors for your theme here: <a href="<?php echo site_url('theme-demo') . '#buttons' ?>" target="_blank" rel="noreferrer noopener">Theme Demo</a></p>
-							</td>
-						</tr>
+					<div class="tabContent" id="alert">
+						<table class="form-table ujcf-custom-admin-table">
+							<tr>
+								<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Alert Settings:', 'uj-core-functionality' ) ?></th>
+							</tr>
+							<tr valign="top" class="uj-custom-admin-screen-background-section">
+								<th scope="row"><?php esc_html_e( 'Background Color', 'uj-core-functionality' ); ?></th>
+								<td>
+									<?php $value = self::get_theme_option( 'alert_bg_color' ); ?>
+									<select name="theme_options[alert_bg_color]">
+										<?php
+										$options = array(
+											'primary' => esc_html__( 'Primary', 'uj-core-functionality' ),
+											'secondary' => esc_html__( 'Secondary', 'uj-core-functionality' ),
+											'info' => esc_html__( 'Info', 'uj-core-functionality' ),
+											'success' => esc_html__( 'Success', 'uj-core-functionality' ),
+											'warning' => esc_html__( 'Warning', 'uj-core-functionality' ),
+											'danger' => esc_html__( 'Danger', 'uj-core-functionality' ),
+										);
+										foreach ( $options as $id => $label ) { ?>
+											<option value="<?php echo esc_attr( $id ); ?>" <?php selected( $value, $id, true ); ?>>
+												<?php echo strip_tags( $label ); ?>
+											</option>
+										<?php } ?>
+									</select>
+									<p>You can see the actual colors for your theme here: <a href="<?php echo site_url('theme-demo') . '#buttons' ?>" target="_blank" rel="noreferrer noopener">Theme Demo</a></p>
+								</td>
+							</tr>
+						</table>
+					</div>
 						<?php } ?>
 
 						<?php // Booking ?>
 						<?php if (self::get_theme_option('booking_checkbox')) { ?>
-						<tr>
-							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Booking Settings:', 'uj-core-functionality' ) ?></th>
-						</tr>
-						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Special Rate Period', 'uj-core-functionality' ); ?></th>
-							<td>
-								<?php $value = intval(self::get_theme_option( 'special_rate_period' )); ?>
-								<input type="text" name="theme_options[special_rate_period]" value="<?php echo esc_attr( $value ); ?>">
-							</td>
-						</tr>
+					<div class="tabContent" id="booking">
+						<table class="form-table ujcf-custom-admin-table">
+							<tr>
+								<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Booking Settings:', 'uj-core-functionality' ) ?></th>
+							</tr>
+							<tr valign="top">
+								<th scope="row"><?php esc_html_e( 'Special Rate Period', 'uj-core-functionality' ); ?></th>
+								<td>
+									<?php $value = intval(self::get_theme_option( 'special_rate_period' )); ?>
+									<input type="text" name="theme_options[special_rate_period]" value="<?php echo esc_attr( $value ); ?>">
+								</td>
+							</tr>
+							<?php foreach (self::$bookingColorLabels as $key => $label) { ?>
+							<tr valign="top">
+								<th scope="row"><?php echo esc_html($label); ?> Color</th>
+								<td>
+									<?php $value = self::get_theme_option( $key . '_color' );
+										if (empty($value)) { $value = self::$bookingColors[$key]; } ?>
+									<input class="ujcf_color_picker" type="text" name="theme_options[<?php echo $key ?>_color]" value="<?php echo esc_attr( $value ); ?>">
+								</td>
+							</tr>
+							<?php } ?>
+						</table>
+					</div>
 						<?php } ?>
 
 						<?php // Event ?>
 						<?php if (self::get_theme_option('event_checkbox')) { ?>
-						<tr>
-							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Event Settings:', 'uj-core-functionality' ) ?></th>
-						</tr>
-						<tr>
-							<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
-							<td>
-							<?php $value = self::get_theme_option( 'event_image' );
-								  self::media_script('event', $value); ?>
-							<div class="event_image_preview_wrapper">
-								<img id="event_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
-							</div>
-							<input id="select_event_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
-							<input type="hidden" name="theme_options[event_image]" id="event_image_attachment_id" value="<?php echo esc_attr($value) ?>">
-							<input id="clear_event_image_button" type="button" class="button" value="Clear" />
-							</td>
-						</tr>
+					<div class="tabContent" id="event">
+						<table class="form-table ujcf-custom-admin-table">
+							<tr>
+								<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Event Settings:', 'uj-core-functionality' ) ?></th>
+							</tr>
+							<tr>
+								<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
+								<td>
+								<?php $value = self::get_theme_option( 'event_image' );
+									  self::media_script('event', $value); ?>
+								<div class="event_image_preview_wrapper">
+									<img id="event_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								</div>
+								<input id="select_event_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
+								<input type="hidden" name="theme_options[event_image]" id="event_image_attachment_id" value="<?php echo esc_attr($value) ?>">
+								<input id="clear_event_image_button" type="button" class="button" value="Clear" />
+								</td>
+							</tr>
+						</table>
+					</div>
 						<?php } ?>
 
 						<?php // FAQ ?>
 						<?php if (self::get_theme_option('faq_checkbox')) { ?>
-						<tr>
-							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'FAQ Settings:', 'uj-core-functionality' ) ?></th>
-						</tr>
-						<tr>
-							<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
-							<td>
-							<?php $value = self::get_theme_option( 'faq_image' );
-								  self::media_script('faq', $value); ?>
-							<div class="faq_image_preview_wrapper">
-								<img id="faq_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
-							</div>
-							<input id="select_faq_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
-							<input type="hidden" name="theme_options[faq_image]" id="faq_image_attachment_id" value="<?php echo esc_attr($value) ?>">
-							<input id="clear_faq_image_button" type="button" class="button" value="Clear" />
-							</td>
-						</tr>
+					<div class="tabContent" id="faq">
+						<table class="form-table ujcf-custom-admin-table">
+							<tr>
+								<th colspan="2" style="font-size:125%"><?php esc_html_e( 'FAQ Settings:', 'uj-core-functionality' ) ?></th>
+							</tr>
+							<tr>
+								<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
+								<td>
+								<?php $value = self::get_theme_option( 'faq_image' );
+									  self::media_script('faq', $value); ?>
+								<div class="faq_image_preview_wrapper">
+									<img id="faq_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								</div>
+								<input id="select_faq_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
+								<input type="hidden" name="theme_options[faq_image]" id="faq_image_attachment_id" value="<?php echo esc_attr($value) ?>">
+								<input id="clear_faq_image_button" type="button" class="button" value="Clear" />
+								</td>
+							</tr>
+						</table>
+					</div>
 						<?php } ?>
 
 						<?php // Fundraiser ?>
 						<?php if (self::get_theme_option('fundraiser_checkbox')) { ?>
-						<tr>
-							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Fundraiser Settings:', 'uj-core-functionality' ) ?></th>
-						</tr>
-						<tr>
-							<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
-							<td>
-							<?php $value = self::get_theme_option( 'fundraiser_image' );
-								  self::media_script('fundraiser', $value); ?>
-							<div class="fundraiser_image_preview_wrapper">
-								<img id="fundraiser_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
-							</div>
-							<input id="select_fundraiser_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
-							<input type="hidden" name="theme_options[fundraiser_image]" id="fundraiser_image_attachment_id" value="<?php echo esc_attr($value) ?>">
-							<input id="clear_fundraiser_image_button" type="button" class="button" value="Clear" />
-							</td>
-						</tr>
+					<div class="tabContent" id="fundraiser">
+						<table class="form-table ujcf-custom-admin-table">
+							<tr>
+								<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Fundraiser Settings:', 'uj-core-functionality' ) ?></th>
+							</tr>
+							<tr>
+								<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
+								<td>
+								<?php $value = self::get_theme_option( 'fundraiser_image' );
+									  self::media_script('fundraiser', $value); ?>
+								<div class="fundraiser_image_preview_wrapper">
+									<img id="fundraiser_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								</div>
+								<input id="select_fundraiser_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
+								<input type="hidden" name="theme_options[fundraiser_image]" id="fundraiser_image_attachment_id" value="<?php echo esc_attr($value) ?>">
+								<input id="clear_fundraiser_image_button" type="button" class="button" value="Clear" />
+								</td>
+							</tr>
+						</table>
+					</div>
 						<?php } ?>
 
 						<?php // News ?>
 						<?php if (self::get_theme_option('news_checkbox')) { ?>
-						<tr>
-							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'News Settings:', 'uj-core-functionality' ) ?></th>
-						</tr>
-						<tr>
-							<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
-							<td>
-							<?php $value = self::get_theme_option( 'news_image' );
-								  self::media_script('news', $value); ?>
-							<div class="news_image_preview_wrapper">
-								<img id="news_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
-							</div>
-							<input id="select_news_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
-							<input type="hidden" name="theme_options[news_image]" id="news_image_attachment_id" value="<?php echo esc_attr($value) ?>">
-							<input id="clear_news_image_button" type="button" class="button" value="Clear" />
-							</td>
-						</tr>
+					<div class="tabContent" id="news">
+						<table class="form-table ujcf-custom-admin-table">
+							<tr>
+								<th colspan="2" style="font-size:125%"><?php esc_html_e( 'News Settings:', 'uj-core-functionality' ) ?></th>
+							</tr>
+							<tr>
+								<th><?php esc_html_e( 'Default Image', 'uj-core-functionality' ) ?></th>
+								<td>
+								<?php $value = self::get_theme_option( 'news_image' );
+									  self::media_script('news', $value); ?>
+								<div class="news_image_preview_wrapper">
+									<img id="news_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								</div>
+								<input id="select_news_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
+								<input type="hidden" name="theme_options[news_image]" id="news_image_attachment_id" value="<?php echo esc_attr($value) ?>">
+								<input id="clear_news_image_button" type="button" class="button" value="Clear" />
+								</td>
+							</tr>
+						</table>
+					</div>
 						<?php } ?>
 
 						<?php // Testimonials ?>
 						<?php if (self::get_theme_option('testimonial_checkbox')) { ?>
-						<tr>
-							<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Testimonials Settings:', 'uj-core-functionality' ) ?></th>
-						</tr>
-						<tr>
-							<th><?php esc_html_e( 'Default Female Avatar Image', 'uj-core-functionality' ) ?></th>
-							<td>
-							<?php $value = self::get_theme_option( 'female_avatar_image' );
-								  self::media_script('female_avatar', $value); ?>
-							<div class="female_avatar_image_preview_wrapper">
-								<img id="female_avatar_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
-							</div>
-							<input id="select_female_avatar_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
-							<input type="hidden" name="theme_options[female_avatar_image]" id="female_avatar_image_attachment_id" value="<?php echo esc_attr($value) ?>">
-							<input id="clear_female_avatar_image_button" type="button" class="button" value="Clear" />
-							</td>
-						</tr>
-						<tr>
-							<th><?php esc_html_e( 'Default Male Avatar Image', 'uj-core-functionality' ) ?></th>
-							<td>
-							<?php $value = self::get_theme_option( 'male_avatar_image' );
-								  self::media_script('male_avatar', $value); ?>
-							<div class="male_avatar_image_preview_wrapper">
-								<img id="male_avatar_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
-							</div>
-							<input id="select_male_avatar_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
-							<input type="hidden" name="theme_options[male_avatar_image]" id="male_avatar_image_attachment_id" value="<?php echo esc_attr($value) ?>">
-							<input id="clear_male_avatar_image_button" type="button" class="button" value="Clear" />
-							</td>
-						</tr>
+					<div class="tabContent" id="testimonial">
+						<table class="form-table ujcf-custom-admin-table">
+							<tr>
+								<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Testimonials Settings:', 'uj-core-functionality' ) ?></th>
+							</tr>
+							<tr>
+								<th><?php esc_html_e( 'Default Female Avatar Image', 'uj-core-functionality' ) ?></th>
+								<td>
+								<?php $value = self::get_theme_option( 'female_avatar_image' );
+									  self::media_script('female_avatar', $value); ?>
+								<div class="female_avatar_image_preview_wrapper">
+									<img id="female_avatar_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								</div>
+								<input id="select_female_avatar_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
+								<input type="hidden" name="theme_options[female_avatar_image]" id="female_avatar_image_attachment_id" value="<?php echo esc_attr($value) ?>">
+								<input id="clear_female_avatar_image_button" type="button" class="button" value="Clear" />
+								</td>
+							</tr>
+							<tr>
+								<th><?php esc_html_e( 'Default Male Avatar Image', 'uj-core-functionality' ) ?></th>
+								<td>
+								<?php $value = self::get_theme_option( 'male_avatar_image' );
+									  self::media_script('male_avatar', $value); ?>
+								<div class="male_avatar_image_preview_wrapper">
+									<img id="male_avatar_image_preview" src="<?php echo wp_get_attachment_image_url( ($value) ) ?>" height="100px"<?php echo (!empty($value) ? '' : ' style="display: none;"') ?>>
+								</div>
+								<input id="select_male_avatar_image_button" type="button" class="button" value="<?php esc_html_e( 'Select image', 'uj-core-functionality' ) ?>" />
+								<input type="hidden" name="theme_options[male_avatar_image]" id="male_avatar_image_attachment_id" value="<?php echo esc_attr($value) ?>">
+								<input id="clear_male_avatar_image_button" type="button" class="button" value="Clear" />
+								</td>
+							</tr>
+						</table>
+					</div>
 						<?php } ?>
-
-						<?php /* // Text input example ?>
-						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Input Example', 'uj-core-functionality' ); ?></th>
-							<td>
-								<?php $value = self::get_theme_option( 'input_example' ); ?>
-								<input type="text" name="theme_options[input_example]" value="<?php echo esc_attr( $value ); ?>">
-							</td>
-						</tr>
-
-						<?php // Select example ?>
-						<tr valign="top" class="uj-custom-admin-screen-background-section">
-							<th scope="row"><?php esc_html_e( 'Select Example', 'uj-core-functionality' ); ?></th>
-							<td>
-								<?php $value = self::get_theme_option( 'select_example' ); ?>
-								<select name="theme_options[select_example]">
-									<?php
-									$options = array(
-										'1' => esc_html__( 'Option 1', 'uj-core-functionality' ),
-										'2' => esc_html__( 'Option 2', 'uj-core-functionality' ),
-										'3' => esc_html__( 'Option 3', 'uj-core-functionality' ),
-									);
-									foreach ( $options as $id => $label ) { ?>
-										<option value="<?php echo esc_attr( $id ); ?>" <?php selected( $value, $id, true ); ?>>
-											<?php echo strip_tags( $label ); ?>
-										</option>
-									<?php } ?>
-								</select>
-							</td>
-						</tr>
-<php */ ?>
-
-					</table>
 
 					<?php submit_button(); ?>
 
@@ -453,6 +485,20 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 <?php
 		}
 
+		public static function printBoookingBackgroundColors() {
+			$output = '';
+
+			foreach (self::$bookingColorLabels as $key => $label) {
+				$value = self::get_theme_option( $key . '_color' );
+				if (empty($value)) {
+					$value = self::$bookingColors[$key];
+				}
+				$output .= '.calendar-' . $key . ' { background-color: ' . $value . '}';
+			}
+			
+			return $output;
+		}
+		
 	}
 }
 new UJ_Theme_Options();
@@ -461,6 +507,13 @@ new UJ_Theme_Options();
 if (!function_exists('ujcf_get_theme_option')) {
 	function ujcf_get_theme_option( $id = '' ) {
 		return UJ_Theme_Options::get_theme_option( $id );
+	}
+}
+
+// Helper function to use in your theme to return the default booking color
+if (!function_exists('ujcf_printBoookingBackgroundColors')) {
+	function ujcf_printBoookingBackgroundColors() {
+		return UJ_Theme_Options::printBoookingBackgroundColors();
 	}
 }
 
