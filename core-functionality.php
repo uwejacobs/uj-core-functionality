@@ -70,9 +70,13 @@ if (!function_exists('ujcf_customizer_css')) {
     {
 		echo '<style id="ujcf_customizer_css" type="text/css">';
 		echo ujcf_printBoookingBackgroundColors();
-		echo '.calendar-legend { font-size: 12px; padding:5px; margin-right:20px; }';
+		echo '.calendar-legend { font-weight: bold; font-size: 16px; padding:10px; margin-right:20px; }';
+		echo '.calendar-table h4 { padding-bottom: 20px; }';
+		echo '.calendar-table td { font-weight: bold; font-size: 24px; padding: 10px}';
+		echo '.calendar-table th { font-weight: bold; font-size: 20px; background-color: lightgrey }';
 		echo '</style>';
 	}
 	
 	add_action( 'wp_head', 'ujcf_customizer_css');
 }
+
