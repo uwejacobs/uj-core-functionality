@@ -135,7 +135,7 @@ if (!function_exists('ujcf_add_quick_edit_order')) {
 		wp_nonce_field('ujcf_q_edit_order_nonce', 'ujcf_nonce');
 		echo '<label class="alignleft" style="width: 100%;">
 				<span class="title">' . esc_html__('Order', 'uj-core-functionality') . '</span>';
-		echo '<input type="text" name="acf[field_' . $field_name . ']" value="'.$order.'"></label>';
+		echo '<input class="order_field" type="text" name="acf[field_' . $field_name . ']" value="'.$order.'"></label>';
 		echo '<br><br>';
 		echo '</div></fieldset>';
     }
@@ -193,9 +193,6 @@ if (!function_exists('ujcf_quick_edit_order_js')) {
     {
         $current_screen = get_current_screen();
 
-        if ($current_screen->id != 'edit-booking' || $current_screen->post_type !== 'booking')
-            return;
-
         wp_enqueue_script('jquery');
         ?>
         <!-- add JS script -->
@@ -213,14 +210,12 @@ if (!function_exists('ujcf_quick_edit_order_js')) {
                     if ($post_id != 0) {
                         var $edit_row = $('#edit-' + $post_id);
                         var $post_row = $('#post-' + $post_id);
-                        var $order = $('.column-order', $post_row).text();/*bugbug*/
+                        var $order = $('.column-order', $post_row).text();
+			$(':input.order_field', $edit_row).val($order);
                     }
                 }
             });
         </script>
-		<style type="text/css">/*bugbug*/
-		ul.acf-radio-list.acf-hl li { margin-right: 20px; clear: none;}
-		</style>
 <?php
     }
 

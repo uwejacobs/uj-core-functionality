@@ -309,3 +309,12 @@ if (!function_exists('ujcf_lorem_ipsum')) {
 
 	add_shortcode("lorem-ipsum", "ujcf_lorem_ipsum");
 }
+
+if (!function_exists('ujcf_img_shortcode')) {
+	function ujcf_img_shortcode($atts, $content = null) {
+    	extract(shortcode_atts(array("src" => ''), $atts));
+    	return '<img src="' . $src . '" alt="'. do_shortcode(trim($content)) .'" />';
+	}
+
+	add_shortcode('img', 'ujcf_img_shortcode');
+}
