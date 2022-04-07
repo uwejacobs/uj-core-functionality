@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Core Functionality
  * Description:       This contains all your site's core functionality so that it is theme independent. <strong>It should always be activated</strong>.
- * Version:           1.1.3
+ * Version:           1.1.4
  * Author:            Uwe Jacobs
  * Requires at least: 5.6
  * Tested up to:      5.9.2
@@ -43,6 +43,7 @@ function ujcf_add_admin_option_scripts() {
 	wp_enqueue_script( 'uj-core-functionality-tabs-js', plugins_url( 'js/tabs.js', __FILE__ ) );
 }
 add_action( 'admin_enqueue_scripts', 'ujcf_add_option_styles' );
+add_action( 'wp_enqueue_scripts', 'ujcf_add_option_styles' );
 function ujcf_add_option_styles() {
 	wp_register_style( 'uj-core-functionality-style-css', plugins_url('css/style.css', __FILE__));
 	wp_enqueue_style( 'uj-core-functionality-style-css' );
@@ -70,10 +71,6 @@ if (!function_exists('ujcf_customizer_css')) {
     {
 		echo '<style id="ujcf_customizer_css" type="text/css">';
 		echo ujcf_printBoookingBackgroundColors();
-		echo '.calendar-legend { font-weight: bold; font-size: 16px; padding:10px; margin-right:20px; }';
-		echo '.calendar-table h4 { padding-bottom: 20px; }';
-		echo '.calendar-table td { font-weight: bold; font-size: 24px; padding: 10px}';
-		echo '.calendar-table th { font-weight: bold; font-size: 20px; background-color: lightgrey }';
 		echo '</style>';
 	}
 	

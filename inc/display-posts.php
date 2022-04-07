@@ -606,6 +606,7 @@ if (!function_exists('ujcf_showCalendarMonth')) {
 		$cnt = ujcf_static_dps_item_counter();
 		$dpsCnt = ujcf_static_dps_counter();
 
+		$bookingTypes = [];
 		$output = '';
 		$date = mktime(12, 0, 0, $month, 1, $year);
 		$numberOfDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
@@ -657,10 +658,14 @@ if (!function_exists('ujcf_showCalendarMonth')) {
 			$index = $year . '-' . str_pad($month, 2, 0, STR_PAD_LEFT) . '-' . str_pad($day, 2, 0, STR_PAD_LEFT);
 			$class = !empty($ujcf_booking_dates[$index]) ? ' class="calendar-' . esc_attr($ujcf_booking_dates[$index]) . '"' : '';
 			$title = !empty($ujcf_booking_dates[$index]) ? ' title="' . esc_attr(ucwords($ujcf_booking_dates[$index])) . '"' : '';
+			if (!empty($ujcf_booking_dates[$index])) {
+				$bookingTypes[$ujcf_booking_dates[$index]] = true;
+			}
 			if (empty($class)) {
 				if ($index >= $start && $index <= $end) {
 					$class = ' class="calendar-special"';
 					$title = ' title="' . esc_html__("Special Rates", 'uj-core-functionality') . '"';
+					$bookingTypes["special"] = true;
 				}
 			}
 
@@ -671,15 +676,27 @@ if (!function_exists('ujcf_showCalendarMonth')) {
 			$day++;
 		}
 		$output .= '</tr></tbody></table>';
- 		$output .= '<p>';
- 		$output .= '<span class="calendar-legend calendar-inquiry">Inquiry</span>';
-  		$output .= '<span class="calendar-legend calendar-tentative">Tentative</span>';
-  		$output .= '<span class="calendar-legend calendar-booked">Booked</span>';
-  		$output .= '<span class="calendar-legend calendar-event">Event</span>';
-  		$output .= '<span class="calendar-legend calendar-holiday">Holiday</span>';
-		if ($special_rate_period > 0) {
-			$output .= '<span class="calendar-legend calendar-special">Special Rate</span>';
+		$output .= '<div class="d-flex justify-content-center flex-wrap">';
+		if (!empty($bookingTypes["inquiry"])) {
+			$output .= '<div class="m-2 calendar-legend calendar-inquiry">Inquiry</div>';
 		}
+		if (!empty($bookingTypes["tentative"])) {
+			$output .= '<div class="m-2 calendar-legend calendar-tentative">Tentative</div>';
+		}
+		if (!empty($bookingTypes["booked"])) {
+			$output .= '<div class="m-2 calendar-legend calendar-booked">Booked</div>';
+		}
+		if (!empty($bookingTypes["event"])) {
+			$output .= '<div class="m-2 calendar-legend calendar-event">Event</div>';
+		}
+		if (!empty($bookingTypes["holiday"])) {
+			$output .= '<div class="m-2 calendar-legend calendar-holiday">Holiday</div>';
+		}
+		if (!empty($bookingTypes["special"])) {
+			$output .= '<div class="m-2 calendar-legend calendar-special">Special Rate</div>';
+		}
+		$output .= '</div>';
+
 		$output .= '</div>';
 
 		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
