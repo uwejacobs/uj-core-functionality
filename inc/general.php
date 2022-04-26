@@ -177,5 +177,5 @@ if (!function_exists('ujcf_editor_full_width_gutenberg')) {
 add_filter('widget_text', 'do_shortcode');
 
 // disable wpautop for posts and pages
-remove_filter( 'the_content', 'wpautop' );
-remove_filter( 'the_excerpt', 'wpautop' );
+//remove_filter( 'the_content', 'wpautop' );
+//remove_filter( 'the_excerpt', 'wpautop' );

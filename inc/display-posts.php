@@ -270,7 +270,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 		if (empty($type)) {
 			return ($output);
 		}
-		
+
 		$defaultImage = wp_get_attachment_image_url(ujcf_get_theme_option($type . '_image'));
 		$defaultAlt = "Generic " . $type . " image";
 
@@ -290,7 +290,9 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$img = null;
 		}
 		$rawText = do_shortcode($meta["text"][0] ?? '');
-		$rawText = str_replace("\n", '<br>', $rawText);
+		if (!empty($atts["nl2br"])) {
+			$rawText = str_replace("\n", '<br>', $rawText);
+		}
 		$text = ujcf_wp_split_words( $rawText );
 
 		if ($date_flag) {
@@ -302,6 +304,12 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 		$txt_alt = "";
 		if ($txt_img_med) {
 			$txt_alt = get_post_meta($meta["_thumbnail_id"][0], '_wp_attachment_image_alt', true);
+		}
+
+		if (!empty($atts["image_pos"]) && $atts["image_pos"] == "right") {
+			$image_class = "float-sm-end ps-2 pb-2";
+		} else {
+			$image_class = "float-sm-start pe-2 pb-2";
 		}
 
 		if (!empty($atts['wrapper'] ) && 'carousel' === $atts['wrapper']) {
@@ -319,7 +327,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output .= '  </div>';	
 			if ($txt_img_tn) {
 				$output .= '<div>';
-				$output .= '    <img class="size-medium float-sm-start pe-2 pb-2" src="' . esc_url($txt_img_tn) . '" alt="' . esc_attr($txt_alt) . '">';
+				$output .= '    <img class="size-medium ' . $image_class . '" src="' . esc_url($txt_img_tn) . '" alt="' . esc_attr($txt_alt) . '">';
 			}
 			$output .= ujcf_print_more_text($text, $dpsCnt, $cnt);
 			$output .= '</div>';	
@@ -347,9 +355,9 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output .= '    <div class="accordion-body">';
 
 			if ($txt_img_med) {
-				$output .= '<img class="size-medium float-sm-start pe-2 pb-2" src="' . esc_url($txt_img_med) . '" alt="' . esc_attr($txt_alt) . '">';
+				$output .= '<img class="size-medium ' . $image_class . '" src="' . esc_url($txt_img_med) . '" alt="' . esc_attr($txt_alt) . '">';
 			}
-			$output .= '<p>' . wp_kses_post($rawText) . '</p>';
+			$output .= '<div>' . wp_kses_post($rawText) . '</div>';
 			$output .= '  </div>';
 			if ($txt_img_med) {
 				$output .= '<div class="clearfix"></div>';
@@ -373,9 +381,9 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 
 			if ($txt_img_tn) {
 				$output .= '<div>';
-				$output .= '	<img class="size-medium float-sm-start pe-2 pb-2" src="' . esc_url($txt_img_tn) . '" alt="' . esc_attr($txt_alt) . '">';
+				$output .= '	<img class="size-medium ' . $image_class . '" src="' . esc_url($txt_img_tn) . '" alt="' . esc_attr($txt_alt) . '">';
 			}
-			$output .= '<p>' . wp_kses_post($rawText) . '</p>';
+			$output .= '<div>' . wp_kses_post($rawText) . '</div>';
 			$output .= '  </div>';
 			if ($txt_img_tn) {
 				$output .= '</div>';
