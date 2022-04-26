@@ -128,7 +128,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 		 * @since 1.0.0
 		 */
 		public static function sanitize( $options ) {
-
+//bugbug
 			// If we have options lets sanitize them
 			if ( $options ) {
 
@@ -596,10 +596,11 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 				echo wp_kses_post(ujcf_getStars($meta["stars"][0]));
 			}
 			if ($column == 'text' && !empty($meta["text"][0])) {
-				echo esc_attr($meta["text"][0]);
+				echo wp_trim_words($meta["text"][0], 30);
 			}
-			if ($column == 'order' && !empty($meta["order"][0])) {
-				echo esc_attr($meta["order"][0]);
+			if ($column == 'order') {
+				$menu_order = get_post_field( 'menu_order', $post_id, true );
+				echo esc_attr($menu_order);
 			}
 		}
 	}
@@ -621,8 +622,9 @@ if (ujcf_get_theme_option('faq_checkbox')) {
 		function ujcf_set_custom_edit_faq_columns($columns) {
 			$columns['title'] = esc_html__('Question', 'uj-core-functionality');
 			$columns['text'] = esc_html__('Answer', 'uj-core-functionality');
-			$columns['image'] = esc_html__('Image', 'uj-core-functionality');
+			$columns['image'] = esc_html__('Icon', 'uj-core-functionality');
 			$columns['order'] = esc_html__('Order', 'uj-core-functionality');
+			$columns['featured_image'] = esc_html__('Image', 'uj-core-functionality');
 			return $columns;
 		}
 	}
@@ -631,16 +633,23 @@ if (ujcf_get_theme_option('faq_checkbox')) {
 		function ujcf_custom_faq_column($column, $post_id) {
 			$meta = get_post_meta($post_id);
 			if ($column == 'text' && !empty($meta["text"][0])) {
-				echo esc_attr($meta["text"][0]);
+				echo wp_trim_words($meta["text"][0], 30);
 			}
 			if ($column == 'image') {
 				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="FAQ" class="rounded-circle" aria-hidden="true">';
+					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="FAQ" aria-hidden="true">';
 				}
 			}
-			if ($column == 'order' && !empty($meta["order"][0])) {
-				echo esc_attr($meta["order"][0]);
+			if ($column == 'order') {
+				$menu_order = get_post_field( 'menu_order', $post_id, true );
+				echo esc_attr($menu_order);
+			}
+			if ($column == 'featured_image' && !empty($meta["_thumbnail_id"][0])) {
+				$img = wp_get_attachment_image_url($meta["_thumbnail_id"][0], 'thumbnail');
+				if ($img) {
+					echo '<img src="' . esc_url($img) . '" alt="Featured Image">';
+				}
 			}
 		}
 	}
@@ -671,13 +680,14 @@ if (ujcf_get_theme_option('alert_checkbox')) {
 		function ujcf_custom_alert_column($column, $post_id) {
 			$meta = get_post_meta($post_id);
 			if ($column == 'text' && !empty($meta["text"][0])) {
-				echo esc_attr($meta["text"][0]);
+				echo wp_trim_words($meta["text"][0], 30);
 			}
 			if ($column == 'color' && !empty($meta["color"][0])) {
 				echo esc_attr(ucwords($meta["color"][0]));
 			}
-			if ($column == 'order' && !empty($meta["order"][0])) {
-				echo esc_attr($meta["order"][0]);
+			if ($column == 'order') {
+				$menu_order = get_post_field( 'menu_order', $post_id, true );
+				echo esc_attr($menu_order);
 			}
 		}
 	}
@@ -698,8 +708,9 @@ if (ujcf_get_theme_option('news_checkbox')) {
 	if (!function_exists('ujcf_set_custom_edit_news_columns')) {
 		function ujcf_set_custom_edit_news_columns($columns) {
 			$columns['text'] = esc_html__('Text', 'uj-core-functionality');
-			$columns['image'] = esc_html__('Image', 'uj-core-functionality');
+			$columns['image'] = esc_html__('Icon', 'uj-core-functionality');
 			$columns['order'] = esc_html__('Order', 'uj-core-functionality');
+			$columns['featured_image'] = esc_html__('Image', 'uj-core-functionality');
 			return $columns;
 		}
 	}
@@ -708,16 +719,23 @@ if (ujcf_get_theme_option('news_checkbox')) {
 		function ujcf_custom_news_column($column, $post_id) {
 			$meta = get_post_meta($post_id);
 			if ($column == 'text' && !empty($meta["text"][0])) {
-				echo esc_attr($meta["text"][0]);
+				echo wp_trim_words($meta["text"][0], 30);
 			}
 			if ($column == 'image') {
 				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="News" class="rounded-circle" aria-hidden="true">';
+					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="News" aria-hidden="true">';
 				}
 			}
-			if ($column == 'order' && !empty($meta["order"][0])) {
-				echo esc_attr($meta["order"][0]);
+			if ($column == 'order') {
+				$menu_order = get_post_field( 'menu_order', $post_id, true );
+				echo esc_attr($menu_order);
+			}
+			if ($column == 'featured_image' && !empty($meta["_thumbnail_id"][0])) {
+				$img = wp_get_attachment_image_url($meta["_thumbnail_id"][0], 'thumbnail');
+				if ($img) {
+					echo '<img src="' . esc_url($img) . '" alt="Featured Image">';
+				}
 			}
 		}
 	}
@@ -738,8 +756,9 @@ if (ujcf_get_theme_option('fundraiser_checkbox')) {
 	if (!function_exists('ujcf_set_custom_edit_fundraiser_columns')) {
 		function ujcf_set_custom_edit_fundraiser_columns($columns) {
 			$columns['text'] = esc_html__('Text', 'uj-core-functionality');
-			$columns['image'] = esc_html__('Image', 'uj-core-functionality');
+			$columns['image'] = esc_html__('Icon', 'uj-core-functionality');
 			$columns['order'] = esc_html__('Order', 'uj-core-functionality');
+			$columns['featured_image'] = esc_html__('Image', 'uj-core-functionality');
 			return $columns;
 		}
 	}
@@ -748,16 +767,23 @@ if (ujcf_get_theme_option('fundraiser_checkbox')) {
 		function ujcf_custom_fundraiser_column($column, $post_id) {
 			$meta = get_post_meta($post_id);
 			if ($column == 'text' && !empty($meta["text"][0])) {
-				echo esc_attr($meta["text"][0]);
+				echo wp_trim_words($meta["text"][0], 30);
 			}
 			if ($column == 'image') {
 				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="Fundraiser" class="rounded-circle" aria-hidden="true">';
+					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="Fundraiser" aria-hidden="true">';
 				}
 			}
-			if ($column == 'order' && !empty($meta["order"][0])) {
-				echo esc_attr($meta["order"][0]);
+			if ($column == 'order') {
+				$menu_order = get_post_field( 'menu_order', $post_id, true );
+				echo esc_attr($menu_order);
+			}
+			if ($column == 'featured_image' && !empty($meta["_thumbnail_id"][0])) {
+				$img = wp_get_attachment_image_url($meta["_thumbnail_id"][0], 'thumbnail');
+				if ($img) {
+					echo '<img src="' . esc_url($img) . '" alt="Featured Image">';
+				}
 			}
 		}
 	}
@@ -778,11 +804,11 @@ if (ujcf_get_theme_option('fundraiser_checkbox')) {
 if (ujcf_get_theme_option('event_checkbox')) {
 	if (!function_exists('ujcf_set_custom_edit_event_columns')) {
 		function ujcf_set_custom_edit_event_columns($columns) {
-			$columns['image'] = esc_html__('Image', 'uj-core-functionality');
+			$columns['icon'] = esc_html__('Icon', 'uj-core-functionality');
 			$columns['start_date'] = esc_html__('Start Date', 'uj-core-functionality');
 			$columns['end_date'] = esc_html__('End Date', 'uj-core-functionality');
 			$columns['text'] = esc_html__('Text', 'uj-core-functionality');
-			$columns['text_image'] = esc_html__('Text Image', 'uj-core-functionality');
+			$columns['featured_image'] = esc_html__('Image', 'uj-core-functionality');
 			return $columns;
 		}
 	}
@@ -790,27 +816,27 @@ if (ujcf_get_theme_option('event_checkbox')) {
 	if (!function_exists('ujcf_custom_event_column')) {
 		function ujcf_custom_event_column($column, $post_id) {
 			$meta = get_post_meta($post_id);
-			if ($column == 'image') {
+			if ($column == 'icon') {
 				$img = wp_get_attachment_image_url($meta["image"][0], 'thumbnail');
 				if ($img) {
-					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="Event" class="rounded-circle" aria-hidden="true">';
+					echo '<img style="max-height:50px" src="' . esc_url($img) . '" alt="Event" aria-hidden="true">';
 				}
 			}
 			if ($column == 'start_date' && !empty($meta["start_date"][0])) {
 				$date = new DateTime($meta["start_date"][0]);
-				echo esc_attr($date->format(get_option('date_format')));
+				echo esc_attr($date->format(get_option('date_format') . ' ' . get_option('time_format')));
 			}
 			if ($column == 'end_date' && !empty($meta["end_date"][0])) {
 				$date = new DateTime($meta["end_date"][0]);
-				echo esc_attr($date->format(get_option('date_format')));
+				echo esc_attr($date->format(get_option('date_format') . ' ' . get_option('time_format')));
 			}
 			if ($column == 'text' && !empty($meta["text"][0])) {
-				echo esc_attr($meta["text"][0]);
+				echo wp_trim_words($meta["text"][0], 30);
 			}
-			if ($column == 'text_image') {
-				$img = wp_get_attachment_image_url($meta["text_image"][0], 'medium');
+			if ($column == 'featured_image' && !empty($meta["_thumbnail_id"][0])) {
+				$img = wp_get_attachment_image_url($meta["_thumbnail_id"][0], 'thumbnail');
 				if ($img) {
-					echo '<img src="' . esc_url($img) . '" alt="Text Image" class="rounded-circle">';
+					echo '<img src="' . esc_url($img) . '" alt="Featured Image">';
 				}
 			}
 		}

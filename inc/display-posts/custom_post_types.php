@@ -65,7 +65,7 @@ if (!function_exists('cptui_register_my_cpts')) {
 				"rewrite" => [ "slug" => "alert", "with_front" => true ],
 				"query_var" => true,
 				"menu_icon" => "dashicons-info-outline",
-				"supports" => [ "title", "custom-fields" ],
+				"supports" => [ "title", "custom-fields", "page-attributes" ],
 				"show_in_graphql" => false,
 			];
 
@@ -202,8 +202,8 @@ if (!function_exists('cptui_register_my_cpts')) {
 				"rewrite" => [ "slug" => "event", "with_front" => true ],
 				"query_var" => true,
 				"menu_icon" => "dashicons-calendar-alt",
-				"supports" => [ "title", "custom-fields" ],
-				"taxonomies" => [ "category" ],
+				"supports" => [ "title", "thumbnail", "custom-fields" ],
+				"taxonomies" => [ "category", "post_tag" ],
 				"show_in_graphql" => false,
 			];
 
@@ -271,10 +271,9 @@ if (!function_exists('cptui_register_my_cpts')) {
 				"rewrite" => [ "slug" => "faq", "with_front" => true ],
 				"query_var" => true,
 				"menu_icon" => "dashicons-info",
-				"supports" => [ "title", "custom-fields" ],
-				"taxonomies" => [ "category" ],
+				"supports" => [ "title", "thumbnail", "custom-fields", "page-attributes" ],
+				"taxonomies" => [ "category", "post_tag" ],
 				"show_in_graphql" => false,
-				"taxonomies" => [ "category" ],
 			];
 
 			register_post_type( "faq", $args );
@@ -340,8 +339,8 @@ if (!function_exists('cptui_register_my_cpts')) {
 				"rewrite" => [ "slug" => "fundraiser", "with_front" => true ],
 				"query_var" => true,
 				"menu_icon" => "dashicons-info",
-				"supports" => [ "title", "custom-fields" ],
-				"taxonomies" => [ "category" ],
+				"supports" => [ "title", "thumbnail", "custom-fields", "page-attributes" ],
+				"taxonomies" => [ "category", "post_tag" ],
 				"show_in_graphql" => false,
 			];
 
@@ -409,8 +408,8 @@ if (!function_exists('cptui_register_my_cpts')) {
 				"rewrite" => [ "slug" => "news", "with_front" => true ],
 				"query_var" => true,
 				"menu_icon" => "dashicons-info",
-				"supports" => [ "title", "custom-fields" ],
-				"taxonomies" => [ "category" ],
+				"supports" => [ "title", "thumbnail", "custom-fields", "page-attributes" ],
+				"taxonomies" => [ "category", "post_tag" ],
 				"show_in_graphql" => false,
 			];
 
@@ -478,8 +477,8 @@ if (!function_exists('cptui_register_my_cpts')) {
 				"rewrite" => [ "slug" => "testimonial", "with_front" => true ],
 				"query_var" => true,
 				"menu_icon" => "dashicons-testimonial",
-				"supports" => [ "title", "custom-fields" ],
-				"taxonomies" => [ "category" ],
+				"supports" => [ "title", "custom-fields", "page-attributes" ],
+				"taxonomies" => [ "category", "post_tag" ],
 				"show_in_graphql" => false,
 			];
 
