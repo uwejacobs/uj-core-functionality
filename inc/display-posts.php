@@ -306,7 +306,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$txt_alt = get_post_meta($meta["_thumbnail_id"][0], '_wp_attachment_image_alt', true);
 		}
 
-		if (!empty($atts["image_pos"]) && $atts["image_pos"] == "right") {
+		if (!empty($meta["image_position"]) && $meta["image_position"][0] == "right") {
 			$image_class = "float-sm-end ps-2 pb-2";
 		} else {
 			$image_class = "float-sm-start pe-2 pb-2";
