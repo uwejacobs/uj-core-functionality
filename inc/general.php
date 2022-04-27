@@ -176,6 +176,10 @@ if (!function_exists('ujcf_editor_full_width_gutenberg')) {
  */
 add_filter('widget_text', 'do_shortcode');
 
-// disable wpautop for posts and pages
-//remove_filter( 'the_content', 'wpautop' );
-//remove_filter( 'the_excerpt', 'wpautop' );
+// disable wpautop for pages, posts, post excerpt and ACF wysiwig
+remove_filter( 'the_content', 'wpautop' );
+remove_filter( 'the_excerpt', 'wpautop' );
+remove_filter( 'acf_the_content', 'wpautop' );
+
+// keep P and BR in ACF wysiwig
+add_filter( 'tiny_mce_before_init', function($init) { $init['wpautop'] = false; $init['indent'] = true; $init['tadv_noautop'] = true; }, 10, 2 );
