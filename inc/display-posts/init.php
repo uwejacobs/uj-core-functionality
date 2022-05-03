@@ -21,6 +21,8 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 			self::$checkBoxLabels['alert'] = __('Alerts', 'uj-core-functionality');
 			self::$checkBoxes[] = 'booking';
 			self::$checkBoxLabels['booking'] = __('Bookings', 'uj-core-functionality');
+			self::$checkBoxes[] = 'contact';
+			self::$checkBoxLabels['contact'] = __('Contact', 'uj-core-functionality');
 			self::$checkBoxes[] = 'event';
 			self::$checkBoxLabels['event'] = __('Events', 'uj-core-functionality');
 			self::$checkBoxes[] = 'faq';
@@ -262,6 +264,17 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 					</div>
 						<?php } ?>
 
+						<?php // Contact ?>
+						<?php if (self::get_theme_option('contact_checkbox')) { ?>
+					<div class="tabContent" id="contact">
+						<table class="form-table ujcf-custom-admin-table">
+							<tr>
+								<th colspan="2" style="font-size:125%"><?php esc_html_e( 'Contact Settings:', 'uj-core-functionality' ) ?></th>
+							</tr>
+						</table>
+					</div>
+						<?php } ?>
+
 						<?php // Event ?>
 						<?php if (self::get_theme_option('event_checkbox')) { ?>
 					<div class="tabContent" id="event">
@@ -493,7 +506,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 				if (empty($value)) {
 					$value = self::$bookingColors[$key];
 				}
-				$output .= '.calendar-' . $key . ' { background-color: ' . $value . '}';
+				$output .= '.calendar-' . $key . ' { background-color: ' . $value . ' !important}';
 			}
 			
 			return $output;
@@ -566,7 +579,7 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 	if (!function_exists('ujcf_set_custom_edit_testimonial_columns')) {
 		function ujcf_set_custom_edit_testimonial_columns($columns) {
 			$columns['title'] = esc_html__('Name', 'uj-core-functionality');
-			$columns['credentials'] = esc_html__('Title', 'uj-core-functionality');
+			$columns['job_titles'] = esc_html__('Job Title', 'uj-core-functionality');
 			$columns['picture'] = esc_html__('Picture', 'uj-core-functionality');
 			$columns['stars'] = esc_html__('Stars', 'uj-core-functionality');
 			$columns['text'] = esc_html__('Text', 'uj-core-functionality');
@@ -578,7 +591,7 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 	if (!function_exists('ujcf_custom_testimonial_column')) {
 		function ujcf_custom_testimonial_column($column, $post_id) {
 			$meta = get_post_meta($post_id);
-			if ($column == 'credentials' && !empty($meta["title"][0])) {
+			if ($column == 'job_titles' && !empty($meta["title"][0])) {
 				echo wp_kses_post(str_replace("\n", '<br>', $meta["title"][0]));
 			}
 			if ($column == 'picture') {
@@ -853,6 +866,76 @@ if (ujcf_get_theme_option('event_checkbox')) {
 	}
 }
 
+// Contacts
+if (ujcf_get_theme_option('contact_checkbox')) {
+	if (!function_exists('ujcf_set_custom_edit_contact_columns')) {
+		function ujcf_set_custom_edit_contact_columns($columns) {
+			$columns['title'] = esc_html__('Name', 'uj-core-functionality');
+			$columns['position'] = esc_html__('Position', 'uj-core-functionality');
+			$columns['email'] = esc_html__('Email', 'uj-core-functionality');
+			$columns['phone'] = esc_html__('Phone', 'uj-core-functionality');
+			$columns['text'] = esc_html__('Text', 'uj-core-functionality');
+			$columns['order'] = esc_html__('Order', 'uj-core-functionality');
+			$columns['featured_image'] = esc_html__('Image', 'uj-core-functionality');
+			$columns['twitter_url'] = esc_html__('Twitter URL', 'uj-core-functionality');
+			$columns['facebook_url'] = esc_html__('Facebook URL', 'uj-core-functionality');
+			$columns['instagram_url'] = esc_html__('Instagram URL', 'uj-core-functionality');
+			$columns['linkedin_url'] = esc_html__('LinkedIn URL', 'uj-core-functionality');
+			return $columns;
+		}
+	}
+
+	if (!function_exists('ujcf_custom_contact_column')) {
+		function ujcf_custom_contact_column($column, $post_id) {
+			$meta = get_post_meta($post_id);
+			if ($column == 'position' && !empty($meta["position"][0])) {
+				echo $meta["position"][0];
+			}
+			if ($column == 'email' && !empty($meta["email"][0])) {
+				echo $meta["email"][0];
+			}
+			if ($column == 'phone' && !empty($meta["phone"][0])) {
+				echo $meta["phone"][0];
+			}
+			if ($column == 'text' && !empty($meta["text"][0])) {
+				echo wp_trim_words($meta["text"][0], 30);
+			}
+			if ($column == 'order') {
+				$menu_order = get_post_field( 'menu_order', $post_id, true );
+				echo esc_attr($menu_order);
+			}
+			if ($column == 'featured_image' && !empty($meta["_thumbnail_id"][0])) {
+				$img = wp_get_attachment_image_url($meta["_thumbnail_id"][0], 'thumbnail');
+				if ($img) {
+					echo '<img src="' . esc_url($img) . '" alt="Featured Image">';
+				}
+			}
+			if ($column == 'twitter_url' && !empty($meta["twitter_url"][0])) {
+				echo $meta["twitter_url"][0];
+			}
+			if ($column == 'facebook_url' && !empty($meta["facebook_url"][0])) {
+				echo $meta["facebook_url"][0];
+			}
+			if ($column == 'instagram_url' && !empty($meta["instagram_url"][0])) {
+				echo $meta["instagram_url"][0];
+			}
+			if ($column == 'linkedin_url' && !empty($meta["linkedin_url"][0])) {
+				echo $meta["linkedin_url"][0];
+			}
+		}
+	}
+
+	if (!function_exists('ujcf_sortable_contact_column')) {
+		function ujcf_sortable_contact_column( $columns ) {
+			$columns['order'] = 'order';
+
+			return $columns;
+		}
+		
+		add_filter( 'manage_edit-contact_sortable_columns', 'ujcf_sortable_contact_column' );
+	}
+}
+
 if (!function_exists('ujcf_pre_posts_orderby')) {
 	function ujcf_pre_posts_orderby($query) {
 		if (!is_admin())
@@ -870,4 +953,19 @@ if (!function_exists('ujcf_pre_posts_orderby')) {
 	}
 	
 	add_action('pre_get_posts', 'ujcf_pre_posts_orderby' );
+}
+
+// change "Enter title here" placeholder text
+if (!function_exists('ujcf_change_title_placeholder_text')) {
+	function ujcf_change_title_placeholder_text( $title ) {
+		$screen = get_current_screen();
+		if  ( 'contact' == $screen->post_type ||
+			  'testimonial' == $screen->post_type ) {
+			$title = 'Enter full name';
+		} else if  ( 'faq' == $screen->post_type ) {
+			$title = 'Enter question';
+		}
+		return $title;
+	}
+	add_filter( 'enter_title_here', 'ujcf_change_title_placeholder_text' );
 }

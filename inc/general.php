@@ -51,48 +51,6 @@ if (!function_exists('ujcf_author_links_on_cf_plugin')) {
 	add_filter( 'plugin_row_meta', 'ujcf_author_links_on_cf_plugin', 10, 2 );
 }
 
-// Don't let WPSEO metabox be high priority
-add_filter( 'wpseo_metabox_prio', function(){ return 'low'; } );
-
-/**
- * Remove WPSEO Notifications
- *
- */
-if (!function_exists('ujcf_remove_wpseo_notifications')) {
-	function ujcf_remove_wpseo_notifications() {
-
-		if( ! class_exists( 'Yoast_Notification_Center' ) )
-			return;
-
-		remove_action( 'admin_notices', array( Yoast_Notification_Center::get(), 'display_notifications' ) );
-		remove_action( 'all_admin_notices', array( Yoast_Notification_Center::get(), 'display_notifications' ) );
-	}
-
-	add_action( 'init', 'ujcf_remove_wpseo_notifications' );
-}
-
-/**
-  * Exclude No-index content from search
-  *
-  */
-if (!function_exists('ujcf_exclude_noindex_from_search')) {
-	function ujcf_exclude_noindex_from_search( $query ) {
-
-		if( $query->is_main_query() && $query->is_search() && ! is_admin() ) {
-
-			$meta_query = empty( $query->query_vars['meta_query'] ) ? array() : $query->query_vars['meta_query'];
-			$meta_query[] = array(
-				'key' => '_yoast_wpseo_meta-robots-noindex',
-				'compare' => 'NOT EXISTS',
-			);
-
-			$query->set( 'meta_query', $meta_query );
-		}
-	}
-
-	add_action( 'pre_get_posts', 'ujcf_exclude_noindex_from_search' );
-}
-
 /**
  * Pretty Printing
  *
@@ -144,42 +102,3 @@ if (!function_exists('ujcf_pp')) {
 		<?php
 	}
 }
-
-/**
- * Add inline css editor width
- * Not needed with Classic Editor Plugin
- */
-/*
-if (!function_exists('ujcf_editor_full_width_gutenberg')) {
-	function ujcf_editor_full_width_gutenberg() {
-	  echo '<style>
-		body.gutenberg-editor-page .editor-post-title__block, body.gutenberg-editor-page .editor-default-block-appender, body.gutenberg-editor-page .editor-block-list__block {
-					max-width: none !important;
-			}
-		.block-editor__container .wp-block {
-			max-width: none !important;
-		}
-		.edit-post-text-editor__body {
-			max-width: none !important;
-			margin-left: auto;
-			margin-right: auto;
-		}
-	  </style>';
-	}
-
-	add_action('admin_head', 'ujcf_editor_full_width_gutenberg');
-}
-*/
-
-/*
- * Run shortcodes in text widgets
- */
-add_filter('widget_text', 'do_shortcode');
-
-// disable wpautop for pages, posts, post excerpt and ACF wysiwig
-remove_filter( 'the_content', 'wpautop' );
-remove_filter( 'the_excerpt', 'wpautop' );
-remove_filter( 'acf_the_content', 'wpautop' );
-
-// keep P and BR in ACF wysiwig
-add_filter( 'tiny_mce_before_init', function($init) { $init['wpautop'] = false; $init['indent'] = true; $init['tadv_noautop'] = true; }, 10, 2 );

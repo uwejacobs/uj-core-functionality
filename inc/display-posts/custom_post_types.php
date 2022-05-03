@@ -140,6 +140,77 @@ if (!function_exists('cptui_register_my_cpts')) {
 			register_post_type( "booking", $args );
 		}
 
+		if (ujcf_get_theme_option("contact_checkbox")) {
+
+			/**
+			 * Post Type: Contacts.
+			 */
+
+			$labels = [
+				"name" => __( "Contacts", "uj-core-functionality" ),
+				"singular_name" => __( "Contact", "uj-core-functionality" ),
+				"menu_name" => __( "My Contacts", "uj-core-functionality" ),
+				"all_items" => __( "Contacts", "uj-core-functionality" ),
+				"add_new" => __( "Add new", "uj-core-functionality" ),
+				"add_new_item" => __( "Add new Contact", "uj-core-functionality" ),
+				"edit_item" => __( "Edit Contact", "uj-core-functionality" ),
+				"new_item" => __( "New Contact", "uj-core-functionality" ),
+				"view_item" => __( "View Contact", "uj-core-functionality" ),
+				"view_items" => __( "View Contacts", "uj-core-functionality" ),
+				"search_items" => __( "Search Contacts", "uj-core-functionality" ),
+				"not_found" => __( "No Contacts found", "uj-core-functionality" ),
+				"not_found_in_trash" => __( "No Contacts found in trash", "uj-core-functionality" ),
+				"parent" => __( "Parent Contact:", "uj-core-functionality" ),
+				"featured_image" => __( "Featured image for this Contact", "uj-core-functionality" ),
+				"set_featured_image" => __( "Set featured image for this Contact", "uj-core-functionality" ),
+				"remove_featured_image" => __( "Remove featured image for this Contact", "uj-core-functionality" ),
+				"use_featured_image" => __( "Use as featured image for this Contact", "uj-core-functionality" ),
+				"archives" => __( "Contact archives", "uj-core-functionality" ),
+				"insert_into_item" => __( "Insert into Contact", "uj-core-functionality" ),
+				"uploaded_to_this_item" => __( "Upload to this Contact", "uj-core-functionality" ),
+				"filter_items_list" => __( "Filter Contacts list", "uj-core-functionality" ),
+				"items_list_navigation" => __( "Contacts list navigation", "uj-core-functionality" ),
+				"items_list" => __( "Contacts list", "uj-core-functionality" ),
+				"attributes" => __( "Contacts attributes", "uj-core-functionality" ),
+				"name_admin_bar" => __( "Contact", "uj-core-functionality" ),
+				"item_published" => __( "Contact published", "uj-core-functionality" ),
+				"item_published_privately" => __( "Contact published privately.", "uj-core-functionality" ),
+				"item_reverted_to_draft" => __( "Contact reverted to draft.", "uj-core-functionality" ),
+				"item_scheduled" => __( "Contact scheduled", "uj-core-functionality" ),
+				"item_updated" => __( "Contact updated.", "uj-core-functionality" ),
+				"parent_item_colon" => __( "Parent Contact:", "uj-core-functionality" ),
+			];
+
+			$args = [
+				"label" => __( "Contacts", "wk-wow-child" ),
+				"labels" => $labels,
+				"description" => "",
+				"public" => true,
+				"publicly_queryable" => true,
+				"show_ui" => true,
+				"show_in_rest" => true,
+				"rest_base" => "",
+				"rest_controller_class" => "WP_REST_Posts_Controller",
+				"has_archive" => false,
+				"show_in_menu" => "theme_options",
+				"show_in_nav_menus" => true,
+				"delete_with_user" => false,
+				"exclude_from_search" => false,
+				"capability_type" => "post",
+				"map_meta_cap" => true,
+				"hierarchical" => false,
+				"can_export" => false,
+				"rewrite" => [ "slug" => "contact", "with_front" => true ],
+				"query_var" => true,
+				"menu_icon" => "dashicons-universal-access",
+				"supports" => [ "title", "thumbnail", "custom-fields", "page-attributes" ],
+				"taxonomies" => [ "category", "post_tag" ],
+				"show_in_graphql" => false,
+			];
+
+			register_post_type( "contact", $args );
+		}
+
 		if (ujcf_get_theme_option("event_checkbox")) {
 			/**
 			 * Post Type: Events.
