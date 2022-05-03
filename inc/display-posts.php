@@ -175,6 +175,8 @@ if (!function_exists('ujcf_dps_posts_close')) {
 			$output .= '        });';
 			$output .= '    }';
 			$output .= '</script>';
+		} else if ('accordion' === $wrapper) {
+			$output .= '</div>';
 		}
 
 		return $addlOutput . $output;
@@ -434,7 +436,8 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output .= '</div>';
 			$output .= '</div>';
 		} else {
-			$output = '<' . esc_attr($wrapper) . ' class="d-md-flex d-inline ' . esc_attr($listing_class) . '">';
+			$sub_wrapper = in_array($wrapper, array("ol", "ul")) ? 'li' : $wrapper;
+			$output = '<' . esc_attr($sub_wrapper) . ' class="d-md-flex d-inline mb-5 ' . esc_attr($listing_class) . '">';
 			if ($icon && $include_icon) {
 				$output .= '<img style="max-height:' . esc_attr($icon_max_height) . 'px" class="icon me-3 ' . esc_attr($icon_class) . '" src="' . esc_url($icon) . '" alt="' . esc_attr($icon_alt) . '">';
 			}
@@ -460,7 +463,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 				$output .= '</div>';
 				$output .= '<div class="clearfix"></div>';
 			}
-			$output .= '</' . esc_attr($wrapper) . '>';	
+			$output .= '</' . esc_attr($sub_wrapper) . '>';	
 		}
 		
 		return $output;
@@ -641,9 +644,6 @@ if (!function_exists('ujcf_dps_option_output_contact')) {
 			$output .= '		</div>';
 			$output .= '	</div>';
 			$output .= '</div>';
-		} else {
-			$output = '<' . esc_attr($wrapper) . ' class="d-md-flex d-inline ' . esc_attr($listing_class) . '">';
-			$output .= '</' . esc_attr($wrapper) . '>';	
 		}
 
 		return $output;
