@@ -55,15 +55,18 @@ if (!function_exists('ujcf_dps_posts_open')) {
 		}
 
 		if ('contact' === $type) {
-			if (in_array($wrapper, array("div", "ul"))) {
-				return '<' . esc_attr($wrapper) . ' class="' . esc_attr($wrapper_class) . '">';
+			$id = !empty($wrapper_id) ? ' id="' . esc_attr($wrapper_id) . '"' : '';
+			if (in_array($wrapper, array("div", "ul", "ol"))) {
+				$output = '<' . esc_attr($wrapper) . esc_attr($id) . ' class="' . esc_attr($wrapper_class) . '">';
 			} else if ($wrapper == "vertical-card") {
-				return '<div class="' . esc_attr($wrapper_class) . '">';
+				$output = '<div' . esc_attr($id) . ' class="' . esc_attr($wrapper_class) . '">';
 			} else if ($wrapper == "raised-image") {
-				return '<div class="row g-4 mt-5 ' . esc_attr($wrapper_class) . '">';
+				$output = '<div' . esc_attr($id) . ' class="row g-4 mt-5 ' . esc_attr($wrapper_class) . '">';
 			} else {
-				return '<div class="row g-4 ' . esc_attr($wrapper_class) . '">';
+				$output = '<div' . esc_attr($id) . ' class="row g-4 ' . esc_attr($wrapper_class) . '">';
 			}
+
+			return $output;
 		}
 
 		if ('carousel' === $wrapper) {
@@ -110,7 +113,7 @@ if (!function_exists('ujcf_dps_posts_close')) {
         $atts = shortcode_atts(
                 array(
 					'post_type'             => '',
-					'wrapper'               => 'li',
+					'wrapper'               => 'ul',
 					'arrow_color_class'     => 'dark',
 					'left_arrow'            => true,
 					'right_arrow'           => true,
@@ -138,6 +141,7 @@ if (!function_exists('ujcf_dps_posts_close')) {
 				$addlOutput .= ujcf_showCalendarMonth($original_atts, $dt->format("m"), $dt->format("Y"));
 			}
 		}
+
 
 		if ('carousel' === $wrapper) {
 			$output = '</div>';
@@ -176,7 +180,13 @@ if (!function_exists('ujcf_dps_posts_close')) {
 			$output .= '    }';
 			$output .= '</script>';
 		} else if ('accordion' === $wrapper) {
-			$output .= '</div>';
+			$output = '</div>';
+		} else {
+			if (in_array($wrapper, array("ul", "ol"))) {
+				$output = '</' . esc_attr($wrapper) . '>';
+			} else {
+				$output = '</div>';
+			}
 		}
 
 		return $addlOutput . $output;
@@ -297,7 +307,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 					'image_class'           => 'image',
 					'icon_max_height'		=> 50,
 					'image_size'            => 'medium',
-					'wrapper'               => 'li',
+					'wrapper'               => 'ul',
                     'include_title'         => true,
                     'include_date'          => true,
 					'include_icon'          => true,
@@ -680,7 +690,7 @@ if (!function_exists('ujcf_printSocialIcons')) {
 		if ($include_email) {
 			$email = get_field("email");
 			if (!empty($email)) {
-				$output .= '<li class="list-inline-item ' . esc_attr($social_item_class) . ' ' . esc_attr($email_class) . '"><a class="text-dark" href="mailto:'. esc_attr($email) .'"><i class="fas fa-envelope fa-fw"></i></a></li>';
+				$output .= '<li class="list-inline-item ' . esc_attr($social_item_class) . ' ' . esc_attr($email_class) . '"><a class="text-dark" href="mailto:'. esc_attr(antispambot($email)) .'"><i class="fas fa-envelope fa-fw"></i></a></li>';
 			}
 		}
 		if ($include_phone) {
@@ -775,7 +785,7 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 					'image_class'           => 'image',
 					'text_class'            => 'text',
 					'image_max_height'		=> 150,
-					'wrapper'               => 'li',
+					'wrapper'               => 'ul',
 					'include_title'         => true,
 					'include_job_title'     => true,
 					'include_stars'         => true,

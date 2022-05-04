@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-05-03T15:31:31-04:00\n"
+"POT-Creation-Date: 2022-05-04T16:43:31-04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: uj-core-functionality\n"
@@ -26,35 +26,35 @@ msgstr ""
 msgid "Uwe Jacobs"
 msgstr ""
 
-#: inc/display-posts.php:989
+#: inc/display-posts.php:999
 msgid "Sun"
 msgstr ""
 
-#: inc/display-posts.php:989
+#: inc/display-posts.php:999
 msgid "Mon"
 msgstr ""
 
-#: inc/display-posts.php:989
+#: inc/display-posts.php:999
 msgid "Tue"
 msgstr ""
 
-#: inc/display-posts.php:989
+#: inc/display-posts.php:999
 msgid "Wed"
 msgstr ""
 
-#: inc/display-posts.php:989
+#: inc/display-posts.php:999
 msgid "Thu"
 msgstr ""
 
-#: inc/display-posts.php:989
+#: inc/display-posts.php:999
 msgid "Fri"
 msgstr ""
 
-#: inc/display-posts.php:989
+#: inc/display-posts.php:999
 msgid "Sat"
 msgstr ""
 
-#: inc/display-posts.php:1021
+#: inc/display-posts.php:1031
 msgid "Special Rates"
 msgstr ""
 
