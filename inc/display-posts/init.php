@@ -944,8 +944,7 @@ if (!function_exists('ujcf_pre_posts_orderby')) {
 		$orderby = $query->get( 'orderby');
 	 
 		if ('order' == $orderby) {
-			$query->set('meta_key', 'order');
-			$query->set('orderby', 'meta_value_num');
+			$query->set('orderby', 'menu_order');
 		} else if ('start_date' == $orderby) {
 			$query->set('meta_key', 'start_date');
 			$query->set('orderby', 'meta_value');

@@ -602,9 +602,9 @@ if (!function_exists('ujcf_dps_option_output_contact')) {
 			$output .= '</div>';
 		} else if ($wrapper == "round-image") {
 			$output  = '<div class="col-12 col-sm-6 col-md-4 col-lg-3 g-4 ' . esc_attr($listing_class) . '">';
-			$output .= '    <div class="card h-100">';
+			$output .= '    <div class="card text-center h-100">';
 			if ($include_image) {
-				$output .= '        <img src="' . esc_url($image) . '" class="img-responsive rounded-circle ' . esc_attr($image_class) . '" alt="' . esc_attr($alt) . '" style="width:' . esc_attr($image_max_width) . 'px; height:' . esc_attr($image_max_height) . 'px;">';
+				$output .= '        <img src="' . esc_url($image) . '" class="img-responsive mx-auto pt-2 rounded-circle ' . esc_attr($image_class) . '" alt="' . esc_attr($alt) . '" style="width:' . esc_attr($image_max_width) . 'px; height:' . esc_attr($image_max_height) . 'px;">';
 			}
 			if ($include_content) {
 				$output .= '      <div class="card-body ' . esc_attr($content_class) . '">';

@@ -23,13 +23,13 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
  */
 if (!function_exists('ujcf_dont_update_core_func_plugin')) {
 	function ujcf_dont_update_core_func_plugin( $r, $url ) {
-	  if ( 0 !== strpos( $url, 'https://api.wordpress.org/plugins/update-check/1.1/' ) )
-		return $r; // Not a plugin update request. Bail immediately.
+		if ( 0 !== strpos( $url, 'https://api.wordpress.org/plugins/update-check/1.1/' ) )
+			return $r; // Not a plugin update request. Bail immediately.
 		$plugins = json_decode( $r['body']['plugins'], true );
 		unset( $plugins['plugins'][plugin_basename( UJ_DIR . '/core-functionality.php' )] );
 		$r['body']['plugins'] = json_encode( $plugins );
 		return $r;
-	 }
+	}
 	
 	add_filter( 'http_request_args', 'ujcf_dont_update_core_func_plugin', 5, 2 );
 }
