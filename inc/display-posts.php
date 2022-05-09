@@ -28,7 +28,7 @@ if (!function_exists('ujcf_dps_posts_open')) {
         $atts = shortcode_atts(
                 array(
 					'post_type'             => '',
-					'wrapper'               => 'ul',
+					'wrapper'               => '',
 					'wrapper_id'            => '',
 					'wrapper_class'         => 'display-posts-listing',
 					'arrow_color_class'     => 'dark',
@@ -48,6 +48,8 @@ if (!function_exists('ujcf_dps_posts_open')) {
 		$dpsCnt = ujcf_static_dps_counter();
 
 		$indicator_cnt = $dps_listing->post_count;
+		
+		$wrapper = getDefaultWrapper($wrapper, $type);
 
 		if ('booking' === $type) {
 			ujcf_static_booking_dates();
@@ -113,7 +115,7 @@ if (!function_exists('ujcf_dps_posts_close')) {
         $atts = shortcode_atts(
                 array(
 					'post_type'             => '',
-					'wrapper'               => 'ul',
+					'wrapper'               => '',
 					'arrow_color_class'     => 'dark',
 					'left_arrow'            => true,
 					'right_arrow'           => true,
@@ -129,6 +131,8 @@ if (!function_exists('ujcf_dps_posts_close')) {
 
 		$dpsCnt = ujcf_static_dps_counter();
 		$addlOutput = '';
+
+		$wrapper = getDefaultWrapper($wrapper, $type);
 
 		if ('booking' === $type) {
 			$start = new DateTime();
@@ -220,7 +224,7 @@ if (!function_exists('ujcf_dps_option_output')) {
 
 		if (!empty($layout)) {
 			ob_start();
-			get_template_part('template-parts/dps', $layout);
+			$ret = get_template_part('template-parts/dps', $layout);
 			$new_output = ob_get_clean();
 			if (!empty($new_output)) {
 				$output = $new_output;
@@ -307,7 +311,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 					'image_class'           => 'image',
 					'icon_max_height'		=> 50,
 					'image_size'            => 'medium',
-					'wrapper'               => 'ul',
+					'wrapper'               => '',
                     'include_title'         => true,
                     'include_date'          => true,
 					'include_icon'          => true,
@@ -345,6 +349,8 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 
 		$cnt = ujcf_static_dps_item_counter();
 		$dpsCnt = ujcf_static_dps_counter();
+
+		$wrapper = getDefaultWrapper($wrapper, $type);
 
 		$defaultImage = wp_get_attachment_image_url(ujcf_get_theme_option($type . '_image'));
 		$defaultAlt = "Generic " . $type . " image";
@@ -491,8 +497,6 @@ if (!function_exists('ujcf_dps_option_output_contact')) {
 					'listing_class'         => 'listing-item',
 					'content_class'         => 'content',
 					'name_class'            => 'name',
-					'phone_class'           => 'phone',
-					'email_class'           => 'email',
 					'position_class'        => 'position',
 					'image_class'           => 'image',
 					'text_class'            => 'text',
@@ -532,9 +536,9 @@ if (!function_exists('ujcf_dps_option_output_contact')) {
 		$cnt = ujcf_static_dps_item_counter();
 		$dpsCnt = ujcf_static_dps_counter();
 
+		$wrapper = getDefaultWrapper($wrapper, "contact");
+
 		if ($wrapper == "round-image" || $wrapper == 'raised-image') {
-			$image_max_height = 150;
-			$image_max_width = 150;
 			$image_size = 'thumbnail';
 		}
 
@@ -668,9 +672,9 @@ if (!function_exists('ujcf_printSocialIcons')) {
 					'include_email'          => true,
 					'include_phone'          => true,
 					'social_listing_class'   => 'social-list',
-					'social_item_class'      => 'social-item',
-					'email_class'            => 'social-item',
-					'phone_class'            => 'social-item',
+					'social_item_class'      => 'social-item social',
+					'email_class'            => 'social-item email',
+					'phone_class'            => 'social-item phone',
                 ),
                 $atts
         );
@@ -785,7 +789,7 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 					'image_class'           => 'image',
 					'text_class'            => 'text',
 					'image_max_height'		=> 150,
-					'wrapper'               => 'ul',
+					'wrapper'               => '',
 					'include_title'         => true,
 					'include_job_title'     => true,
 					'include_stars'         => true,
@@ -816,6 +820,8 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 
 		$cnt = ujcf_static_dps_item_counter();
 		$dpsCnt = ujcf_static_dps_counter();
+
+		$wrapper = getDefaultWrapper($wrapper, "testimonial");
 
 		$img = wp_get_attachment_image_url(get_field("picture"), 'thumbnail');
 		if (!$img) {
@@ -969,6 +975,8 @@ if (!function_exists('ujcf_showCalendarMonth')) {
 
 		$cnt = ujcf_static_dps_item_counter();
 		$dpsCnt = ujcf_static_dps_counter();
+
+		$wrapper = getDefaultWrapper($wrapper, "booking");
 
 		$bookingTypes = [];
 		$date = mktime(12, 0, 0, $month, 1, $year);
@@ -1203,5 +1211,30 @@ if( ! function_exists( 'ujcf_print_more_script' ) ){
 		}
 
 		return $output;
+	}
+}
+
+if( ! function_exists( 'getDefaultWrapper' ) ){
+	function getDefaultWrapper($wrapper, $post_type) {
+		if (!empty($wrapper)) {
+			return $wrapper;
+		}
+		
+		switch ($post_type) {
+			case "alert":
+				return "";
+				
+			case "booking":
+				return "accordion";
+				
+			case "contact":
+				return "card";
+				
+			case "testimonial":
+				return "carousel";
+				
+			default:
+				return "ul";
+		}
 	}
 }
