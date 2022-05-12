@@ -230,6 +230,23 @@ if (!function_exists('cptui_register_testimonial_cpta_fields')) {
 						'step' => '0.5',
 					),
 					array(
+						'key' => 'field_627c1ea8cd316',
+						'label' => 'Review Date',
+						'name' => 'review_date',
+						'type' => 'date_picker',
+						'instructions' => '',
+						'required' => 0,
+						'conditional_logic' => 0,
+						'wrapper' => array(
+							'width' => '',
+							'class' => '',
+							'id' => '',
+						),
+						'display_format' => 'm/d/Y',
+						'return_format' => 'Ymd',
+						'first_day' => 1,
+					),
+					array(
 						'key' => 'field_621e571e9deac',
 						'label' => 'Text',
 						'name' => 'text',

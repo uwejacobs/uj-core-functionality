@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-05-10T16:29:38-04:00\n"
+"POT-Creation-Date: 2022-05-12T17:13:20-04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: uj-core-functionality\n"
@@ -26,35 +26,35 @@ msgstr ""
 msgid "Uwe Jacobs"
 msgstr ""
 
-#: inc/display-posts.php:1010
+#: inc/display-posts.php:1022
 msgid "Sun"
 msgstr ""
 
-#: inc/display-posts.php:1010
+#: inc/display-posts.php:1022
 msgid "Mon"
 msgstr ""
 
-#: inc/display-posts.php:1010
+#: inc/display-posts.php:1022
 msgid "Tue"
 msgstr ""
 
-#: inc/display-posts.php:1010
+#: inc/display-posts.php:1022
 msgid "Wed"
 msgstr ""
 
-#: inc/display-posts.php:1010
+#: inc/display-posts.php:1022
 msgid "Thu"
 msgstr ""
 
-#: inc/display-posts.php:1010
+#: inc/display-posts.php:1022
 msgid "Fri"
 msgstr ""
 
-#: inc/display-posts.php:1010
+#: inc/display-posts.php:1022
 msgid "Sat"
 msgstr ""
 
-#: inc/display-posts.php:1044
+#: inc/display-posts.php:1056
 msgid "Special Rates"
 msgstr ""
 
@@ -1037,7 +1037,7 @@ msgid "Alert Settings:"
 msgstr ""
 
 #: inc/display-posts/init.php:213
-#: inc/display-posts/init.php:686
+#: inc/display-posts/init.php:691
 msgid "Background Color"
 msgstr ""
 
@@ -1122,12 +1122,12 @@ msgid "Default Male Avatar Image"
 msgstr ""
 
 #: inc/display-posts/init.php:538
-#: inc/display-posts/init.php:821
+#: inc/display-posts/init.php:826
 msgid "Start Date"
 msgstr ""
 
 #: inc/display-posts/init.php:539
-#: inc/display-posts/init.php:822
+#: inc/display-posts/init.php:827
 msgid "End Date"
 msgstr ""
 
@@ -1141,7 +1141,7 @@ msgid "Comment"
 msgstr ""
 
 #: inc/display-posts/init.php:581
-#: inc/display-posts/init.php:873
+#: inc/display-posts/init.php:878
 msgid "Name"
 msgstr ""
 
@@ -1158,73 +1158,77 @@ msgid "Stars"
 msgstr ""
 
 #: inc/display-posts/init.php:585
-#: inc/display-posts/init.php:723
-#: inc/display-posts/init.php:771
-#: inc/display-posts/init.php:823
-#: inc/display-posts/init.php:877
-msgid "Text"
+msgid "Review Date"
 msgstr ""
 
 #: inc/display-posts/init.php:586
-#: inc/display-posts/init.php:639
-#: inc/display-posts/init.php:687
-#: inc/display-posts/init.php:725
-#: inc/display-posts/init.php:773
-#: inc/display-posts/init.php:878
+#: inc/display-posts/init.php:728
+#: inc/display-posts/init.php:776
+#: inc/display-posts/init.php:828
+#: inc/display-posts/init.php:882
+msgid "Text"
+msgstr ""
+
+#: inc/display-posts/init.php:587
+#: inc/display-posts/init.php:644
+#: inc/display-posts/init.php:692
+#: inc/display-posts/init.php:730
+#: inc/display-posts/init.php:778
+#: inc/display-posts/init.php:883
 msgid "Order"
 msgstr ""
 
-#: inc/display-posts/init.php:636
+#: inc/display-posts/init.php:641
 msgid "Question"
 msgstr ""
 
-#: inc/display-posts/init.php:637
+#: inc/display-posts/init.php:642
 msgid "Answer"
 msgstr ""
 
-#: inc/display-posts/init.php:638
-#: inc/display-posts/init.php:724
-#: inc/display-posts/init.php:772
-#: inc/display-posts/init.php:820
+#: inc/display-posts/init.php:643
+#: inc/display-posts/init.php:729
+#: inc/display-posts/init.php:777
+#: inc/display-posts/init.php:825
 msgid "Icon"
 msgstr ""
 
-#: inc/display-posts/init.php:640
-#: inc/display-posts/init.php:726
-#: inc/display-posts/init.php:774
-#: inc/display-posts/init.php:824
-#: inc/display-posts/init.php:879
+#: inc/display-posts/init.php:645
+#: inc/display-posts/init.php:731
+#: inc/display-posts/init.php:779
+#: inc/display-posts/init.php:829
+#: inc/display-posts/init.php:884
 msgid "Image"
 msgstr ""
 
-#: inc/display-posts/init.php:685
+#: inc/display-posts/init.php:690
 msgid "Alert Text"
 msgstr ""
 
-#: inc/display-posts/init.php:874
+#: inc/display-posts/init.php:879
 msgid "Position"
 msgstr ""
 
-#: inc/display-posts/init.php:875
+#: inc/display-posts/init.php:880
 msgid "Email"
 msgstr ""
 
-#: inc/display-posts/init.php:876
+#: inc/display-posts/init.php:881
 msgid "Phone"
 msgstr ""
 
-#: inc/display-posts/init.php:880
+#: inc/display-posts/init.php:885
 msgid "Twitter URL"
 msgstr ""
 
-#: inc/display-posts/init.php:881
+#: inc/display-posts/init.php:886
 msgid "Facebook URL"
 msgstr ""
 
-#: inc/display-posts/init.php:882
+#: inc/display-posts/init.php:887
 msgid "Instagram URL"
 msgstr ""
 
-#: inc/display-posts/init.php:883
+#: inc/display-posts/init.php:888
 msgid "LinkedIn URL"
 msgstr ""

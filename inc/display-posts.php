@@ -584,12 +584,12 @@ if (!function_exists('ujcf_dps_option_output_contact')) {
 			}
 			$output = '<div class="card ' . esc_attr($listing_class) . '" style="max-width:' . esc_attr($max_width) . 'px;">';
 			$output .= '  <div class="row g-0">';
-			$output .= '    <div class="col-md-4">';
 			if ($include_image) {
+				$output .= '    <div class="col-md-4">';
 				$output .= '      <img src="' . esc_url($image) . '" class="img-responsive rounded-start ' . esc_attr($image_class) . '" alt="' . esc_attr($alt) . '">';
+				$output .= '    </div>';
 			}
-			$output .= '    </div>';
-			$output .= '    <div class="col-md-8">';
+			$output .= '    <div' . ($include_image ? ' class="col-md-8"' : '') . '>';
 			if ($include_content) {
 				$output .= '      <div class="card-body ' . esc_attr($content_class) . '">';
 				if ($include_position) {
@@ -797,27 +797,31 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 					'include_job_title'     => true,
 					'include_stars'         => true,
 					'include_image'         => true,
+					'include_review_date'   => true,
 					'include_content'       => true,
 					'read_more'             => true,
+                    'date_format'           => 'm/d/Y',
                 ),
                 $atts
         );
 
-        $size              = sanitize_text_field( $atts['size'] );
-        $wrapper           = sanitize_text_field( $atts['wrapper'] );
-		$listing_class     = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['listing_class'] ) ) );
-		$content_class     = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['content_class'] ) ) );
-		$title_class       = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['title_class'] ) ) );
-		$job_title_class   = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['job_title_class'] ) ) );
-		$image_class       = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['image_class'] ) ) );
-		$text_class        = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['text_class'] ) ) );
-		$image_max_height  = (int) $atts['image_max_height'];
-        $include_title     = filter_var( $atts['include_title'], FILTER_VALIDATE_BOOLEAN );
-        $include_job_title = filter_var( $atts['include_job_title'], FILTER_VALIDATE_BOOLEAN );
-        $include_stars     = filter_var( $atts['include_stars'], FILTER_VALIDATE_BOOLEAN );
-        $include_image     = filter_var( $atts['include_image'], FILTER_VALIDATE_BOOLEAN );
-        $include_content   = filter_var( $atts['include_content'], FILTER_VALIDATE_BOOLEAN );
-        $read_more         = filter_var( $atts['read_more'], FILTER_VALIDATE_BOOLEAN );
+        $size                = sanitize_text_field( $atts['size'] );
+        $wrapper             = sanitize_text_field( $atts['wrapper'] );
+		$listing_class       = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['listing_class'] ) ) );
+		$content_class       = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['content_class'] ) ) );
+		$title_class         = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['title_class'] ) ) );
+		$job_title_class     = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['job_title_class'] ) ) );
+		$image_class         = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['image_class'] ) ) );
+		$text_class          = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $atts['text_class'] ) ) );
+		$image_max_height    = (int) $atts['image_max_height'];
+        $include_title       = filter_var( $atts['include_title'], FILTER_VALIDATE_BOOLEAN );
+        $include_job_title   = filter_var( $atts['include_job_title'], FILTER_VALIDATE_BOOLEAN );
+        $include_stars       = filter_var( $atts['include_stars'], FILTER_VALIDATE_BOOLEAN );
+        $include_image       = filter_var( $atts['include_image'], FILTER_VALIDATE_BOOLEAN );
+        $include_review_date = filter_var( $atts['include_image'], FILTER_VALIDATE_BOOLEAN );
+        $include_content     = filter_var( $atts['include_content'], FILTER_VALIDATE_BOOLEAN );
+        $read_more           = filter_var( $atts['read_more'], FILTER_VALIDATE_BOOLEAN );
+        $date_format         = sanitize_text_field( $atts['date_format'] );
 
 		$output = '';
 
@@ -839,6 +843,7 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 		$text = get_extended($rawText);
 		$preText = '<i class="fas fa-quote-left pe-3"></i>';
 		$postText = '<i class="fas fa-quote-right ps-3"></i>';
+		$reviewDate = date($date_format, strtotime(get_field("review_date")));
 
 		if ('carousel' === $wrapper) {
 			$output .= '<div class="carousel-item ' . esc_attr($listing_class) . ($cnt == 1 ? ' active' : '') . '">';
@@ -863,7 +868,7 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 			$output .= '<img style="max-height:' . $image_max_height . 'px" src="' . esc_url($img) . '" alt="Avatar" class="rounded-circle ' . esc_attr($image_class) . '">';
 			$output .= '</div>';
 		}
-		$output .= '<div class="col-12 ' . ($size == "large" ? "col-md-9" : "") . '">';
+		$output .= '<div class="col-12' . ($size == "large" && $include_image ? " col-md-9" : "") . '">';
 		if ($include_title) {
 			$output .= '<p><span class="lead fw-normal me-3 ' . esc_attr($title_class) . '">' . esc_html(get_the_title()) . '</span>';
 		}
@@ -871,8 +876,15 @@ if (!function_exists('ujcf_dps_option_output_testimonials')) {
 			$output .= '<br clear="none"/><span class="' . esc_attr($job_title_class) . '">' . wp_kses_post(ujcf_wysiswygFormat(get_field("title"))) . '</span>';
 		}
 		$output .= '</p>';
-		if ($include_stars) {
-			$output .= '<p>' . wp_kses_post($stars) . '</p>';
+		if ($include_stars || ($include_review_date && $reviewDate != '01/01/1970')) {
+			$output .= '<p>';
+			if ($include_stars) {
+				$output .= wp_kses_post($stars);
+			}
+			if ($include_review_date && $reviewDate != '01/01/1970') {
+				$output .= '&nbsp;' . $reviewDate;
+			}
+			$output .= '</p>';
 		}
 		if ($include_content) {
 			if ('carousel' === $wrapper && $read_more) {

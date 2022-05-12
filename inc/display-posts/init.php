@@ -582,6 +582,7 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 			$columns['job_titles'] = esc_html__('Job Title', 'uj-core-functionality');
 			$columns['picture'] = esc_html__('Picture', 'uj-core-functionality');
 			$columns['stars'] = esc_html__('Stars', 'uj-core-functionality');
+			$columns['review_date'] = esc_html__('Review Date', 'uj-core-functionality');
 			$columns['text'] = esc_html__('Text', 'uj-core-functionality');
 			$columns['order'] = esc_html__('Order', 'uj-core-functionality');
 			return $columns;
@@ -607,6 +608,10 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 			}
 			if ($column == 'stars') {
 				echo wp_kses_post(ujcf_getStars($meta["stars"][0]));
+			}
+			if ($column == 'review_date' && !empty($meta["review_date"][0])) {
+				$date = new DateTime($meta["review_date"][0]);
+				echo esc_attr($date->format(get_option('date_format')));
 			}
 			if ($column == 'text' && !empty($meta["text"][0])) {
 				echo wp_trim_words($meta["text"][0], 30);
