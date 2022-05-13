@@ -572,6 +572,26 @@ if (ujcf_get_theme_option('booking_checkbox')) {
 		
 		add_filter( 'manage_edit-booking_sortable_columns', 'ujcf_sortable_booking_column' );
 	}
+
+	if (!function_exists('ujcf_acf_validate_booking_end_date')) {
+		function ujcf_acf_validate_booking_end_date( $valid, $value, $field, $input_name ) {
+			if( $valid !== true ) {
+				return $valid;
+			}
+
+			if( empty($value) ) {
+				return $valid;
+			}
+
+			if( $value < $_POST["acf"]["field_621eb0e90d330"] ) {
+				return __( 'The end date cannot be before the start date.' );
+			}
+
+			return $valid;
+		}
+
+		add_filter('acf/validate_value/key=field_621eb287b16e3', 'ujcf_acf_validate_booking_end_date', 10, 4);
+	}
 }
 
 // Testimonials
@@ -631,6 +651,28 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 		}
 		
 		add_filter( 'manage_edit-testimonial_sortable_columns', 'ujcf_sortable_testimonial_column' );
+	}
+
+	if (!function_exists('ujcf_acf_validate_testimonial_review_date')) {
+		function ujcf_acf_validate_testimonial_review_date( $valid, $value, $field, $input_name ) {
+			if( $valid !== true ) {
+				return $valid;
+			}
+
+			if( empty($value) ) {
+				return $valid;
+			}
+
+			$review_date = strtotime($value);
+			
+			if( $review_date > strtotime("now") ) {
+				return __( 'The review date cannot be in the future.' );
+			}
+
+			return $valid;
+		}
+
+		add_filter('acf/validate_value/key=field_627c1ea8cd316', 'ujcf_acf_validate_testimonial_review_date', 10, 4);
 	}
 }
 
@@ -868,6 +910,29 @@ if (ujcf_get_theme_option('event_checkbox')) {
 		}
 		
 		add_filter( 'manage_edit-event_sortable_columns', 'ujcf_sortable_event_column' );
+	}
+
+	if (!function_exists('ujcf_acf_validate_events_end_date')) {
+		function ujcf_acf_validate_events_end_date( $valid, $value, $field, $input_name ) {
+			if( $valid !== true ) {
+				return $valid;
+			}
+
+			if( empty($value) ) {
+				return $valid;
+			}
+
+			$start_date = strtotime($_POST["acf"]["field_6238e0fe5e63f"]);
+			$end_date = strtotime($value);
+			
+			if( $end_date < $start_date ) {
+				return __( 'The end date cannot be before the start date.' );
+			}
+
+			return $valid;
+		}
+
+		add_filter('acf/validate_value/key=field_6238e1445e640', 'ujcf_acf_validate_events_end_date', 10, 4);
 	}
 }
 

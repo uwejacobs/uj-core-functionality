@@ -32,6 +32,8 @@ if (!function_exists('ujcf_dps_posts_open')) {
 					'wrapper_id'            => '',
 					'wrapper_class'         => 'display-posts-listing',
 					'arrow_color_class'     => 'dark',
+					'carousel_width'        => 70,
+					'carousel_dots'         => true,
 					'interval'              => 5000,
                 ),
                 $atts
@@ -44,6 +46,11 @@ if (!function_exists('ujcf_dps_posts_open')) {
 		$wrapper_class     = trim($wrapper_class . ' ' . $type);
 		$arrow_color_class = 'bg-' . sanitize_text_field( $atts['arrow_color_class'] );
 		$interval          = (int)$atts['interval'];
+		$carousel_dots     = filter_var( $atts['carousel_dots'], FILTER_VALIDATE_BOOLEAN );
+		$carousel_width    = (int)$atts['carousel_width'];
+		if ($carousel_width < 0 || $carousel_width > 100) {
+			$carousel_width = 70;
+		}
 
 		$dpsID = ujcf_static_dps_id();
 
@@ -77,17 +84,19 @@ if (!function_exists('ujcf_dps_posts_open')) {
 			$output .= '  position: absolute;';
 			$output .= '}';
 			$output .= '#dps-carousel-' . esc_attr($dpsID) . ' .carousel-inner {';
-			$output .= '  width: 70%;';
+			$output .= '  width: ' . esc_attr($carousel_width) . '%;';
 			$output .= '}';
 			$output .= '</style>';
-			$output .= '<div id="dps-carousel-' . esc_attr($dpsID) . '" class="carousel slide mb-5 ' . esc_attr($wrapper_class) . '" data-bs-ride="carousel" data-bs-interval="'.$interval.'">';
-			$output .= '    <ol class="carousel-indicators">';
+			$output .= '<div id="dps-carousel-' . esc_attr($dpsID) . '" class="carousel slide ' . esc_attr($wrapper_class) . '" data-bs-ride="carousel" data-bs-interval="'.$interval.'">';
+			if ($carousel_dots) {
+				$output .= '    <ol class="carousel-indicators">';
 
-			for ($i = 0; $i < $indicator_cnt; $i++) {
-				$output .= '        <li data-bs-target="#dps-carousel-' . esc_attr($dpsID) . '" data-bs-slide-to="' . esc_attr($i) . '" class="' . esc_attr($arrow_color_class) . (!$i ? ' active' : '') . '"></li>';
+				for ($i = 0; $i < $indicator_cnt; $i++) {
+					$output .= '        <li data-bs-target="#dps-carousel-' . esc_attr($dpsID) . '" data-bs-slide-to="' . esc_attr($i) . '" class="' . esc_attr($arrow_color_class) . (!$i ? ' active' : '') . '"></li>';
+				}
+
+				$output .= '    </ol>';
 			}
-
-			$output .= '    </ol>';
 			$output .= '    <div class="carousel-inner m-auto">';
 		} else if ('accordion' === $wrapper) {
 			$output = '<div id="dps-accordion-' . esc_attr($dpsID) . '" class="accordion ' . esc_attr($wrapper_class) . '">';
@@ -456,7 +465,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output .= '</div>';
 		} else {
 			$sub_wrapper = in_array($wrapper, array("ol", "ul")) ? 'li' : $wrapper;
-			$output = '<' . esc_attr($sub_wrapper) . ' class="d-md-flex d-inline mb-5 ' . esc_attr($listing_class) . '">';
+			$output = '<' . esc_attr($sub_wrapper) . ' class="d-md-flex d-inline ' . esc_attr($listing_class) . '">';
 			if ($icon && $include_icon) {
 				$output .= '<img style="max-height:' . esc_attr($icon_max_height) . 'px" class="icon me-3 ' . esc_attr($icon_class) . '" src="' . esc_url($icon) . '" alt="' . esc_attr($icon_alt) . '">';
 			}
