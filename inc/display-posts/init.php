@@ -584,7 +584,7 @@ if (ujcf_get_theme_option('booking_checkbox')) {
 			}
 
 			if( $value < $_POST["acf"]["field_621eb0e90d330"] ) {
-				return __( 'The end date cannot be before the start date.' );
+				return __( 'The end date cannot be before the start date.', 'uj-core-functionality' );
 			}
 
 			return $valid;
@@ -666,7 +666,7 @@ if (ujcf_get_theme_option('testimonial_checkbox')) {
 			$review_date = strtotime($value);
 			
 			if( $review_date > strtotime("now") ) {
-				return __( 'The review date cannot be in the future.' );
+				return __( 'The review date cannot be in the future.', 'uj-core-functionality' );
 			}
 
 			return $valid;
@@ -926,7 +926,7 @@ if (ujcf_get_theme_option('event_checkbox')) {
 			$end_date = strtotime($value);
 			
 			if( $end_date < $start_date ) {
-				return __( 'The end date cannot be before the start date.' );
+				return __( 'The end date cannot be before the start date.', 'uj-core-functionality' );
 			}
 
 			return $valid;
