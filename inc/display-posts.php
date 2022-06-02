@@ -402,7 +402,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output  = '<div class="carousel-item ' . esc_attr($listing_class) . ($cnt == 1 ? ' active' : '') . '">';
 			$output .= '<div class="d-md-flex d-inline">';
 			if ($icon && $include_icon) {
-				$output .= '<img style="max-height:' . esc_attr($icon_max_height) . 'px" class="icon me-3 ' . esc_attr($icon_class) . '" src="' . esc_url($icon) . '" alt="' . esc_attr($icon_alt) . '">';
+				$output .= '<img style="max-height:' . esc_attr($icon_max_height) . 'px" class="me-3 ' . esc_attr($icon_class) . '" src="' . esc_url($icon) . '" alt="' . esc_attr($icon_alt) . '">';
 			}
 			$output .= '<div>';
 			if ($include_title) {
@@ -437,7 +437,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$output .= '<h3 id="dps-accordion-head-' . esc_attr($dpsID) . '-' . esc_attr($cnt) . '" class="accordion-header">';
 			$output .= '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dps-accordion-collapse-' . esc_attr($dpsID) . '-' . esc_attr($cnt) . '" aria-expanded="false" aria-controls="dps-accordion-collapse-' . esc_attr($dpsID) . '-' . esc_attr($cnt) . '">';
 			if ($icon && $include_icon) {
-				$output .= '<img style="max-height:' . esc_attr($icon_max_height) . 'px" class="icon accordion-image me-3 ' . esc_attr($icon_class) . '" src="' . esc_url($icon) . '" alt="' . esc_attr($icon_alt) . '">';
+				$output .= '<img style="max-height:' . esc_attr($icon_max_height) . 'px" class="accordion-image me-3 ' . esc_attr($icon_class) . '" src="' . esc_url($icon) . '" alt="' . esc_attr($icon_alt) . '">';
 			}
 			$output .= '<div style="white-space: normal">';
 			if ($include_title) {
@@ -467,7 +467,7 @@ if (!function_exists('ujcf_dps_option_output_image_and_text')) {
 			$sub_wrapper = in_array($wrapper, array("ol", "ul")) ? 'li' : $wrapper;
 			$output = '<' . esc_attr($sub_wrapper) . ' class="d-md-flex d-inline ' . esc_attr($listing_class) . '">';
 			if ($icon && $include_icon) {
-				$output .= '<img style="max-height:' . esc_attr($icon_max_height) . 'px" class="icon me-3 ' . esc_attr($icon_class) . '" src="' . esc_url($icon) . '" alt="' . esc_attr($icon_alt) . '">';
+				$output .= '<img style="max-height:' . esc_attr($icon_max_height) . 'px" class="me-3 ' . esc_attr($icon_class) . '" src="' . esc_url($icon) . '" alt="' . esc_attr($icon_alt) . '">';
 			}
 			$output .= '<div class="w-100">';
 			$output .= '<h3 class="mt-0 mb-2 ' . esc_attr($title_class) . '">';

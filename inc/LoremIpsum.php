@@ -223,7 +223,7 @@ class LoremIpsum
     }
 
     /**
-     * Paragraphss
+     * Paragraphs
      *
      * Generates paragraphs of lorem ipsum.
      *

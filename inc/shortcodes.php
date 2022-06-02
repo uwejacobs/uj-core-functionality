@@ -194,7 +194,7 @@ if (!function_exists('ujcf_lorem_ipsum')) {
             $return = $lipsum->sentences(intval($atts['sentences']), $atts['tag']);
         }
         else if ($atts['paragraphs'] && intval($atts['paragraphs']) > 0) {
-            $return = $lipsum->paragraph(intval($atts['paragraphs']), $atts['tag']);
+            $return = $lipsum->paragraphs(intval($atts['paragraphs']), $atts['tag']);
         }
         else {
             $return = $lipsum->sentences(1, $atts['tag']);

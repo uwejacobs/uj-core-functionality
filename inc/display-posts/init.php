@@ -22,7 +22,7 @@ if ( ! class_exists( 'UJ_Theme_Options' ) ) {
 			self::$checkBoxes[] = 'booking';
 			self::$checkBoxLabels['booking'] = __('Bookings', 'uj-core-functionality');
 			self::$checkBoxes[] = 'contact';
-			self::$checkBoxLabels['contact'] = __('Contact', 'uj-core-functionality');
+			self::$checkBoxLabels['contact'] = __('Contacts', 'uj-core-functionality');
 			self::$checkBoxes[] = 'event';
 			self::$checkBoxLabels['event'] = __('Events', 'uj-core-functionality');
 			self::$checkBoxes[] = 'faq';
