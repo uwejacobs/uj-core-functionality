@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Core Functionality
  * Description:       This contains all your site's core functionality so that it is theme independent. <strong>It should always be activated</strong>.
- * Version:           1.2.7
+ * Version:           1.2.8
  * Author:            Uwe Jacobs
  * Requires at least: 5.6
  * Tested up to:      5.9.3

@@ -643,7 +643,7 @@ if (!function_exists('ujcf_dps_option_output_contact')) {
 		} else if ($wrapper == "raised-image") {
 			$top = intval($image_max_height / 2);
 
-			$output = '<div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-5 ' . esc_attr($listing_class) . '">';
+			$output = '<div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-5 ' . esc_attr($listing_class) . '" style="margin-bottom: ' . esc_attr($top) . 'px;">';
 			$output .= '	<div class="card border-0 shadow-lg pt-5 position-relative h-100">';
 			$output .= '		<div class="card-body p-4">';
 			if ($include_image) {
