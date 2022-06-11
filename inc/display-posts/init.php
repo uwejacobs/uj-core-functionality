@@ -1038,14 +1038,3 @@ if (!function_exists('ujcf_change_title_placeholder_text')) {
 	}
 	add_filter( 'enter_title_here', 'ujcf_change_title_placeholder_text' );
 }
-
-if (!function_exists('ujcf_activation')) {
-	function ujcf_activation() {
-		global $wpdb;
-
-		$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_dps%' ");
-		$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_dps%' ");
-	}
-
-	register_activation_hook(__FILE__, 'ujcf_activation');
-}

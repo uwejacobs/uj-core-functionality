@@ -58,3 +58,14 @@ if (!function_exists('ujcf_customizer_css')) {
 	add_action( 'wp_head', 'ujcf_customizer_css');
 }
 
+if (!function_exists('ujcf_delete_transients')) {
+	function ujcf_delete_transients() {
+		global $wpdb;
+
+		$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_dps%' ");
+		$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_timeout_dps%' ");
+	}
+
+	register_activation_hook(__FILE__, 'ujcf_delete_transients');
+	add_action( 'upgrader_process_complete', 'ujcf_delete_transients', 10, 2 );
+}
