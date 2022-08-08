@@ -2,12 +2,13 @@
 /**
  * Plugin Name:       Core Functionality
  * Description:       This contains all your site's core functionality so that it is theme independent. <strong>It should always be activated</strong>.
- * Version:           1.2.8
+ * Version:           1.3.0
  * Author:            Uwe Jacobs
  * Requires at least: 5.6
  * Tested up to:      5.9.3
  * Requires PHP:      7.0
  * Text Domain:       uj-core-functionality
+ * GitHub Plugin URI: https://github.com/uwejacobs/uj-core-functionality
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2, as published by the
@@ -68,4 +69,14 @@ if (!function_exists('ujcf_delete_transients')) {
 
 	register_activation_hook(__FILE__, 'ujcf_delete_transients');
 	add_action( 'upgrader_process_complete', 'ujcf_delete_transients', 10, 2 );
+}
+
+if (!function_exists('ujcf_create_responsive_image')) {
+    function ujcf_create_responsive_image( $img, $id = null, $class = null, $style = null ) {
+        $img_id = attachment_url_to_postid( $img );
+        $img_srcset = wp_get_attachment_image_srcset( $img_id );
+        $img_sizes = wp_get_attachment_image_sizes( $img_id );
+        $img_alt = get_post_meta($img_id, '_wp_attachment_image_alt', true);
+        return '<img ' . ($id ? 'id="' . esc_attr( $id ) . '" ' : '') . ($class ? 'class="' . esc_attr( $class ) . '" ' : '') . ($style ? 'style="' . esc_attr( $style ) . '" ' : '') .  'src="' . $img . '" srcset="' . esc_attr( $img_srcset ) . '" sizes="' . esc_attr( $img_sizes ) . '" alt="' . esc_attr( $img_alt ) . '">';
+    }
 }
